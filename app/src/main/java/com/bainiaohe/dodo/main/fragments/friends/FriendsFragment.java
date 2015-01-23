@@ -2,7 +2,7 @@
 // Source code recreated from a .class file by IntelliJ IDEA
 // (powered by Fernflower decompiler)
 //
-package com.bainiaohe.dodo.main.fragments;
+package com.bainiaohe.dodo.main.fragments.friends;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -13,8 +13,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import com.bainiaohe.dodo.main.adapter.FriendListAdapter;
-import com.bainiaohe.dodo.main.adapter.FriendListAdapter.ViewHolder;
+import com.bainiaohe.dodo.main.fragments.friends.adapter.FriendListAdapter;
+import com.bainiaohe.dodo.main.fragments.friends.adapter.FriendListAdapter.ViewHolder;
 import io.rong.imkit.RCloudContext;
 import io.rong.imkit.Res;
 import io.rong.imkit.adapter.FriendMultiChoiceAdapter;

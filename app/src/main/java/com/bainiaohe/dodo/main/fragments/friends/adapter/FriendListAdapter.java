@@ -3,7 +3,7 @@
 // (powered by Fernflower decompiler)
 //
 
-package com.bainiaohe.dodo.main.adapter;
+package com.bainiaohe.dodo.main.fragments.friends.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

@@ -10,15 +10,13 @@
             android:id="@+id/action_bar"
             android:background="@color/title_bg"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/px_to_dip_96"
-            android:title="DODO"/>
+            android:layout_height="@dimen/px_to_dip_96"/>
 
-    <android.support.v4.view.ViewPager
-            android:id="@+id/viewpager"
-            android:layout_width="fill_parent"
+    <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
-    </android.support.v4.view.ViewPager>
+            android:layout_weight="1"/>
 
     <include layout="@layout/main_bottom_bar"/>
 

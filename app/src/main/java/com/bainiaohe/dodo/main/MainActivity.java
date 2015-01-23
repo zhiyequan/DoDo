@@ -4,17 +4,15 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bainiaohe.dodo.R;
-import com.bainiaohe.dodo.main.fragments.FriendsFragment;
-import com.bainiaohe.dodo.main.fragments.InfoFragment;
-import com.bainiaohe.dodo.main.fragments.MessageFragment;
-import com.bainiaohe.dodo.main.fragments.PersonalCenterFragment;
+import com.bainiaohe.dodo.main.fragments.friends.FriendsFragment;
+import com.bainiaohe.dodo.main.fragments.messages.MessageFragment;
+import com.bainiaohe.dodo.main.fragments.personal_center.PersonalCenterFragment;
+import com.bainiaohe.dodo.main.fragments.info.InfoFragment;
 import io.rong.imkit.view.ActionBar;
 
 import java.util.ArrayList;
@@ -24,8 +22,7 @@ public class MainActivity extends FragmentActivity {
 
     private static final String TAG = "MainActivity";
 
-    private ViewPager viewPager = null;
-    private FragmentPagerAdapter adapter = null;
+
     private ActionBar mAction = null;
 
     /**
@@ -70,39 +67,6 @@ public class MainActivity extends FragmentActivity {
         this.tabTexts.add(R.id.bill_textView);
         this.tabTexts.add(R.id.query_textView);
 
-        this.viewPager = (ViewPager) findViewById(R.id.viewpager);
-
-        this.adapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
-            @Override
-            public Fragment getItem(int i) {
-                return fragments.get(i);
-            }
-
-            @Override
-            public int getCount() {
-                return fragments.size();
-            }
-        };
-
-        viewPager.setAdapter(this.adapter);
-
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                onTabSelected(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
         onTabSelected(0);
 
         mAction = (ActionBar) findViewById(R.id.action_bar);
@@ -124,23 +88,25 @@ public class MainActivity extends FragmentActivity {
      * 当页面被选中时调用
      * 在xml中绑定点击事件
      *
-     * @param tabindex
+     * @param tabIndex
      */
-    private void onTabSelected(int tabindex) {
+    private void onTabSelected(int tabIndex) {
         for (int i = 0; i < tabs.size(); i++) {
-            if (i != tabindex) {
+            if (i != tabIndex) {
                 findViewById(tabs.get(i)).setSelected(false);
                 ((TextView) findViewById(tabTexts.get(i))).setTextColor(getResources().getColor(R.color.text_color_default));
             }
         }
-        if (tabindex >= 0 && tabindex < tabs.size()) {
-            findViewById(tabs.get(tabindex)).setSelected(true);
-            ((TextView) findViewById(tabTexts.get(tabindex))).setTextColor(getResources().getColor(R.color.blue));
+        if (tabIndex >= 0 && tabIndex < tabs.size()) {
+            findViewById(tabs.get(tabIndex)).setSelected(true);
+            ((TextView) findViewById(tabTexts.get(tabIndex))).setTextColor(getResources().getColor(R.color.blue));
         }
 
-//        this.viewPager.setCurrentItem(index, true);//平滑过渡
-
-        this.viewPager.setCurrentItem(tabindex);
+        //set fragment
+        android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, this.fragments.get(tabIndex));
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
 }
