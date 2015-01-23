@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tab_info">资讯</string>
+    <string name="tab_messages">消息</string>
+    <string name="tab_friends">好友</string>
+    <string name="tab_personal_center">我</string>
+</resources>
