@@ -92,11 +92,11 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
             //click login button
             String phone=login_phone.getText().toString();
             String pw=login_pw.getText().toString();
-//            if(phone!=null && pw!=null) {
+//            if (phone != null && pw != null) {
 //                new LoginTask().execute(login_phone.getText().toString(), login_pw.getText().toString());
 //
 //            }
-            ConnectToIM();
+            connectToIM();
 
         } else {
             //click  other platform button
@@ -146,7 +146,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
      * 建立与服务器之间的链接
      */
 
-    private void ConnectToIM() {
+    private void connectToIM() {
         try {
 
             RongIM.connect("EximAJ6+SDwvlEzM4n1IomxkwFKUShKpTl4x4o92Obe6edRQJwHhNpq+PPJT7NYjzqG3K1xtepOqX2zmpXXdDw==", new RongIMClient.ConnectCallback() {

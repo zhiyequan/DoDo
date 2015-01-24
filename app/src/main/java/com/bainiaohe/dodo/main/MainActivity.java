@@ -8,15 +8,17 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.bainiaohe.dodo.R;
 import com.bainiaohe.dodo.main.fragments.friends.FriendsFragment;
 import com.bainiaohe.dodo.main.fragments.info.InfoFragment;
 import com.bainiaohe.dodo.main.fragments.messages.MessageFragment;
 import com.bainiaohe.dodo.main.fragments.personal_center.PersonalCenterFragment;
-import io.rong.imkit.view.ActionBar;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.rong.imkit.view.ActionBar;
 
 public class MainActivity extends FragmentActivity {
 
@@ -109,5 +111,10 @@ public class MainActivity extends FragmentActivity {
         transaction.commit();
     }
 
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }
 
