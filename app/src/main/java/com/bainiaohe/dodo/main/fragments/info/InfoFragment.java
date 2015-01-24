@@ -1,23 +1,52 @@
 package com.bainiaohe.dodo.main.fragments.info;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.bainiaohe.dodo.R;
 import com.bainiaohe.dodo.main.fragments.info.adapter.DataAdapter;
 import com.bainiaohe.dodo.main.fragments.info.animator.CustomItemAnimator;
+import com.bainiaohe.dodo.main.fragments.info.data_loader.LoadDataAsyncTask;
 import com.bainiaohe.dodo.main.fragments.info.model.DataItem;
 
 import java.util.ArrayList;
 
 public class InfoFragment extends Fragment {
+    private static final String TAG = "InfoFragment";
+    private LoadDataAsyncTask.DataLoader dataLoader = new LoadDataAsyncTask.DataLoader() {
+        private ArrayList<DataItem> dataSet = new ArrayList<DataItem>();
 
+        @Override
+        public void doInBackground() {
+//TODO dummy implementation
+            dataSet.clear();//清除数据
+
+            for (int i = 0; i < 10; i++) {
+                DataItem item = new DataItem();
+
+                item.name = "name";
+                item.icon = getResources().getDrawable(R.drawable.ic_launcher);
+                dataSet.add(item);
+            }
+        }
+
+        @Override
+        public void onPostExecute() {
+
+            Log.e(TAG, "onPostExecute : " + dataSet.size());
+
+            adapter.setDataSet((ArrayList<DataItem>) dataSet.clone());//需要clone，否则接收到的数据为空
+            //TODO 加载动画
+            swipeRefreshLayout.setRefreshing(false);
+            adapter.notifyDataSetChanged();
+        }
+    };
     /**
      * view of Fragment
      */
@@ -44,42 +73,13 @@ public class InfoFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                new LoadDataTask().execute();
+                new LoadDataAsyncTask(dataLoader).execute();
             }
         });
 
-        new LoadDataTask().execute();//加载数据
+        new LoadDataAsyncTask(dataLoader).execute();//加载数据
         return view;
     }
 
-    private class LoadDataTask extends AsyncTask<Void, Void, Void> {
 
-        private ArrayList<DataItem> dataSet = new ArrayList<DataItem>();
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-//TODO dummy implementation
-
-            for (int i = 0; i < 10; i++) {
-                DataItem item = new DataItem();
-
-                item.name = "name";
-                item.icon = getResources().getDrawable(R.drawable.ic_launcher);
-                dataSet.add(item);
-            }
-
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-
-            adapter.setDataSet(dataSet);
-            //TODO 加载动画
-            swipeRefreshLayout.setRefreshing(false);
-        }
-    }
 }

@@ -13,6 +13,7 @@ import java.util.List;
  * Created by zhugongpu on 15/1/22.
  */
 public class DataAdapter extends RecyclerView.Adapter<ViewHolder> {
+    private static final String TAG = "DataAdapter";
 
 
     private List<DataItem> dataSet = null;

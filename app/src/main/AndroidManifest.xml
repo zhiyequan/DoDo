@@ -34,6 +34,7 @@
             android:label="@string/app_name"
             android:name=".DoDoApplication"
             android:allowBackup="true"
+            android:theme="@style/AppTheme"
             android:icon="@drawable/ic_launcher">
         <activity
                 android:name=".main.MainActivity"
