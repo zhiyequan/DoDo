@@ -14,31 +14,34 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.PlatformActionListener;
-import cn.sharesdk.framework.ShareSDK;
-import cn.sharesdk.framework.utils.UIHandler;
+
 import com.bainiaohe.dodo.R;
 import com.bainiaohe.dodo.main.MainActivity;
 import com.bainiaohe.dodo.register.RegisterActivity;
 import com.bainiaohe.dodo.utils.RongUtil;
 import com.bainiaohe.dodo.utils.UserService;
-import io.rong.imkit.RongIM;
-import io.rong.imlib.RongIMClient;
 
 import java.util.HashMap;
+
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.framework.utils.UIHandler;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
 
 /**
  * Created by xiaoran on 2015/1/19.
  */
 public class LoginActivity extends Activity implements View.OnClickListener, PlatformActionListener, Handler.Callback {
 
-    private static String TAG = "LoginActivity";
     private static final int MSG_USERID_FOUND = 1;
     private static final int MSG_LOGIN = 2;
     private static final int MSG_AUTH_CANCEL = 3;
     private static final int MSG_AUTH_ERROR = 4;
     private static final int MSG_AUTH_COMPLETE = 5;
+    private static String TAG = "LoginActivity";
+    SharedPreferences sharedPreferences;
     private Button login_btn;
     private EditText login_phone;
     private EditText login_pw;
@@ -48,8 +51,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
     private String nickName;
     private String otherplatformId;
     private int otherplatformType=0;
-
-    SharedPreferences sharedPreferences;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,10 +92,11 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
             //click login button
             String phone=login_phone.getText().toString();
             String pw=login_pw.getText().toString();
-            if(phone!=null && pw!=null) {
-                new LoginTask().execute(login_phone.getText().toString(), login_pw.getText().toString());
-                ConnectToIM();
-            }
+//            if(phone!=null && pw!=null) {
+//                new LoginTask().execute(login_phone.getText().toString(), login_pw.getText().toString());
+//
+//            }
+            ConnectToIM();
 
         } else {
             //click  other platform button
