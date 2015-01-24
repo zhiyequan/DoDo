@@ -1,4 +1,4 @@
-package com.bainiaohe.utils;
+package com.bainiaohe.dodo.utils;
 
 /**
  * Created by xiaoran on 2015/1/22.

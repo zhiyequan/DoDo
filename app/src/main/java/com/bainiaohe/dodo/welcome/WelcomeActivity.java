@@ -1,4 +1,4 @@
-package com.bainiaohe.welcome;
+package com.bainiaohe.dodo.welcome;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,9 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import com.bainiaohe.R;
-import com.bainiaohe.login.LoginActivity;
-import com.bainiaohe.register.RegisterActivity;
+
+import com.bainiaohe.dodo.R;
+import com.bainiaohe.dodo.login.*;
+import com.bainiaohe.dodo.register.RegisterActivity;
 
 /**
  * Created by xiaoran on 2015/1/19.
@@ -32,14 +33,13 @@ public class WelcomeActivity extends Activity  implements View.OnClickListener {
     public void onClick(View view) {
         Intent intent;
         if (view.getId()==R.id.login_button){
-            intent=new Intent (this,LoginActivity.class);
+            intent=new Intent (this, LoginActivity.class);
         }
         else {
-           intent =new Intent(this,RegisterActivity.class);
+            intent =new Intent(this, RegisterActivity.class);
             intent.putExtra("whosend",0);
         }
-        
+
         startActivity(intent);
-        this.finish();
     }
 }

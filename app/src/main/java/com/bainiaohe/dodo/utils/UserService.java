@@ -1,4 +1,4 @@
-package com.bainiaohe.utils;
+package com.bainiaohe.dodo.utils;
 
 import android.util.Log;
 import org.apache.http.HttpEntity;
@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by xiaoran on 2015/1/22.
@@ -145,6 +147,18 @@ public class UserService {
         }
         return ret;
     }
+    public static boolean phonePatternMatch (String str){
+        Pattern pattern = Pattern.compile("[0-9]{11}",Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(str);
+        return matcher.matches();
+    }
+    public static boolean pwPatternMatch (String str){
+        Pattern pattern = Pattern.compile("[a-zA-Z0-9_]{6,16}",Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(str);
+        return matcher.matches();
+
+    }
+
 }
 
 

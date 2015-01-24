@@ -1,4 +1,4 @@
-package com.bainiaohe.register;
+package com.bainiaohe.dodo.register;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -14,9 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.bainiaohe.R;
-import com.bainiaohe.main.MainActivity;
-import com.bainiaohe.utils.UserService;
+import com.bainiaohe.dodo.R;
+import com.bainiaohe.dodo.main.MainActivity;
+import com.bainiaohe.dodo.utils.UserService;
 
 /**
  * Created by xiaoran on 2015/1/19.
@@ -58,29 +58,20 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-          String phone =phone_et.getText().toString();
-          String pw=pw_et.getText().toString();
-          Log.v("UserService",phone +"  "+pw);
-          if (phone.equals("") || pw.equals("")){
-              Toast.makeText(this,"电话或者密码不能为空",Toast.LENGTH_LONG).show();
-          }else if(pw.length()<6 ||pw.length()>16){
-              Toast.makeText(this,"密码长度不合适，注意是6-16位之间",Toast.LENGTH_LONG).show();
-          }else if (phone.length()!=11){
-              Toast.makeText(this,"手机号格式不正确",Toast.LENGTH_LONG).show();
-          }
-          else{
-              new RegisterTask().execute(phone,pw,otherplatformType,otherplatformId);
-//              boolean ret= UserService.userRegister(phone,pw,otherplatformType,otherplatformId);
-//              if (ret){
-//                  //注册成功
-//                  Intent  intent =new Intent (this, MainActivity.class);
-//                  startActivity(intent);
-//
-//              }else{
-//                  Toast.makeText(this,UserService.registerErrorMessage,Toast.LENGTH_LONG).show();
-//
-//              }
-         }
+        String phone =phone_et.getText().toString();
+        String pw=pw_et.getText().toString();
+        Log.v("UserService",phone +"  "+pw);
+        if (phone.equals("") || pw.equals("")){
+            Toast.makeText(this,"电话或者密码不能为空",Toast.LENGTH_LONG).show();
+        }else if(UserService.pwPatternMatch(pw)){
+            Toast.makeText(this,"密码格式不正确",Toast.LENGTH_LONG).show();
+        }else if (UserService.pwPatternMatch(phone)){
+            Toast.makeText(this,"手机号格式不正确",Toast.LENGTH_LONG).show();
+        }
+        else{
+            new RegisterTask().execute(phone,pw,otherplatformType,otherplatformId);
+
+        }
     }
     class RegisterTask extends AsyncTask{
         ProgressDialog dialog;

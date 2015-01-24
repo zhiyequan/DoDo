@@ -1,4 +1,4 @@
-package com.bainiaohe.login;
+package com.bainiaohe.dodo.login;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -19,11 +19,11 @@ import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.framework.utils.UIHandler;
-import com.bainiaohe.R;
-import com.bainiaohe.main.MainActivity;
-import com.bainiaohe.register.RegisterActivity;
-import com.bainiaohe.utils.RongUtil;
-import com.bainiaohe.utils.UserService;
+import com.bainiaohe.dodo.R;
+import com.bainiaohe.dodo.main.MainActivity;
+import com.bainiaohe.dodo.register.RegisterActivity;
+import com.bainiaohe.dodo.utils.RongUtil;
+import com.bainiaohe.dodo.utils.UserService;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 
@@ -85,16 +85,27 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
         ShareSDK.stopSDK(this);
         super.onDestroy();
     }
+    private boolean checkUserLoginInfo(){
+        String phone=login_phone.getText().toString();
+        String pw=login_pw.getText().toString();
+        boolean ret=true;
+        if (phone==""&& pw==""){
+            ret=false;
+        }
+        return ret;
 
+    }
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.login_login_btn) {
             //click login button
-            String phone=login_phone.getText().toString();
-            String pw=login_pw.getText().toString();
-            if(phone!="" && pw!="") {
+
+            if(checkUserLoginInfo() ) {
                 new LoginTask().execute(login_phone.getText().toString(), login_pw.getText().toString());
-                connectToIM();
+
+            }
+            else {
+                Toast.makeText(this,"请填写完整信息",Toast.LENGTH_LONG).show();
             }
 
         } else {
@@ -145,7 +156,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
      * 建立与服务器之间的链接
      */
 
-     private void connectToIM() {
+    private void connectToIM() {
         try {
 
             RongIM.connect("EximAJ6+SDwvlEzM4n1IomxkwFKUShKpTl4x4o92Obe6edRQJwHhNpq+PPJT7NYjzqG3K1xtepOqX2zmpXXdDw==", new RongIMClient.ConnectCallback() {
@@ -286,6 +297,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
         @Override
         protected void onPostExecute(Object result) {
             dialog.cancel();
+            Log.v("login",result.toString());
             Toast.makeText(LoginActivity.this, result.toString(), Toast.LENGTH_LONG).show();
             SharedPreferences.Editor edit = sharedPreferences.edit();
             if (result.equals("success")) {
@@ -293,10 +305,12 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
                 edit.putBoolean("ischecked", true);
                 edit.putString("phone", phone);
                 edit.putString("pw", pw);
+                //注意等登陆成功之后才能进入聊天
+                connectToIM();
             } else {
                 edit.putBoolean("ischecked", false);
             }
-
+            edit.commit();
         }
     }
 
