@@ -1,5 +1,6 @@
-package com.bainiaohe.dodo.utils;
+package com.bainiaohe.utils;
 
+import android.util.Log;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -8,10 +9,13 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,16 +23,16 @@ import java.util.List;
  * Created by xiaoran on 2015/1/22.
  */
 public class UserService {
-
     public static String userId;
-
+    public static final String TAG="UserService";
     public static String userLogin(String userphone, String password) {
         String result = null;
+        String ret="登陆成功";
         HttpClient client = new DefaultHttpClient();
         HttpPost httpPost = new HttpPost(Url.loginUrl);
         List params = new ArrayList<BasicNameValuePair>();
-        params.add(new BasicNameValuePair("loginPhone", userphone));
-        params.add(new BasicNameValuePair("loginPassowrd", password));
+        params.add(new BasicNameValuePair("phone", userphone));
+        params.add(new BasicNameValuePair("passowrd", password));
         try {
             //构造post的表单实体
             UrlEncodedFormEntity form = new UrlEncodedFormEntity(params, HTTP.UTF_8);
@@ -36,14 +40,20 @@ public class UserService {
             HttpResponse response = client.execute(httpPost);
             if (response.getStatusLine().getStatusCode() == 200) {
                 result = EntityUtils.toString(response.getEntity());
+                JSONObject object=new JSONObject(result);
+                ret=object.getString("message");
+                if (ret.equals("error")){
+                    ret=object.getString("message_info");
+                }
+
             } else {
-                result = "error";
+                ret = "error";
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return result;
+        return ret;
     }
 
     /**
@@ -52,9 +62,9 @@ public class UserService {
      * @param otherplatformId
      * @return
      */
-    public static boolean isRegisted(String otherplatformId) {
+    public static boolean isRegisted(int otherplatformType,String otherplatformId) {
         HttpClient client = new DefaultHttpClient();
-        String path = Url.checkOtherplatIsRegistered + "?otherplatformId=" + otherplatformId;
+        String path = Url.checkOtherplatIsRegistered + "?plat_type=" + otherplatformType+"&plat_id="+otherplatformId;
         HttpGet httpGet = new HttpGet(path);
         try {
             HttpResponse httpResponse = client.execute(httpGet);
@@ -62,7 +72,7 @@ public class UserService {
             String result = EntityUtils.toString(entity);
             JSONObject object = new JSONObject(result);
             //是注册用户
-            if (object.getString("Message").equals("registered")) {
+            if (object.getString("message").equals("registered")) {
                 userId = object.getString("id");
                 return true;
             } else {
@@ -87,38 +97,55 @@ public class UserService {
      */
     public static boolean userRegister(String phone, String pw, int otherplatformType,String otherplatformId) {
         boolean ret = false;
-        HttpClient client = new DefaultHttpClient();
+        Log.v("UserService","phone  "+phone);
+        Log.v("UserSerivice","pw  "+pw);
+        Log.v("UserService","type  "+otherplatformType);
+        Log.v("UserService","id "+otherplatformId);
         HttpPost httpPost = new HttpPost(Url.registerUrl);
         List params = new ArrayList<BasicNameValuePair>();
+        params.add(new BasicNameValuePair("plat_type",Integer.toString(otherplatformType)));
+        params.add(new BasicNameValuePair("plat_id", otherplatformId));
         params.add(new BasicNameValuePair("phone", phone));
         params.add(new BasicNameValuePair("password", pw));
-        params.add(new BasicNameValuePair("otherplatformType",Integer.toString(otherplatformType)));
-        params.add(new BasicNameValuePair("otherplatformId", otherplatformId));
+        HttpClient client = new DefaultHttpClient();
+        //连接超时
+        client.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 30000);
+        //请求超时
+        client.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, 30000);
         try {
             //构造post的表单实体
-            UrlEncodedFormEntity form = new UrlEncodedFormEntity(params, HTTP.UTF_8);
+            UrlEncodedFormEntity form = new UrlEncodedFormEntity(params);
             httpPost.setEntity(form);
+            Log.v("UserService","arr");
             HttpResponse response = client.execute(httpPost);
+            Log.v("UserService","arrive1");
+
             if (response.getStatusLine().getStatusCode() == 200) {
                 String result = EntityUtils.toString(response.getEntity());
+                Log.v(TAG,result);
                 JSONObject object = new JSONObject(result);
                 String message = object.getString("message");
                 if (message.equals("success")) {
                     userId = object.getString("id");
                     ret = true;
                 } else {
-                    registerErrorMessage = object.getString("errorMessage");
+                    registerErrorMessage = object.getString("message_info");
                     ret = false;
                 }
             } else {
                 ret = false;
-                registerErrorMessage = "网络状态不好请重试";
+                Log.v("TAG","wrong");
+                registerErrorMessage = "网络不好";
             }
 
         } catch (Exception e) {
+            Log.v("UserService",e.toString());
+
             e.printStackTrace();
         }
         return ret;
     }
-
 }
+
+
+

@@ -1,4 +1,4 @@
-package com.bainiaohe.dodo.login;
+package com.bainiaohe.login;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -14,34 +14,32 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.bainiaohe.dodo.R;
-import com.bainiaohe.dodo.main.MainActivity;
-import com.bainiaohe.dodo.register.RegisterActivity;
-import com.bainiaohe.dodo.utils.RongUtil;
-import com.bainiaohe.dodo.utils.UserService;
-
-import java.util.HashMap;
-
+import cn.sharesdk.framework.CustomPlatform;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.framework.utils.UIHandler;
+import com.bainiaohe.R;
+import com.bainiaohe.main.MainActivity;
+import com.bainiaohe.register.RegisterActivity;
+import com.bainiaohe.utils.RongUtil;
+import com.bainiaohe.utils.UserService;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
+
+import java.util.HashMap;
 
 /**
  * Created by xiaoran on 2015/1/19.
  */
 public class LoginActivity extends Activity implements View.OnClickListener, PlatformActionListener, Handler.Callback {
 
+    private static String TAG = "LoginActivity";
     private static final int MSG_USERID_FOUND = 1;
     private static final int MSG_LOGIN = 2;
     private static final int MSG_AUTH_CANCEL = 3;
     private static final int MSG_AUTH_ERROR = 4;
     private static final int MSG_AUTH_COMPLETE = 5;
-    private static String TAG = "LoginActivity";
-    SharedPreferences sharedPreferences;
     private Button login_btn;
     private EditText login_phone;
     private EditText login_pw;
@@ -51,6 +49,8 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
     private String nickName;
     private String otherplatformId;
     private int otherplatformType=0;
+
+    SharedPreferences sharedPreferences;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +73,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
         weibo_login_button.setOnClickListener(this);
         if (sharedPreferences.getBoolean("ischecked", false)) {
             //TODO:进入系统
-            Intent intent = new Intent();
+            Intent intent = new Intent(this,MainActivity.class);
             String phone = sharedPreferences.getString("phone", "");
             startActivity(intent);
         }
@@ -92,11 +92,10 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
             //click login button
             String phone=login_phone.getText().toString();
             String pw=login_pw.getText().toString();
-//            if (phone != null && pw != null) {
-//                new LoginTask().execute(login_phone.getText().toString(), login_pw.getText().toString());
-//
-//            }
-            connectToIM();
+            if(phone!="" && pw!="") {
+                new LoginTask().execute(login_phone.getText().toString(), login_pw.getText().toString());
+                connectToIM();
+            }
 
         } else {
             //click  other platform button
@@ -146,7 +145,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
      * 建立与服务器之间的链接
      */
 
-    private void connectToIM() {
+     private void connectToIM() {
         try {
 
             RongIM.connect("EximAJ6+SDwvlEzM4n1IomxkwFKUShKpTl4x4o92Obe6edRQJwHhNpq+PPJT7NYjzqG3K1xtepOqX2zmpXXdDw==", new RongIMClient.ConnectCallback() {
@@ -215,11 +214,11 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
             nickName = platform.getDb().getUserName();
             otherplatformId = platform.getDb().getUserId();
             // 判断这个平台的用户是否注册过
-            boolean ret = UserService.isRegisted(otherplatformId);
+            boolean ret = UserService.isRegisted(otherplatformType,otherplatformId);
             if (ret) {
                 //用户注册过
                 //TODO:进入系统
-                Intent intent = new Intent();
+                Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                 //用户ID
                 String userId = UserService.userId;
                 startActivity(intent);
@@ -230,6 +229,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
                 Intent intent = new Intent(this, RegisterActivity.class);
                 intent.putExtra("otherplatformId", otherplatformId);
                 intent.putExtra("otherplatformType",otherplatformType);
+                intent.putExtra("whosend",1);
                 startActivity(intent);
 
             }
