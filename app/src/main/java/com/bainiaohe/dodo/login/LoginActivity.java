@@ -92,10 +92,10 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
             //click login button
             String phone=login_phone.getText().toString();
             String pw=login_pw.getText().toString();
-//            if(phone!=null && pw!=null) {
-//                new LoginTask().execute(login_phone.getText().toString(), login_pw.getText().toString());
-//
-//            }
+            if (phone != null && pw != null) {
+                new LoginTask().execute(login_phone.getText().toString(), login_pw.getText().toString());
+
+            }
             ConnectToIM();
 
         } else {
