@@ -2,6 +2,8 @@ package com.bainiaohe.dodo.main.fragments.info.view_holder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bainiaohe.dodo.R;
@@ -11,13 +13,21 @@ import com.bainiaohe.dodo.R;
  */
 public class ViewHolder extends RecyclerView.ViewHolder {
 
-    public TextView name = null;
-    public ImageView image = null;
+    public TextView name = null;//用户名
+    public ImageView avatarImage = null;//头像
+    public ImageButton markButton = null;//赞
+    public TextView content = null;//内容
+    public Button shareButton = null;//转发
+    public Button commentButton = null;//评论
 
     public ViewHolder(View itemView) {
         super(itemView);
 
-        this.name = (TextView) itemView.findViewById(R.id.title);
-        this.image = (ImageView) itemView.findViewById(R.id.icon);
+        this.name = (TextView) itemView.findViewById(R.id.name);
+        this.avatarImage = (ImageView) itemView.findViewById(R.id.avatar);
+        this.markButton = (ImageButton) itemView.findViewById(R.id.mark);
+        this.content = (TextView) itemView.findViewById(R.id.text_content);
+        this.shareButton = (Button) itemView.findViewById(R.id.share);
+        this.commentButton = (Button) itemView.findViewById(R.id.comment);
     }
 }

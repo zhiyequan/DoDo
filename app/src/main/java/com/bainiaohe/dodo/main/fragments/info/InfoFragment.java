@@ -31,7 +31,7 @@ public class InfoFragment extends Fragment {
                 DataItem item = new DataItem();
 
                 item.name = "name";
-                item.icon = getResources().getDrawable(R.drawable.ic_launcher);
+                item.avatarImage = getResources().getDrawable(R.drawable.ic_launcher);
                 dataSet.add(item);
             }
         }
@@ -60,7 +60,7 @@ public class InfoFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_info, container, false);
 
-        adapter = new DataAdapter(new ArrayList<DataItem>(), R.layout.card_view);
+        adapter = new DataAdapter(new ArrayList<DataItem>(), R.layout.item_layout_info);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));

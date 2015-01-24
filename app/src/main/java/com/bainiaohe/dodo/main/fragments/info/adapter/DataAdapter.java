@@ -59,7 +59,8 @@ public class DataAdapter extends RecyclerView.Adapter<ViewHolder> {
         DataItem dataItem = dataSet.get(i);
 
         viewHolder.name.setText(dataItem.name);
-        viewHolder.image.setImageDrawable(dataItem.icon);
+        viewHolder.avatarImage.setImageDrawable(dataItem.avatarImage);
+        //TODO set ui elements in view holder
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
