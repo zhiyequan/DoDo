@@ -3,16 +3,16 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="50dp"
         android:orientation="horizontal"
-        android:background="@color/primary_background_color"
+        android:background="@color/bottom_bar_color"
         android:layout_gravity="bottom"
         android:baselineAligned="true"
         tools:context=".MainActivity"
         android:showDividers="none">
 
     <LinearLayout
-            android:id="@+id/tab_home"
+            android:id="@+id/tab_info"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -22,12 +22,12 @@
             android:onClick="onTabClick">
 
         <ImageView
-                android:src="@drawable/info"
+                android:src="@drawable/tab_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
         <TextView
-                android:id="@+id/home_textView"
+                android:id="@+id/info_textView"
                 android:text="@string/tab_info"
                 android:layout_gravity="center|bottom"
                 android:gravity="center"
@@ -36,7 +36,7 @@
     </LinearLayout>
 
     <LinearLayout
-            android:id="@+id/tab_monitor"
+            android:id="@+id/tab_message"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -47,12 +47,12 @@
             android:onClick="onTabClick">
 
         <ImageView
-                android:src="@drawable/messages"
+                android:src="@drawable/tab_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
         <TextView
-                android:id="@+id/monitor_textView"
+                android:id="@+id/message_textView"
                 android:text="@string/tab_messages"
                 android:layout_gravity="center|bottom"
                 android:gravity="center"
@@ -61,7 +61,7 @@
     </LinearLayout>
 
     <LinearLayout
-            android:id="@+id/tab_bill"
+            android:id="@+id/tab_friends"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -73,12 +73,12 @@
             android:onClick="onTabClick">
 
         <ImageView
-                android:src="@drawable/friends"
+                android:src="@drawable/tab_friends"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
         <TextView
-                android:id="@+id/bill_textView"
+                android:id="@+id/friends_textView"
                 android:text="@string/tab_friends"
                 android:layout_gravity="center|bottom"
                 android:gravity="center"
@@ -87,23 +87,25 @@
     </LinearLayout>
 
     <LinearLayout
-            android:id="@+id/tab_query"
+            android:id="@+id/tab_personal_center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:focusable="false"
+            android:clickable="true"
             android:gravity="center"
             android:orientation="vertical"
             android:padding="5dp"
+            android:saveEnabled="false"
             android:onClick="onTabClick">
 
         <ImageView
-                android:src="@drawable/mecenter"
+                android:src="@drawable/tab_personal_center"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:scaleType="matrix"/>
 
         <TextView
-                android:id="@+id/query_textView"
+                android:id="@+id/personal_center_textView"
                 android:text="@string/tab_personal_center"
                 android:layout_gravity="center|bottom"
                 android:gravity="center"

@@ -10,9 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.bainiaohe.dodo.R;
 import com.bainiaohe.dodo.main.fragments.friends.FriendsFragment;
+import com.bainiaohe.dodo.main.fragments.info.InfoFragment;
 import com.bainiaohe.dodo.main.fragments.messages.MessageFragment;
 import com.bainiaohe.dodo.main.fragments.personal_center.PersonalCenterFragment;
-import com.bainiaohe.dodo.main.fragments.info.InfoFragment;
 import io.rong.imkit.view.ActionBar;
 
 import java.util.ArrayList;
@@ -57,15 +57,15 @@ public class MainActivity extends FragmentActivity {
         this.fragments.add(new FriendsFragment());
         this.fragments.add(new PersonalCenterFragment());
 
-        this.tabs.add(R.id.tab_home);
-        this.tabs.add(R.id.tab_monitor);
-        this.tabs.add(R.id.tab_bill);
-        this.tabs.add(R.id.tab_query);
+        this.tabs.add(R.id.tab_info);
+        this.tabs.add(R.id.tab_message);
+        this.tabs.add(R.id.tab_friends);
+        this.tabs.add(R.id.tab_personal_center);
 
-        this.tabTexts.add(R.id.home_textView);
-        this.tabTexts.add(R.id.monitor_textView);
-        this.tabTexts.add(R.id.bill_textView);
-        this.tabTexts.add(R.id.query_textView);
+        this.tabTexts.add(R.id.info_textView);
+        this.tabTexts.add(R.id.message_textView);
+        this.tabTexts.add(R.id.friends_textView);
+        this.tabTexts.add(R.id.personal_center_textView);
 
         onTabSelected(0);
 
