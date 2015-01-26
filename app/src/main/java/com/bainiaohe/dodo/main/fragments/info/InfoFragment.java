@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.bainiaohe.dodo.R;
-import com.bainiaohe.dodo.main.fragments.info.adapter.DataAdapter;
+import com.bainiaohe.dodo.main.fragments.info.adapter.InfoDataAdapter;
 import com.bainiaohe.dodo.main.fragments.info.animator.CustomItemAnimator;
 import com.bainiaohe.dodo.main.fragments.info.data_loader.LoadDataAsyncTask;
 import com.bainiaohe.dodo.main.fragments.info.model.InfoItem;
@@ -37,6 +37,8 @@ public class InfoFragment extends Fragment {
 
                 item.name = "name";
                 item.avatarImage = getResources().getDrawable(R.drawable.ic_launcher);
+                item.imageUrls = new ArrayList<String>();
+                item.imageUrls.add("http://square.github.io/picasso/static/sample.png");
                 dataSet.add(item);
             }
         }
@@ -58,14 +60,14 @@ public class InfoFragment extends Fragment {
     protected View view;//fragment view
     private RecyclerView recyclerView = null;//相当于list view
     private SwipeRefreshLayout swipeRefreshLayout = null;//下拉刷新
-    private DataAdapter adapter = null;
+    private InfoDataAdapter adapter = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_info, container, false);
 
-        adapter = new DataAdapter(new ArrayList<InfoItem>(), R.layout.item_layout_info);
+        adapter = new InfoDataAdapter(getActivity(), new ArrayList<InfoItem>(), R.layout.item_layout_info);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));

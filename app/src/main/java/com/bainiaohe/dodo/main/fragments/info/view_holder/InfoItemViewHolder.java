@@ -11,7 +11,7 @@ import com.bainiaohe.dodo.R;
 /**
  * Created by zhugongpu on 15/1/22.
  */
-public class ViewHolder extends RecyclerView.ViewHolder {
+public class InfoItemViewHolder extends RecyclerView.ViewHolder {
 
     public TextView name = null;//用户名
     public ImageView avatarImage = null;//头像
@@ -23,7 +23,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     public Button shareButton = null;//转发
     public Button commentButton = null;//评论
 
-    public ViewHolder(View itemView) {
+    public InfoItemViewHolder(View itemView) {
         super(itemView);
 
         this.name = (TextView) itemView.findViewById(R.id.name);
