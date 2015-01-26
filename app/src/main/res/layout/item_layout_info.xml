@@ -9,8 +9,7 @@
         card_view:cardElevation="4dp">
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            style="@style/match_parent_layout"
             android:orientation="vertical">
 
         <!--头像、昵称、赞-->
@@ -18,22 +17,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="2dp">
+                android:padding="@dimen/default_padding">
             <!--头像-->
             <ImageView
                     android:id="@+id/avatar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/avatar"
                     android:src="@drawable/ic_launcher"/>
             <!--昵称-->
             <TextView
                     android:id="@+id/name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/body_text"
                     android:layout_gravity="top"
-                    android:padding="2dp"
                     android:text="name"
-                    android:textColor="@android:color/black"/>
+                    />
 
             <View
                     android:layout_width="0dp"
@@ -41,30 +37,40 @@
                     android:layout_weight="1"
                     android:background="@android:color/transparent"/>
             <!--赞-->
-            <!--TODO 设置图标-->
+            <!--TODO 设置图标和大小-->
             <ImageButton
                     android:id="@+id/mark"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/wrap_content_layout"
                     android:background="@android:color/transparent"
                     android:src="@drawable/ic_launcher"/>
         </LinearLayout>
 
-        <!--正文和图片-->
+
+        <!--正文-->
+        <TextView
+                android:id="@+id/text_content"
+                style="@style/body_text"/>
+
+        <!--图片列表-->
         <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="2dp">
-            <!--正文-->
-            <TextView
-                    android:id="@+id/text_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="2dp"
-                    android:text="TEXT"
-                    android:textColor="@android:color/black"/>
-        </LinearLayout>
 
+            <ImageView
+                    android:id="@+id/image1"
+                    style="@style/wrap_content_layout"/>
+
+            <ImageView
+                    android:id="@+id/image2"
+                    style="@style/wrap_content_layout"/>
+
+            <ImageView
+                    android:id="@+id/image3"
+                    style="@style/wrap_content_layout"/>
+
+        </LinearLayout>
 
         <!--分割线-->
         <View
@@ -81,21 +87,15 @@
             <!--转发-->
             <Button
                     android:id="@+id/share"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/transparent_button"
                     android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:text="转发"
-                    android:textColor="@android:color/black"/>
+                    android:text="转发"/>
             <!--评论-->
             <Button
                     android:id="@+id/comment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/orange_button"
                     android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:text="评论"
-                    android:textColor="@android:color/holo_orange_light"/>
+                    android:text="评论"/>
 
         </LinearLayout>
     </LinearLayout>

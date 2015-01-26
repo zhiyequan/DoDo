@@ -5,7 +5,7 @@ import android.graphics.drawable.Drawable;
 /**
  * Created by zhugongpu on 15/1/22.
  */
-public class DataItem {
+public class InfoItem {
     public String name;//用户名
     public boolean isMarked;//是否已经赞过
     public Drawable avatarImage;//头像

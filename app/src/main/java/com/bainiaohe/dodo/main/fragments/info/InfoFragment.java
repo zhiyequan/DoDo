@@ -13,22 +13,27 @@ import com.bainiaohe.dodo.R;
 import com.bainiaohe.dodo.main.fragments.info.adapter.DataAdapter;
 import com.bainiaohe.dodo.main.fragments.info.animator.CustomItemAnimator;
 import com.bainiaohe.dodo.main.fragments.info.data_loader.LoadDataAsyncTask;
-import com.bainiaohe.dodo.main.fragments.info.model.DataItem;
+import com.bainiaohe.dodo.main.fragments.info.model.InfoItem;
 
 import java.util.ArrayList;
 
 public class InfoFragment extends Fragment {
     private static final String TAG = "InfoFragment";
+
+    /**
+     * 加载数据
+     */
     private LoadDataAsyncTask.DataLoader dataLoader = new LoadDataAsyncTask.DataLoader() {
-        private ArrayList<DataItem> dataSet = new ArrayList<DataItem>();
+        private ArrayList<InfoItem> dataSet = new ArrayList<InfoItem>();
 
         @Override
         public void doInBackground() {
 //TODO dummy implementation
             dataSet.clear();//清除数据
 
+            //TODO 请求数据
             for (int i = 0; i < 10; i++) {
-                DataItem item = new DataItem();
+                InfoItem item = new InfoItem();
 
                 item.name = "name";
                 item.avatarImage = getResources().getDrawable(R.drawable.ic_launcher);
@@ -41,18 +46,18 @@ public class InfoFragment extends Fragment {
 
             Log.e(TAG, "onPostExecute : " + dataSet.size());
 
-            adapter.setDataSet((ArrayList<DataItem>) dataSet.clone());//需要clone，否则接收到的数据为空
-            //TODO 加载动画
+            adapter.setDataSet((ArrayList<InfoItem>) dataSet.clone());//需要clone，否则接收到的数据为空
+            //TODO recycler view 加载动画
+
+            //停止刷新
             swipeRefreshLayout.setRefreshing(false);
             adapter.notifyDataSetChanged();
         }
     };
-    /**
-     * view of Fragment
-     */
-    protected View view;
-    private RecyclerView recyclerView = null;
-    private SwipeRefreshLayout swipeRefreshLayout = null;
+
+    protected View view;//fragment view
+    private RecyclerView recyclerView = null;//相当于list view
+    private SwipeRefreshLayout swipeRefreshLayout = null;//下拉刷新
     private DataAdapter adapter = null;
 
     @Override
@@ -60,7 +65,7 @@ public class InfoFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_info, container, false);
 
-        adapter = new DataAdapter(new ArrayList<DataItem>(), R.layout.item_layout_info);
+        adapter = new DataAdapter(new ArrayList<InfoItem>(), R.layout.item_layout_info);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
