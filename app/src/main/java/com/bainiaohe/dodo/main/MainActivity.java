@@ -94,7 +94,7 @@ public class MainActivity extends FragmentActivity {
         for (int i = 0; i < tabs.size(); i++) {
             if (i != tabIndex) {
                 findViewById(tabs.get(i)).setSelected(false);
-                ((TextView) findViewById(tabTexts.get(i))).setTextColor(getResources().getColor(R.color.text_color_default));
+                ((TextView) findViewById(tabTexts.get(i))).setTextColor(getResources().getColor(R.color.default_text_color));
             }
         }
         if (tabIndex >= 0 && tabIndex < tabs.size()) {
