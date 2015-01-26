@@ -13,8 +13,15 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+
 import com.bainiaohe.dodo.main.fragments.friends.adapter.FriendListAdapter;
 import com.bainiaohe.dodo.main.fragments.friends.adapter.FriendListAdapter.ViewHolder;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+
 import io.rong.imkit.RCloudContext;
 import io.rong.imkit.Res;
 import io.rong.imkit.adapter.FriendMultiChoiceAdapter;
@@ -25,11 +32,6 @@ import io.rong.imkit.view.SwitchGroup;
 import io.rong.imkit.view.SwitchGroup.ItemHander;
 import io.rong.imkit.view.SwitchItemView;
 import io.rong.imlib.RongIMClient.UserInfo;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 
 public class FriendsFragment extends ActionBaseFrament implements ItemHander, OnClickListener, TextWatcher, FriendListAdapter.OnFilterFinished, OnItemClickListener {
     protected FriendListAdapter mAdapter;
@@ -43,9 +45,9 @@ public class FriendsFragment extends ActionBaseFrament implements ItemHander, On
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(Res.getInstance(this.getActivity()).layout("rc_fragment_friend_list"), null);
-        this.mListView = this.getViewById(view, 16908298);
-        this.mSwitchGroup = this.getViewById(view, 16908299);
+        View view = inflater.inflate(Res.getInstance(this.getActivity()).layout("fragment_friends"), null);
+        this.mListView = this.getViewById(view, android.R.id.list);
+        this.mSwitchGroup = this.getViewById(view, android.R.id.message);
 
         this.mListView.setPinnedHeaderView(this.getInflateView("rc_item_friend_index", this.mListView, false));
         this.mListView.setFastScrollEnabled(false);
@@ -180,14 +182,6 @@ public class FriendsFragment extends ActionBaseFrament implements ItemHander, On
         super.onDestroyView();
     }
 
-    public boolean isMultiChoice() {
-        return this.isMultiChoice;
-    }
-
-    public void setMultiChoice(boolean isMultiChoice, ArrayList<String> selectedItemIds) {
-        this.isMultiChoice = isMultiChoice;
-        this.mSelectedItemIds = selectedItemIds;
-    }
 
     private ArrayList<Friend> sortFriends(List<Friend> friends) {
         String[] searchLetters = this.getResources().getStringArray(Res.getInstance(this.getActivity()).array("rc_search_letters"));
