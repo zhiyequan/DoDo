@@ -14,6 +14,7 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+
     <!--Text Styles-->
     <style name="black_text" parent="wrap_content_layout">
         <item name="android:textColor">@color/black</item>
@@ -64,18 +65,27 @@
         <item name="android:textColor">@color/yellow</item>
     </style>
 
+    <style name="rounded_rectangle_button">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/shape</item>
+    </style>
+
+    <style name="match_parent_rounded_rectangle_button" parent="match_parent_layout">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/shape</item>
+    </style>
+
     <!--Picture Styles-->
     <style name="small_picture">
         <item name="android:layout_width">@dimen/small_picture_width</item>
         <item name="android:layout_height">@dimen/small_picture_height</item>
     </style>
 
-    <style name="avatar" parent="small_picture">
-    </style>
+    <style name="avatar" parent="small_picture"></style>
 
 
     <!--Themes-->
-    <style name="AppTheme" parent="BaseTheme"/>
+    <style name="AppTheme" parent="BaseTheme" />
 
     <style name="BaseTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
