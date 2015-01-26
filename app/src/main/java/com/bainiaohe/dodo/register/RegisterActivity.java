@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.bainiaohe.dodo.R;
 import com.bainiaohe.dodo.main.MainActivity;
 import com.bainiaohe.dodo.utils.UserService;
@@ -62,14 +63,17 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
         Log.v("UserService", phone + "  " + pw);
         if (phone.equals("") || pw.equals("")) {
             Toast.makeText(this, "电话或者密码不能为空", Toast.LENGTH_LONG).show();
-        } else if (UserService.pwPatternMatch(pw)) {
-            Toast.makeText(this, "密码格式不正确", Toast.LENGTH_LONG).show();
-        } else if (UserService.phonePatternMatch(phone)) {
-            Toast.makeText(this, "手机号格式不正确", Toast.LENGTH_LONG).show();
-        } else {
+        }
+        boolean phoneRet=UserService.phonePatternMatch(phone);
+        boolean pwRet=UserService.pwPatternMatch(pw);
+
+        if (pwRet && phoneRet) {
             new RegisterTask().execute(phone, pw, otherplatformType, otherplatformId);
 
+        } else {
+            Toast.makeText(this, UserService.userInputError, Toast.LENGTH_SHORT).show();
         }
+
     }
 
     class RegisterTask extends AsyncTask {

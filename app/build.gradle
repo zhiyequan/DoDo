@@ -41,6 +41,7 @@ dependencies {
     compile files('libs/TencentLocationSDK_v4.0_r139747.jar')
     compile files('libs/TencentMapSDK_Raster_v1.0.6.jar')
     compile files('libs/umeng-analytics-v5.2.4.jar')
+    compile files('libs/SMSSDK-1.1.7.jar')
 
     compile 'com.android.support:support-v4:21.0.3'
     compile 'com.android.support:appcompat-v7:21.0.3'

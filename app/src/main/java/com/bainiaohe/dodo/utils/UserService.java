@@ -116,9 +116,7 @@ public class UserService {
             //构造post的表单实体
             UrlEncodedFormEntity form = new UrlEncodedFormEntity(params);
             httpPost.setEntity(form);
-            Log.v("UserService", "arr");
             HttpResponse response = client.execute(httpPost);
-            Log.v("UserService", "arrive1");
 
             if (response.getStatusLine().getStatusCode() == 200) {
                 String result = EntityUtils.toString(response.getEntity());
@@ -145,16 +143,25 @@ public class UserService {
         }
         return ret;
     }
-
+    public static String userInputError;
     public static boolean phonePatternMatch(String str) {
         Pattern pattern = Pattern.compile("[0-9]{11}", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(str);
+        if(!matcher.matches()) {
+            userInputError="电话格式错误 ";
+        }
+        else{
+            userInputError="";
+        }
         return matcher.matches();
     }
 
     public static boolean pwPatternMatch(String str) {
         Pattern pattern = Pattern.compile("[a-zA-Z0-9_]{6,16}", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(str);
+        if (!matcher.matches()){
+            userInputError+=" 密码格式错误";
+        }
         return matcher.matches();
 
     }

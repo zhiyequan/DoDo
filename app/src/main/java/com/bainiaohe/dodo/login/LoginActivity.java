@@ -90,7 +90,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
         String phone = login_phone.getText().toString();
         String pw = login_pw.getText().toString();
         boolean ret = true;
-        if (phone == "" && pw == "") {
+        if (phone.equals("")  || pw.equals("") ) {
             ret = false;
         }
         return ret;
