@@ -6,10 +6,6 @@
     android:background="@android:color/white"
     android:orientation="vertical">
 
-    <include
-        android:id="@+id/new_friend"
-        layout="@layout/rc_item_friend" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
