@@ -49,7 +49,8 @@
         <!--正文-->
         <TextView
                 android:id="@+id/text_content"
-                style="@style/body_text"/>
+                style="@style/body_text"
+                android:maxLines="4"/>
 
         <!--图片列表-->
         <LinearLayout
@@ -60,15 +61,18 @@
 
             <ImageView
                     android:id="@+id/image1"
-                    style="@style/wrap_content_layout"/>
+                    style="@style/wrap_content_layout"
+                    android:layout_gravity="center_vertical"/>
 
             <ImageView
                     android:id="@+id/image2"
-                    style="@style/wrap_content_layout"/>
+                    style="@style/wrap_content_layout"
+                    android:layout_gravity="center_vertical"/>
 
             <ImageView
                     android:id="@+id/image3"
-                    style="@style/wrap_content_layout"/>
+                    style="@style/wrap_content_layout"
+                    android:layout_gravity="center_vertical"/>
 
         </LinearLayout>
 
