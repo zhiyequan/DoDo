@@ -5,8 +5,6 @@
 package com.bainiaohe.dodo.main.fragments.friends;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,7 +31,7 @@ import io.rong.imkit.view.SwitchGroup.ItemHander;
 import io.rong.imkit.view.SwitchItemView;
 import io.rong.imlib.RongIMClient.UserInfo;
 
-public class FriendsFragment extends ActionBaseFrament implements ItemHander, OnClickListener, TextWatcher, FriendListAdapter.OnFilterFinished, OnItemClickListener {
+public class FriendsFragment extends ActionBaseFrament implements ItemHander, OnClickListener, FriendListAdapter.OnFilterFinished, OnItemClickListener {
     protected FriendListAdapter mAdapter;
     protected List<Friend> mFriendsList;
     private PinnedHeaderListView mListView;
@@ -134,18 +132,6 @@ public class FriendsFragment extends ActionBaseFrament implements ItemHander, On
         }
     }
 
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-    }
-
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-        if (this.mAdapter != null) {
-            this.mAdapter.getFilter().filter(s);
-        }
-
-    }
-
-    public void afterTextChanged(Editable s) {
-    }
 
     public void onClick(View v) {
         if (v instanceof SwitchItemView) {
