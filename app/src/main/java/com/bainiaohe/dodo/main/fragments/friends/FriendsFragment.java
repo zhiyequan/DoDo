@@ -44,6 +44,7 @@ public class FriendsFragment extends ActionBaseFrament implements ItemHander, On
     public FriendsFragment() {
     }
 
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(Res.getInstance(this.getActivity()).layout("fragment_friends"), null);
         this.mListView = this.getViewById(view, android.R.id.list);
@@ -124,7 +125,7 @@ public class FriendsFragment extends ActionBaseFrament implements ItemHander, On
         this.mAdapter.setAdapterData(this.mFriendsList);
         this.mAdapter.notifyDataSetChanged();
     }
-
+    @Override
     public void onFilterFinished() {
         if (this.mFriendsList == null || this.mFriendsList.size() != 0) {
             if (this.mAdapter != null && this.mAdapter.isEmpty()) {
