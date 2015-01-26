@@ -72,9 +72,8 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
         weibo_login_button.setOnClickListener(this);
         if (sharedPreferences.getBoolean("ischecked", false)) {
             //TODO:进入系统
-            Intent intent = new Intent(this, MainActivity.class);
             String phone = sharedPreferences.getString("phone", "");
-            startActivity(intent);
+            connectToIM();
         }
 
 
@@ -223,10 +222,9 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
             if (ret) {
                 //用户注册过
                 //TODO:进入系统
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 //用户ID
                 String userId = UserService.userId;
-                startActivity(intent);
+                connectToIM();
 
             } else {
                 //用户没注册过，进入注册流程
