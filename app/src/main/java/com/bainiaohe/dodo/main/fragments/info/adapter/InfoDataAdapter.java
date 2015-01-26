@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.bainiaohe.dodo.R;
 import com.bainiaohe.dodo.main.fragments.info.model.InfoItem;
 import com.bainiaohe.dodo.main.fragments.info.view_holder.InfoItemViewHolder;
 import com.squareup.picasso.Picasso;
@@ -92,7 +93,10 @@ public class InfoDataAdapter extends RecyclerView.Adapter<InfoItemViewHolder> {
             //TODO resize and center crop
             //TODO 设置正在加载和加载失败的图标
             if (imageCount >= 1) {
-                Picasso.with(context).load(dataItem.imageUrls.get(0)).into(infoItemViewHolder.imageView1);
+                Picasso.with(context)
+                        .load(dataItem.imageUrls.get(0))
+                        .resizeDimen(R.dimen.medium_picture_width, R.dimen.medium_picture_height).centerInside()
+                        .into(infoItemViewHolder.imageView1);
 
                 infoItemViewHolder.imageView1.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -102,7 +106,10 @@ public class InfoDataAdapter extends RecyclerView.Adapter<InfoItemViewHolder> {
                 });
             }
             if (imageCount >= 2) {
-                Picasso.with(context).load(dataItem.imageUrls.get(1)).into(infoItemViewHolder.imageView2);
+                Picasso.with(context)
+                        .load(dataItem.imageUrls.get(1))
+                        .resize(200, 200).centerInside()
+                        .into(infoItemViewHolder.imageView2);
                 infoItemViewHolder.imageView2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -111,7 +118,10 @@ public class InfoDataAdapter extends RecyclerView.Adapter<InfoItemViewHolder> {
                 });
             }
             if (imageCount >= 3) {//当多于三张图片时，只显示前三张
-                Picasso.with(context).load(dataItem.imageUrls.get(2)).into(infoItemViewHolder.imageView3);
+                Picasso.with(context)
+                        .load(dataItem.imageUrls.get(2))
+                        .resize(200, 200).centerInside()
+                        .into(infoItemViewHolder.imageView3);
                 infoItemViewHolder.imageView3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
