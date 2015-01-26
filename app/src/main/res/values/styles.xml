@@ -1,11 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--Layout Styles-->
     <style name="match_parent_layout">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
     </style>
 
+    <style name="wrap_content_layout">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!--Text Styles-->
+    <style name="headline_text" parent="wrap_content_layout">
+        <item name="android:textSize">@dimen/headline_text_size</item>
+    </style>
+
+    <style name="title_text" parent="wrap_content_layout">
+        <item name="android:textSize">@dimen/title_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="subtitle_text" parent="wrap_content_layout">
+        <item name="android:textSize">@dimen/subtitle_text_size</item>
+    </style>
+
+    <style name="body_text" parent="wrap_content_layout">
+        <item name="android:textSize">@dimen/body_text_size</item>
+    </style>
+
+    <style name="bold_body_text" parent="body_text">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="caption_text" parent="wrap_content_layout">
+        <item name="android:textSize">@dimen/caption_text_size</item>
+    </style>
+
+    <style name="menu_text" parent="wrap_content_layout">
+        <item name="android:textSize">@dimen/menu_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="button_text" parent="wrap_content_layout">
+        <item name="android:textSize">@dimen/button_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+    <!--Picture Styles-->
+    <style name="small_picture">
+        <item name="android:layout_width">@dimen/small_picture_width</item>
+        <item name="android:layout_height">@dimen/small_picture_height</item>
+    </style>
+
+    <style name="avatar" parent="small_picture">
+    </style>
+
+
+
+    <!--Themes-->
     <style name="AppTheme" parent="BaseTheme"/>
 
     <style name="BaseTheme" parent="Theme.AppCompat.NoActionBar">
@@ -31,5 +86,6 @@
         <item name="colorPrimaryDark">@color/theme_default_primary_dark</item>
         <item name="colorAccent">@color/theme_accent</item>
     </style>
+
 
 </resources>
