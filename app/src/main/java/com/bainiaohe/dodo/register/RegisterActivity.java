@@ -61,13 +61,12 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
         String phone = phone_et.getText().toString();
         String pw = pw_et.getText().toString();
         Log.v("UserService", phone + "  " + pw);
+        boolean phoneRet = UserService.phonePatternMatch(phone);
+        boolean pwRet = UserService.pwPatternMatch(pw);
+
         if (phone.equals("") || pw.equals("")) {
             Toast.makeText(this, "电话或者密码不能为空", Toast.LENGTH_LONG).show();
-        }
-        boolean phoneRet=UserService.phonePatternMatch(phone);
-        boolean pwRet=UserService.pwPatternMatch(pw);
-
-        if (pwRet && phoneRet) {
+        } else if (pwRet && phoneRet) {
             new RegisterTask().execute(phone, pw, otherplatformType, otherplatformId);
 
         } else {
