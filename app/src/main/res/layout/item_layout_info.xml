@@ -40,7 +40,9 @@
             <!--TODO 设置图标和大小-->
             <ImageButton
                     android:id="@+id/mark"
-                    style="@style/wrap_content_layout"
+                    android:layout_gravity="center_vertical"
+                    style="@style/extreme_small_picture"
+                    android:scaleType="centerInside"
                     android:background="@android:color/transparent"
                     android:src="@drawable/ic_launcher"/>
         </LinearLayout>

@@ -41,6 +41,8 @@ public class InfoFragment extends Fragment {
                 item.imageUrls = new ArrayList<>();
                 item.imageUrls.add("http://square.github.io/picasso/static/sample.png");
                 item.imageUrls.add("http://www.baidu.com/img/bdlogo.png");
+                item.imageUrls.add("http://square.github.io/picasso/static/sample.png");
+                item.imageUrls.add("http://square.github.io/picasso/static/debug.png");
 
                 dataSet.add(item);
             }

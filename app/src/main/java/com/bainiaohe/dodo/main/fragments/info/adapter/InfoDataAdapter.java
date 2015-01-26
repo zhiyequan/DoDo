@@ -95,7 +95,7 @@ public class InfoDataAdapter extends RecyclerView.Adapter<InfoItemViewHolder> {
             if (imageCount >= 1) {
                 Picasso.with(context)
                         .load(dataItem.imageUrls.get(0))
-                        .resizeDimen(R.dimen.medium_picture_width, R.dimen.medium_picture_height).centerInside()
+                        .resizeDimen(R.dimen.medium_picture_size, R.dimen.medium_picture_size).centerInside()
                         .into(infoItemViewHolder.imageView1);
 
                 infoItemViewHolder.imageView1.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +108,7 @@ public class InfoDataAdapter extends RecyclerView.Adapter<InfoItemViewHolder> {
             if (imageCount >= 2) {
                 Picasso.with(context)
                         .load(dataItem.imageUrls.get(1))
-                        .resize(200, 200).centerInside()
+                        .resizeDimen(R.dimen.medium_picture_size, R.dimen.medium_picture_size).centerInside()
                         .into(infoItemViewHolder.imageView2);
                 infoItemViewHolder.imageView2.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -120,7 +120,7 @@ public class InfoDataAdapter extends RecyclerView.Adapter<InfoItemViewHolder> {
             if (imageCount >= 3) {//当多于三张图片时，只显示前三张
                 Picasso.with(context)
                         .load(dataItem.imageUrls.get(2))
-                        .resize(200, 200).centerInside()
+                        .resizeDimen(R.dimen.medium_picture_size, R.dimen.medium_picture_size).centerInside()
                         .into(infoItemViewHolder.imageView3);
                 infoItemViewHolder.imageView3.setOnClickListener(new View.OnClickListener() {
                     @Override

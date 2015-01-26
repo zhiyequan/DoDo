@@ -50,7 +50,6 @@
     </style>
 
 
-
     <style name="button_text" parent="black_text">
         <item name="android:textSize">@dimen/button_text_size</item>
         <item name="android:textStyle">bold</item>
@@ -68,6 +67,15 @@
         <item name="android:textColor">@color/yellow</item>
     </style>
 
+    <style name="rounded_rectangle_button" parent="button">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/shape</item>
+    </style>
+
+    <style name="match_parent_rounded_rectangle_button" parent="rounded_rectangle_button">
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
     <!--Title Bar Style-->
     <style name="title_bar" parent="headline_text">
         <item name="android:layout_height">wrap_content</item>
@@ -75,25 +83,24 @@
         <item name="android:background">@color/blue</item>
     </style>
 
-    <style name="rounded_rectangle_button">
-        <item name="android:textColor">@color/white</item>
-        <item name="android:background">@drawable/shape</item>
-    </style>
-
-    <style name="match_parent_rounded_rectangle_button" parent="match_parent_layout">
-        <item name="android:textColor">@color/white</item>
-        <item name="android:background">@drawable/shape</item>
-    </style>
-
     <!--Picture Styles-->
+    <style name="extreme_small_picture">
+        <item name="android:layout_width">@dimen/extreme_small_picture_size</item>
+        <item name="android:layout_height">@dimen/extreme_small_picture_size</item>
+    </style>
+
     <style name="small_picture">
-        <item name="android:layout_width">@dimen/small_picture_width</item>
-        <item name="android:layout_height">@dimen/small_picture_height</item>
+        <item name="android:layout_width">@dimen/small_picture_size</item>
+        <item name="android:layout_height">@dimen/small_picture_size</item>
     </style>
 
     <style name="avatar" parent="small_picture">
     </style>
 
+    <style name="medium_picture">
+        <item name="android:layout_width">@dimen/medium_picture_size</item>
+        <item name="android:layout_height">@dimen/medium_picture_size</item>
+    </style>
 
     <!--Themes-->
     <style name="AppTheme" parent="BaseTheme"/>
