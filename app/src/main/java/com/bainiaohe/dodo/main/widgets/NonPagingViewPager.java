@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -13,17 +12,16 @@ public class NonPagingViewPager extends ViewPager {
     private boolean pagingEnabled = false;
     private int childId;
 
-    public void setChildId(int childId)
-    {
-        this.childId = childId;
-    }
-
     public NonPagingViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
     public NonPagingViewPager(Context context) {
         super(context);
+    }
+
+    public void setChildId(int childId) {
+        this.childId = childId;
     }
 
     @Override

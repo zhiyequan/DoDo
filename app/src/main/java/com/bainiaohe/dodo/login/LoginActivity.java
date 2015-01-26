@@ -14,7 +14,6 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import cn.sharesdk.framework.CustomPlatform;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
@@ -34,12 +33,13 @@ import java.util.HashMap;
  */
 public class LoginActivity extends Activity implements View.OnClickListener, PlatformActionListener, Handler.Callback {
 
-    private static String TAG = "LoginActivity";
     private static final int MSG_USERID_FOUND = 1;
     private static final int MSG_LOGIN = 2;
     private static final int MSG_AUTH_CANCEL = 3;
     private static final int MSG_AUTH_ERROR = 4;
     private static final int MSG_AUTH_COMPLETE = 5;
+    private static final String TAG = "LoginActivity";
+    SharedPreferences sharedPreferences;
     private Button login_btn;
     private EditText login_phone;
     private EditText login_pw;
@@ -48,10 +48,9 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
     private Button weibo_login_button;
     private String nickName;
     private String otherplatformId;
-    private int otherplatformType=0;
+    private int otherplatformType = 0;
 
-    SharedPreferences sharedPreferences;
-
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //no title
@@ -73,7 +72,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
         weibo_login_button.setOnClickListener(this);
         if (sharedPreferences.getBoolean("ischecked", false)) {
             //TODO:进入系统
-            Intent intent = new Intent(this,MainActivity.class);
+            Intent intent = new Intent(this, MainActivity.class);
             String phone = sharedPreferences.getString("phone", "");
             startActivity(intent);
         }
@@ -81,31 +80,33 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
 
     }
 
+    @Override
     protected void onDestroy() {
         ShareSDK.stopSDK(this);
         super.onDestroy();
     }
-    private boolean checkUserLoginInfo(){
-        String phone=login_phone.getText().toString();
-        String pw=login_pw.getText().toString();
-        boolean ret=true;
-        if (phone==""&& pw==""){
-            ret=false;
+
+    private boolean checkUserLoginInfo() {
+        String phone = login_phone.getText().toString();
+        String pw = login_pw.getText().toString();
+        boolean ret = true;
+        if (phone == "" && pw == "") {
+            ret = false;
         }
         return ret;
 
     }
+
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.login_login_btn) {
             //click login button
 
-            if(checkUserLoginInfo() ) {
+            if (checkUserLoginInfo()) {
                 new LoginTask().execute(login_phone.getText().toString(), login_pw.getText().toString());
 
-            }
-            else {
-                Toast.makeText(this,"请填写完整信息",Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "请填写完整信息", Toast.LENGTH_LONG).show();
             }
 
         } else {
@@ -144,9 +145,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
                 }
                 platform.setPlatformActionListener(this);
                 platform.showUser(null);
-
             }
-
         }
     }
 
@@ -155,7 +154,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
      * <p/>
      * 建立与服务器之间的链接
      */
-
     private void connectToIM() {
         try {
 
@@ -166,7 +164,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
                     RongUtil.setUserInfo();
                     RongUtil.setFriends();
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
-
                 }
 
                 @Override
@@ -180,10 +177,9 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
             e.printStackTrace();
             Log.e(TAG, "The server has some error");
         }
-
-
     }
 
+    @Override
     public boolean handleMessage(Message msg) {
         switch (msg.what) {
             case MSG_USERID_FOUND: {
@@ -191,11 +187,8 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
             }
             break;
             case MSG_LOGIN: {
-
                 String text = getString(R.string.logining, msg.obj);
                 Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
-
-
             }
             break;
             case MSG_AUTH_CANCEL: {
@@ -214,6 +207,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
         return false;
     }
 
+    @Override
     public void onComplete(Platform platform, int action,
                            HashMap<String, Object> res) {
         if (action == Platform.ACTION_USER_INFOR) {
@@ -225,11 +219,11 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
             nickName = platform.getDb().getUserName();
             otherplatformId = platform.getDb().getUserId();
             // 判断这个平台的用户是否注册过
-            boolean ret = UserService.isRegisted(otherplatformType,otherplatformId);
+            boolean ret = UserService.isRegisted(otherplatformType, otherplatformId);
             if (ret) {
                 //用户注册过
                 //TODO:进入系统
-                Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 //用户ID
                 String userId = UserService.userId;
                 startActivity(intent);
@@ -239,8 +233,8 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
                 Toast.makeText(this, "您未在度度注册，请注册", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, RegisterActivity.class);
                 intent.putExtra("otherplatformId", otherplatformId);
-                intent.putExtra("otherplatformType",otherplatformType);
-                intent.putExtra("whosend",1);
+                intent.putExtra("otherplatformType", otherplatformType);
+                intent.putExtra("whosend", 1);
                 startActivity(intent);
 
             }
@@ -248,6 +242,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
 
     }
 
+    @Override
     public void onError(Platform platform, int action, Throwable t) {
         if (action == Platform.ACTION_USER_INFOR) {
             UIHandler.sendEmptyMessage(MSG_AUTH_ERROR, this);
@@ -255,6 +250,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
         t.printStackTrace();
     }
 
+    @Override
     public void onCancel(Platform platform, int action) {
         if (action == Platform.ACTION_USER_INFOR) {
             UIHandler.sendEmptyMessage(MSG_AUTH_CANCEL, this);
@@ -297,7 +293,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
         @Override
         protected void onPostExecute(Object result) {
             dialog.cancel();
-            Log.v("login",result.toString());
+            Log.v("login", result.toString());
             Toast.makeText(LoginActivity.this, result.toString(), Toast.LENGTH_LONG).show();
             SharedPreferences.Editor edit = sharedPreferences.edit();
             if (result.equals("success")) {
