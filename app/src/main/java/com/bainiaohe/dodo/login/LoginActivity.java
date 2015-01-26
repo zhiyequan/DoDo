@@ -38,6 +38,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
     private static final int MSG_AUTH_CANCEL = 3;
     private static final int MSG_AUTH_ERROR = 4;
     private static final int MSG_AUTH_COMPLETE = 5;
+    private static final int MSG_NOT_REGISTER=6;
     private static final String TAG = "LoginActivity";
     SharedPreferences sharedPreferences;
     private Button login_btn;
@@ -201,6 +202,9 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
             case MSG_AUTH_COMPLETE: {
                 Toast.makeText(this, R.string.auth_complete, Toast.LENGTH_SHORT).show();
             }
+            case MSG_NOT_REGISTER:{
+                Toast.makeText(this,"您未在度度注册，请注册", Toast.LENGTH_SHORT).show();
+            }
             break;
         }
         return false;
@@ -228,7 +232,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
 
             } else {
                 //用户没注册过，进入注册流程
-                Toast.makeText(this, "您未在度度注册，请注册", Toast.LENGTH_LONG).show();
+                UIHandler.sendEmptyMessage(MSG_NOT_REGISTER,this);
                 Intent intent = new Intent(this, RegisterActivity.class);
                 intent.putExtra("otherplatformId", otherplatformId);
                 intent.putExtra("otherplatformType", otherplatformType);
