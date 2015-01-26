@@ -14,15 +14,18 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.framework.utils.UIHandler;
+
 import com.bainiaohe.dodo.R;
 import com.bainiaohe.dodo.main.MainActivity;
 import com.bainiaohe.dodo.register.RegisterActivity;
 import com.bainiaohe.dodo.utils.RongUtil;
 import com.bainiaohe.dodo.utils.UserService;
+
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 
@@ -38,7 +41,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
     private static final int MSG_AUTH_CANCEL = 3;
     private static final int MSG_AUTH_ERROR = 4;
     private static final int MSG_AUTH_COMPLETE = 5;
-    private static final int MSG_NOT_REGISTER=6;
+    private static final int MSG_NOT_REGISTER = 6;
     private static final String TAG = "LoginActivity";
     SharedPreferences sharedPreferences;
     private Button login_btn;
@@ -86,27 +89,22 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
         super.onDestroy();
     }
 
-    private boolean checkUserLoginInfo() {
-        String phone = login_phone.getText().toString();
-        String pw = login_pw.getText().toString();
-        boolean ret = true;
-        if (phone.equals("")  || pw.equals("") ) {
-            ret = false;
-        }
-        return ret;
-
-    }
 
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.login_login_btn) {
             //click login button
-
-            if (checkUserLoginInfo()) {
-                new LoginTask().execute(login_phone.getText().toString(), login_pw.getText().toString());
+            String phone = login_phone.getText().toString();
+            String pw = login_pw.getText().toString();
+            boolean phoneRet = UserService.phonePatternMatch(phone);
+            boolean pwRet = UserService.pwPatternMatch(pw);
+            if (phone.equals("") || pw.equals("")) {
+                Toast.makeText(this, "请填写完整信息", Toast.LENGTH_LONG).show();
+            } else if (pwRet && phoneRet) {
+                new LoginTask().execute(phone, pw);
 
             } else {
-                Toast.makeText(this, "请填写完整信息", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, UserService.userInputError, Toast.LENGTH_SHORT).show();
             }
 
         } else {
@@ -202,8 +200,8 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
             case MSG_AUTH_COMPLETE: {
                 Toast.makeText(this, R.string.auth_complete, Toast.LENGTH_SHORT).show();
             }
-            case MSG_NOT_REGISTER:{
-                Toast.makeText(this,"您未在度度注册，请注册", Toast.LENGTH_SHORT).show();
+            case MSG_NOT_REGISTER: {
+                Toast.makeText(this, "您未在度度注册，请注册", Toast.LENGTH_SHORT).show();
             }
             break;
         }
@@ -232,7 +230,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
 
             } else {
                 //用户没注册过，进入注册流程
-                UIHandler.sendEmptyMessage(MSG_NOT_REGISTER,this);
+                UIHandler.sendEmptyMessage(MSG_NOT_REGISTER, this);
                 Intent intent = new Intent(this, RegisterActivity.class);
                 intent.putExtra("otherplatformId", otherplatformId);
                 intent.putExtra("otherplatformType", otherplatformType);
