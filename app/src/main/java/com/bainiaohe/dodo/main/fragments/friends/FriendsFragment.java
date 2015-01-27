@@ -11,6 +11,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 
 import com.bainiaohe.dodo.main.fragments.friends.adapter.FriendListAdapter;
 import com.bainiaohe.dodo.main.fragments.friends.adapter.FriendListAdapter.ViewHolder;
@@ -31,10 +32,12 @@ import io.rong.imkit.view.SwitchGroup.ItemHander;
 import io.rong.imkit.view.SwitchItemView;
 import io.rong.imlib.RongIMClient.UserInfo;
 
-public class FriendsFragment extends ActionBaseFrament implements ItemHander, OnClickListener, FriendListAdapter.OnFilterFinished, OnItemClickListener {
+public class FriendsFragment extends ActionBaseFrament implements ItemHander, OnClickListener, OnItemClickListener {
     protected FriendListAdapter mAdapter;
     protected List<Friend> mFriendsList;
+    //联系人列表
     private PinnedHeaderListView mListView;
+    //侧滑栏
     private SwitchGroup mSwitchGroup;
     private boolean isMultiChoice = false;
     private ArrayList<String> mSelectedItemIds;
@@ -48,12 +51,12 @@ public class FriendsFragment extends ActionBaseFrament implements ItemHander, On
         this.mListView = this.getViewById(view, android.R.id.list);
         this.mSwitchGroup = this.getViewById(view, android.R.id.message);
 
-        this.mListView.setPinnedHeaderView(this.getInflateView("rc_item_friend_index", this.mListView, false));
-        this.mListView.setFastScrollEnabled(false);
+        this.mListView.setPinnedHeaderView(null);
+        this.mListView.setFastScrollEnabled(true);
         this.mListView.setOnItemClickListener(this);
         this.mSwitchGroup.setItemHander(this);
-        this.mListView.setHeaderDividersEnabled(false);
-        this.mListView.setFooterDividersEnabled(false);
+        this.mListView.setHeaderDividersEnabled(true);
+        this.mListView.setFooterDividersEnabled(true);
         return view;
     }
 
@@ -91,25 +94,27 @@ public class FriendsFragment extends ActionBaseFrament implements ItemHander, On
         }
 
         this.mFriendsList = this.sortFriends(this.mFriendsList);
-        if (this.mSelectedItemIds != null && this.isMultiChoice) {
-            var4 = this.mSelectedItemIds.iterator();
-
-            while (var4.hasNext()) {
-                String id1 = (String) var4.next();
-                Iterator friend2 = this.mFriendsList.iterator();
-
-                while (friend2.hasNext()) {
-                    Friend friend1 = (Friend) friend2.next();
-                    if (id1.equals(friend1.getUserId())) {
-                        friend1.setSelected(true);
-                        break;
-                    }
-                }
-            }
-        }
-
+//        if (this.mSelectedItemIds != null && this.isMultiChoice) {
+//            var4 = this.mSelectedItemIds.iterator();
+//
+//            while (var4.hasNext()) {
+//                String id1 = (String) var4.next();
+//                Iterator friend2 = this.mFriendsList.iterator();
+//
+//                while (friend2.hasNext()) {
+//                    Friend friend1 = (Friend) friend2.next();
+//                    if (id1.equals(friend1.getUserId())) {
+//                        friend1.setSelected(true);
+//                        break;
+//                    }
+//                }
+//            }
+//        }
+        //如果没有多选框的话则创建联系人列表
         this.mAdapter = (FriendListAdapter) (this.isMultiChoice ? new FriendMultiChoiceAdapter(this.getActivity(), this.mFriendsList, this.mSelectedItemIds) : new FriendListAdapter(this.getActivity(), this.mFriendsList));
         this.mListView.setAdapter(this.mAdapter);
+
+        //填充数据
         this.fillData();
         super.onViewCreated(view, savedInstanceState);
     }
@@ -122,14 +127,6 @@ public class FriendsFragment extends ActionBaseFrament implements ItemHander, On
         this.mAdapter.removeAll();
         this.mAdapter.setAdapterData(this.mFriendsList);
         this.mAdapter.notifyDataSetChanged();
-    }
-    @Override
-    public void onFilterFinished() {
-        if (this.mFriendsList == null || this.mFriendsList.size() != 0) {
-            if (this.mAdapter != null && this.mAdapter.isEmpty()) {
-            }
-
-        }
     }
 
 
@@ -156,7 +153,14 @@ public class FriendsFragment extends ActionBaseFrament implements ItemHander, On
         Object tagObj = view.getTag();
         if (tagObj != null && tagObj instanceof ViewHolder) {
             ViewHolder viewHolder = (ViewHolder) tagObj;
-            this.mAdapter.onItemClick(viewHolder.friend.getUserId(), viewHolder.choice);
+            switch (position) {
+                case 1:
+                    Toast.makeText(getActivity(), "进入我的群组", Toast.LENGTH_SHORT).show();
+                    break;
+                default:
+                    this.mAdapter.onItemClick(viewHolder.friend.getUserId(), viewHolder.choice);
+            }
+
         }
     }
 
@@ -175,6 +179,17 @@ public class FriendsFragment extends ActionBaseFrament implements ItemHander, On
         HashMap userMap = new HashMap();
         ArrayList friendsArrayList = new ArrayList();
         Iterator i = friends.iterator();
+
+        String ffArrayList = new String("↑");
+        ArrayList fFriendList = new ArrayList();
+        Friend itemFriend = new Friend();
+        itemFriend.setNickname("我的群组");
+        itemFriend.setUserId("↑");
+        itemFriend.setPortrait("http://tp1.sinaimg.cn/3475942940/180/5693399301/1");
+        itemFriend.setSearchKey('↑');
+        fFriendList.add(itemFriend);
+
+        userMap.put(ffArrayList, fFriendList);
 
         while (i.hasNext()) {
             Friend letter = (Friend) i.next();
