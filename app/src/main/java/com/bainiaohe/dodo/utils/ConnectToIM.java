@@ -27,7 +27,7 @@ public class ConnectToIM {
     public void connectToIM() {
         try {
 
-            RongIM.connect("EximAJ6+SDwvlEzM4n1IomxkwFKUShKpTl4x4o92Obe6edRQJwHhNpq+PPJT7NYjzqG3K1xtepOqX2zmpXXdDw==", new RongIMClient.ConnectCallback() {
+            RongIM.connect("055aftfm1FNEcOH7G4eCLm9m2GF2Kx+PJbNPy2eR2UQfTS3xdHPBD1gCsxd/DpH3hYtyVLroK9aghRkAkaOJ+w==", new RongIMClient.ConnectCallback()  {
                 @Override
                 public void onSuccess(String s) {
                     Log.d(TAG, "----Login Success!");

@@ -200,7 +200,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
                 //TODO:进入系统
                 //用户ID
                 String userId = UserService.userId;
-                connectToIM();
+                connectToIM.connectToIM();
 
             } else {
                 //用户没注册过，进入第三方注册流程
