@@ -2,6 +2,7 @@ package com.bainiaohe.dodo.login;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -28,6 +29,9 @@ import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.framework.utils.UIHandler;
+import cn.smssdk.EventHandler;
+import cn.smssdk.SMSSDK;
+import cn.smssdk.gui.RegisterPage;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 
@@ -35,6 +39,10 @@ import io.rong.imlib.RongIMClient;
  * Created by xiaoran on 2015/1/19.
  */
 public class LoginActivity extends Activity implements View.OnClickListener, PlatformActionListener, Handler.Callback {
+
+     //第三方用户注册时短信验证需要的变量
+    private String APPKEY="57373ffffa48";
+    private String APPSECRET="fa96f512580053c8ec87a588b7ec077e";
 
     private static final int MSG_USERID_FOUND = 1;
     private static final int MSG_LOGIN = 2;
@@ -78,16 +86,50 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
         if (sharedPreferences.getBoolean("ischecked", false)) {
             //TODO:进入系统
             String phone = sharedPreferences.getString("phone", "");
-
             connectToIM.connectToIM();
         }
 
 
+        //第三方用户注册时短信验证需要的做的初始化操作
+        loadSharePrefrence();
+        initSDK();
+
+    }
+    private void initSDK() {
+        // 初始化短信SDK
+        SMSSDK.initSDK(this, APPKEY, APPSECRET);
+        final Handler handler = new Handler(this);
+        EventHandler eventHandler = new EventHandler() {
+            public void afterEvent(int event, int result, Object data) {
+                Message msg = new Message();
+                msg.arg1 = event;
+                msg.arg2 = result;
+                msg.obj = data;
+                handler.sendMessage(msg);
+            }
+        };
+        // 注册回调监听接口
+        SMSSDK.registerEventHandler(eventHandler);
+
+    }
+
+    private void loadSharePrefrence() {
+        SharedPreferences p = getSharedPreferences("SMSSDK_SAMPLE", Context.MODE_PRIVATE);
+
+    }
+
+    private void setSharePrefrence() {
+        SharedPreferences p = getSharedPreferences("SMSSDK_SAMPLE", Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = p.edit();
+        edit.putString("APPKEY", APPKEY);
+        edit.putString("APPSECRET", APPSECRET);
+        edit.commit();
     }
 
     @Override
     protected void onDestroy() {
         ShareSDK.stopSDK(this);
+        SMSSDK.unregisterAllEventHandler();
         super.onDestroy();
     }
 
@@ -153,6 +195,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
 
     @Override
     public boolean handleMessage(Message msg) {
+        //处理第三方登陆
         switch (msg.what) {
             case MSG_USERID_FOUND: {
                 Toast.makeText(this, R.string.userid_found, Toast.LENGTH_SHORT).show();
@@ -179,7 +222,24 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
             }
             break;
         }
+
+        //处理第三方用户短信验证
+        int event = msg.arg1;
+        int result = msg.arg2;
+        Object data = msg.obj;
+        if (event == SMSSDK.EVENT_SUBMIT_USER_INFO) {
+            // 短信注册成功后，返回该activity
+            if (result == SMSSDK.RESULT_COMPLETE) {
+                Toast.makeText(this, R.string.smssdk_user_info_submited, Toast.LENGTH_SHORT).show();
+
+
+            } else {
+                ((Throwable) data).printStackTrace();
+            }
+        }
         return false;
+
+
     }
 
     @Override
@@ -197,15 +257,29 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
             boolean ret = UserService.isRegisted(otherplatformType, otherplatformId);
             if (ret) {
                 //用户注册过
-                //TODO:进入系统
                 //用户ID
-                String userId = UserService.userId;
                 connectToIM.connectToIM();
 
             } else {
                 //用户没注册过，进入第三方注册流程
                 UIHandler.sendEmptyMessage(MSG_NOT_REGISTER, this);
-
+                // 打开短信验证页面（Registerpage 就是短信验证界面）
+                RegisterPage registerPage = new RegisterPage();
+                registerPage.setRegisterCallback(new EventHandler() {
+                    public void afterEvent(int event, int result, Object data) {
+                        // 解析注册结果
+                        if (result == SMSSDK.RESULT_COMPLETE) {
+                            @SuppressWarnings("unchecked")
+                            HashMap<String,Object> phoneMap = (HashMap<String, Object>) data;
+                            String country = (String) phoneMap.get("country");
+                            String phone = (String) phoneMap.get("phone");
+                            //验证成功，进入系统并且向后台注册
+                            UserService.userRegister(phone,Integer.toString(otherplatformType),otherplatformId);
+                            connectToIM.connectToIM();
+                        }
+                    }
+                });
+                registerPage.show(this);
 
             }
         }

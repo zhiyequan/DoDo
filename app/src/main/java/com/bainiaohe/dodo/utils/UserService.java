@@ -105,20 +105,32 @@ public class UserService {
     }
 
     /**
-     * 本平台的注册
-     *
+     * 本平台的用户和其他平台的用户
+     * 本平台传两个参数：phone pw
+     * 其他平台的传三个参数 phone plat_type plat_id
      * @param phone
-     * @param pw
+     * @param p
+     * @return
      */
-    public static boolean systemUserRegister(String phone, String pw) {
+    public static boolean userRegister(String phone,  String... p) {
         boolean ret = false;
+        String pw="";
+        String plat_id="";
+        String plat_type="0";
+        if (p.length==1){
+           //本平台的用户的注册
+            pw=p[0];
+        }else{
+            //其他平台的用户
+            plat_type=p[0];
+            plat_id=p[1];
+        }
         Log.v("UserService", "phone  " + phone);
         Log.v("UserService", "pw  " + pw);
-
         HttpPost httpPost = new HttpPost(Url.registerUrl);
         List params = new ArrayList<BasicNameValuePair>();
-        params.add(new BasicNameValuePair("plat_type", Integer.toString(0)));
-        params.add(new BasicNameValuePair("plat_id", ""));
+        params.add(new BasicNameValuePair("plat_type", plat_type));
+        params.add(new BasicNameValuePair("plat_id", plat_id));
         params.add(new BasicNameValuePair("phone", phone));
         params.add(new BasicNameValuePair("password", pw));
         HttpClient client = new DefaultHttpClient();

@@ -19,7 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bainiaohe.dodo.R;
-import com.bainiaohe.dodo.main.MainActivity;
 import com.bainiaohe.dodo.utils.ConnectToIM;
 import com.bainiaohe.dodo.utils.UserService;
 
@@ -98,6 +97,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
 
                 }
             } else {
+                 Toast.makeText(getApplicationContext(),"验证码错误",Toast.LENGTH_SHORT).show();
                 ((Throwable) data).printStackTrace();
             }
 
@@ -169,7 +169,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
 
         @Override
         protected Object doInBackground(Object[] objects) {
-            return UserService.systemUserRegister(objects[0].toString(), objects[1].toString());
+            return UserService.userRegister(objects[0].toString(), objects[1].toString());
         }
 
         protected void onPostExecute(Object result) {
