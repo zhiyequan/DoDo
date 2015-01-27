@@ -2,11 +2,9 @@ package com.bainiaohe.dodo.utils;
 
 import android.util.Log;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
@@ -47,8 +45,10 @@ public class UserService {
                 JSONObject object = new JSONObject(result);
                 int status = object.getInt("status");
                 Log.v("login","---status: "+status);
-                if (status == 0)
+                if (status == 0) {
                     ret = "success";
+                    userId=object.getString("id");
+                }
                 else
                     ret = "error";
 
@@ -104,10 +104,14 @@ public class UserService {
         return ret;
     }
 
+    public static void registerByAsynchronous(String phone, String plat_type,String plat_id){
+
+    }
+
     /**
      * 本平台的用户和其他平台的用户
      * 本平台传两个参数：phone pw
-     * 其他平台的传三个参数 phone plat_type plat_id
+     * 其他平台的传三个参数 phone plat_type plat_id ,目前第三方平台的注册使用的是registerByAsyncHttpClient
      * @param phone
      * @param p
      * @return

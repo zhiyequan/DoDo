@@ -274,7 +274,8 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
                             String country = (String) phoneMap.get("country");
                             String phone = (String) phoneMap.get("phone");
                             //验证成功，进入系统并且向后台注册
-                            UserService.userRegister(phone,Integer.toString(otherplatformType),otherplatformId);
+//                            UserService.userRegister(phone,Integer.toString(otherplatformType),otherplatformId); 不能在主线程中使用网络操作
+
                             connectToIM.connectToIM();
                         }
                     }
