@@ -1,6 +1,7 @@
 package com.bainiaohe.dodo.utils;
 
 import android.util.Log;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -25,6 +26,7 @@ import java.util.regex.Pattern;
 public class UserService {
     public static final String TAG = "UserService";
     public static String userId;
+    public static boolean isNew;
     public static String registerErrorMessage;
 
     public static String userLogin(String userphone, String password) {
@@ -43,10 +45,12 @@ public class UserService {
             if (response.getStatusLine().getStatusCode() == 200) {
                 result = EntityUtils.toString(response.getEntity());
                 JSONObject object = new JSONObject(result);
-                ret = object.getString("message");
-                if (ret.equals("error")) {
-                    ret = object.getString("message_info");
-                }
+                int status = object.getInt("status");
+                if (status == 0)
+                    ret = "success";
+                else
+                    ret = "error";
+
 
             } else {
                 ret = "error";
@@ -65,46 +69,54 @@ public class UserService {
      * @return
      */
     public static boolean isRegisted(int otherplatformType, String otherplatformId) {
+
+        boolean ret = false;
+        String result;
         HttpClient client = new DefaultHttpClient();
-        String path = Url.checkOtherplatIsRegistered + "?plat_type=" + otherplatformType + "&plat_id=" + otherplatformId;
-        HttpGet httpGet = new HttpGet(path);
+        HttpPost httpPost = new HttpPost(Url.loginUrl);
+        List params = new ArrayList<BasicNameValuePair>();
+        params.add(new BasicNameValuePair("plat_type", Integer.toString(otherplatformType)));
+        params.add(new BasicNameValuePair("plat_id", otherplatformId));
         try {
-            HttpResponse httpResponse = client.execute(httpGet);
-            HttpEntity entity = httpResponse.getEntity();
-            String result = EntityUtils.toString(entity);
-            JSONObject object = new JSONObject(result);
-            //是注册用户
-            if (object.getString("message").equals("registered")) {
-                userId = object.getString("id");
-                return true;
+            //构造post的表单实体
+            UrlEncodedFormEntity form = new UrlEncodedFormEntity(params, HTTP.UTF_8);
+            httpPost.setEntity(form);
+            HttpResponse response = client.execute(httpPost);
+            if (response.getStatusLine().getStatusCode() == 200) {
+                result = EntityUtils.toString(response.getEntity());
+                JSONObject object = new JSONObject(result);
+                int status = object.getInt("status");
+                if (status == 1001)
+                    ret = false;
+                else
+                    ret = true;
+
+
             } else {
-                //用户未注册
-                return false;
+                ret = false;
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return true;
+        return ret;
     }
 
     /**
+     * 本平台的注册
+     *
      * @param phone
      * @param pw
-     * @param otherplatformId 如果不是从第三方，otherplatformId=0
-     * @return
      */
-    public static boolean userRegister(String phone, String pw, int otherplatformType, String otherplatformId) {
+    public static boolean systemUserRegister(String phone, String pw) {
         boolean ret = false;
         Log.v("UserService", "phone  " + phone);
         Log.v("UserSerivice", "pw  " + pw);
-        Log.v("UserService", "type  " + otherplatformType);
-        Log.v("UserService", "id " + otherplatformId);
+
         HttpPost httpPost = new HttpPost(Url.registerUrl);
         List params = new ArrayList<BasicNameValuePair>();
-        params.add(new BasicNameValuePair("plat_type", Integer.toString(otherplatformType)));
-        params.add(new BasicNameValuePair("plat_id", otherplatformId));
+        params.add(new BasicNameValuePair("plat_type", Integer.toString(0)));
+        params.add(new BasicNameValuePair("plat_id", ""));
         params.add(new BasicNameValuePair("phone", phone));
         params.add(new BasicNameValuePair("password", pw));
         HttpClient client = new DefaultHttpClient();
@@ -125,6 +137,7 @@ public class UserService {
                 String message = object.getString("message");
                 if (message.equals("success")) {
                     userId = object.getString("id");
+
                     ret = true;
                 } else {
                     registerErrorMessage = object.getString("message_info");
@@ -143,15 +156,16 @@ public class UserService {
         }
         return ret;
     }
+
     public static String userInputError;
+
     public static boolean phonePatternMatch(String str) {
         Pattern pattern = Pattern.compile("[0-9]{11}", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(str);
-        if(!matcher.matches()) {
-            userInputError="电话格式错误 ";
-        }
-        else{
-            userInputError="";
+        if (!matcher.matches()) {
+            userInputError = "电话格式错误 ";
+        } else {
+            userInputError = "";
         }
         return matcher.matches();
     }
@@ -159,8 +173,8 @@ public class UserService {
     public static boolean pwPatternMatch(String str) {
         Pattern pattern = Pattern.compile("[a-zA-Z0-9_]{6,16}", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(str);
-        if (!matcher.matches()){
-            userInputError+=" 密码格式错误";
+        if (!matcher.matches()) {
+            userInputError += " 密码格式错误";
         }
         return matcher.matches();
 

@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.bainiaohe.dodo.R;
 import com.bainiaohe.dodo.main.MainActivity;
 import com.bainiaohe.dodo.register.RegisterActivity;
+import com.bainiaohe.dodo.utils.ConnectToIM;
 import com.bainiaohe.dodo.utils.RongUtil;
 import com.bainiaohe.dodo.utils.UserService;
 
@@ -52,7 +53,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
     private String nickName;
     private String otherplatformId;
     private int otherplatformType = 0;
-
+    ConnectToIM connectToIM;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +64,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
         sharedPreferences = LoginActivity.this.getSharedPreferences("user", MODE_PRIVATE);
         //init sharesdk
         ShareSDK.initSDK(this);
+        connectToIM=new ConnectToIM(this);
         login_btn = (Button) findViewById(R.id.login_login_btn);
         login_btn.setOnClickListener(this);
         login_phone = (EditText) findViewById(R.id.login_phone);
@@ -76,7 +78,8 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
         if (sharedPreferences.getBoolean("ischecked", false)) {
             //TODO:进入系统
             String phone = sharedPreferences.getString("phone", "");
-            connectToIM();
+
+            connectToIM.connectToIM();
         }
 
 
@@ -105,7 +108,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
             } else {
                 Toast.makeText(this, UserService.userInputError, Toast.LENGTH_SHORT).show();
             }
-            connectToIM();
+            connectToIM.connectToIM();
         } else {
             //click  other platform button
             if (view.getId() == R.id.qq_login_btn) {
@@ -146,35 +149,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
         }
     }
 
-    /**
-     * IMKit SDK 调用第二步
-     * <p/>
-     * 建立与服务器之间的链接
-     */
-    private void connectToIM() {
-        try {
 
-            RongIM.connect("EximAJ6+SDwvlEzM4n1IomxkwFKUShKpTl4x4o92Obe6edRQJwHhNpq+PPJT7NYjzqG3K1xtepOqX2zmpXXdDw==", new RongIMClient.ConnectCallback() {
-                @Override
-                public void onSuccess(String s) {
-                    Log.d(TAG, "----Login Success!");
-                    RongUtil.setUserInfo();
-                    RongUtil.setFriends();
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                }
-
-                @Override
-                public void onError(ErrorCode errorCode) {
-                    Log.d(TAG, "---Login Failed----");
-                    Toast.makeText(LoginActivity.this, "服务器连接失败", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e(TAG, "The server has some error");
-        }
-    }
 
     @Override
     public boolean handleMessage(Message msg) {
@@ -225,16 +200,12 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
                 //TODO:进入系统
                 //用户ID
                 String userId = UserService.userId;
-                connectToIM();
+                connectToIM.connectToIM();
 
             } else {
-                //用户没注册过，进入注册流程
+                //用户没注册过，进入第三方注册流程
                 UIHandler.sendEmptyMessage(MSG_NOT_REGISTER, this);
-                Intent intent = new Intent(this, RegisterActivity.class);
-                intent.putExtra("otherplatformId", otherplatformId);
-                intent.putExtra("otherplatformType", otherplatformType);
-                intent.putExtra("whosend", 1);
-                startActivity(intent);
+
 
             }
         }
@@ -301,7 +272,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
                 edit.putString("phone", phone);
                 edit.putString("pw", pw);
                 //注意等登陆成功之后才能进入聊天
-                connectToIM();
+                connectToIM.connectToIM();
             } else {
                 edit.putBoolean("ischecked", false);
             }
