@@ -93,18 +93,18 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
     public void onClick(View view) {
         if (view.getId() == R.id.login_login_btn) {
             //click login button
-//            String phone = login_phone.getText().toString();
-//            String pw = login_pw.getText().toString();
-//            boolean phoneRet = UserService.phonePatternMatch(phone);
-//            boolean pwRet = UserService.pwPatternMatch(pw);
-//            if (phone.equals("") || pw.equals("")) {
-//                Toast.makeText(this, "请填写完整信息", Toast.LENGTH_LONG).show();
-//            } else if (pwRet && phoneRet) {
-//                new LoginTask().execute(phone, pw);
-//
-//            } else {
-//                Toast.makeText(this, UserService.userInputError, Toast.LENGTH_SHORT).show();
-//            }
+            String phone = login_phone.getText().toString();
+            String pw = login_pw.getText().toString();
+            boolean phoneRet = UserService.phonePatternMatch(phone);
+            boolean pwRet = UserService.pwPatternMatch(pw);
+            if (phone.equals("") || pw.equals("")) {
+                Toast.makeText(this, "请填写完整信息", Toast.LENGTH_LONG).show();
+            } else if (pwRet && phoneRet) {
+                new LoginTask().execute(phone, pw);
+
+            } else {
+                Toast.makeText(this, UserService.userInputError, Toast.LENGTH_SHORT).show();
+            }
             connectToIM();
         } else {
             //click  other platform button
