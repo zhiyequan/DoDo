@@ -36,7 +36,7 @@ public class UserService {
         HttpPost httpPost = new HttpPost(Url.loginUrl);
         List params = new ArrayList<BasicNameValuePair>();
         params.add(new BasicNameValuePair("phone", userphone));
-        params.add(new BasicNameValuePair("passowrd", password));
+        params.add(new BasicNameValuePair("password", password));
         try {
             //构造post的表单实体
             UrlEncodedFormEntity form = new UrlEncodedFormEntity(params, HTTP.UTF_8);
@@ -46,6 +46,7 @@ public class UserService {
                 result = EntityUtils.toString(response.getEntity());
                 JSONObject object = new JSONObject(result);
                 int status = object.getInt("status");
+                Log.v("login","---status: "+status);
                 if (status == 0)
                     ret = "success";
                 else
@@ -57,6 +58,7 @@ public class UserService {
             }
 
         } catch (Exception e) {
+            Log.v("login",e.toString());
             e.printStackTrace();
         }
         return ret;
@@ -111,7 +113,7 @@ public class UserService {
     public static boolean systemUserRegister(String phone, String pw) {
         boolean ret = false;
         Log.v("UserService", "phone  " + phone);
-        Log.v("UserSerivice", "pw  " + pw);
+        Log.v("UserService", "pw  " + pw);
 
         HttpPost httpPost = new HttpPost(Url.registerUrl);
         List params = new ArrayList<BasicNameValuePair>();
@@ -137,10 +139,9 @@ public class UserService {
                 String message = object.getString("message");
                 if (message.equals("success")) {
                     userId = object.getString("id");
-
                     ret = true;
                 } else {
-                    registerErrorMessage = object.getString("message_info");
+                    registerErrorMessage = object.getString("message");
                     ret = false;
                 }
             } else {

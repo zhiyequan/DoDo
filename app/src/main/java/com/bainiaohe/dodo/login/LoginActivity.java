@@ -108,7 +108,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
             } else {
                 Toast.makeText(this, UserService.userInputError, Toast.LENGTH_SHORT).show();
             }
-            connectToIM.connectToIM();
+
         } else {
             //click  other platform button
             if (view.getId() == R.id.qq_login_btn) {

@@ -148,6 +148,9 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
             builder.create().show();
 
         }
+        else{
+            Toast.makeText(this, UserService.userInputError, Toast.LENGTH_LONG).show();
+        }
     }
 
 
