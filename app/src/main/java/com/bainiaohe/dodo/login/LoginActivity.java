@@ -15,21 +15,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.PlatformActionListener;
-import cn.sharesdk.framework.ShareSDK;
-import cn.sharesdk.framework.utils.UIHandler;
-
 import com.bainiaohe.dodo.R;
 import com.bainiaohe.dodo.main.MainActivity;
 import com.bainiaohe.dodo.register.RegisterActivity;
 import com.bainiaohe.dodo.utils.RongUtil;
 import com.bainiaohe.dodo.utils.UserService;
 
+import java.util.HashMap;
+
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.framework.utils.UIHandler;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
-
-import java.util.HashMap;
 
 /**
  * Created by xiaoran on 2015/1/19.
@@ -94,19 +93,19 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
     public void onClick(View view) {
         if (view.getId() == R.id.login_login_btn) {
             //click login button
-            String phone = login_phone.getText().toString();
-            String pw = login_pw.getText().toString();
-            boolean phoneRet = UserService.phonePatternMatch(phone);
-            boolean pwRet = UserService.pwPatternMatch(pw);
-            if (phone.equals("") || pw.equals("")) {
-                Toast.makeText(this, "请填写完整信息", Toast.LENGTH_LONG).show();
-            } else if (pwRet && phoneRet) {
-                new LoginTask().execute(phone, pw);
-
-            } else {
-                Toast.makeText(this, UserService.userInputError, Toast.LENGTH_SHORT).show();
-            }
-
+//            String phone = login_phone.getText().toString();
+//            String pw = login_pw.getText().toString();
+//            boolean phoneRet = UserService.phonePatternMatch(phone);
+//            boolean pwRet = UserService.pwPatternMatch(pw);
+//            if (phone.equals("") || pw.equals("")) {
+//                Toast.makeText(this, "请填写完整信息", Toast.LENGTH_LONG).show();
+//            } else if (pwRet && phoneRet) {
+//                new LoginTask().execute(phone, pw);
+//
+//            } else {
+//                Toast.makeText(this, UserService.userInputError, Toast.LENGTH_SHORT).show();
+//            }
+            connectToIM();
         } else {
             //click  other platform button
             if (view.getId() == R.id.qq_login_btn) {

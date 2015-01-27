@@ -3,7 +3,7 @@
 
     <!-- 联系人 索引 -->
     <string-array name="rc_search_letters">
-        <item>""#""</item>
+        <item>""↑""</item>
         <item>""A""</item>
         <item>""B""</item>
         <item>""C""</item>
@@ -30,6 +30,7 @@
         <item>""X""</item>
         <item>""Y""</item>
         <item>""Z""</item>
+        <item>""#""</item>
     </string-array>
 
 

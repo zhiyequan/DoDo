@@ -6,6 +6,7 @@
     android:background="@android:color/white"
     android:orientation="vertical">
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,8 +17,12 @@
             android:id="@android:id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/px_to_dip_16"
+            android:layout_marginRight="@dimen/px_to_dip_16"
+            android:divider="@color/dividers"
+            android:dividerHeight="1dp"
             android:fadingEdge="none"
-            android:fastScrollEnabled="false"
+            android:fastScrollEnabled="true"
             android:scrollbars="none" />
 
         <io.rong.imkit.view.SwitchGroup

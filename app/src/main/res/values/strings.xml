@@ -7,4 +7,5 @@
     <string name="auth_complete">授权成功，正在跳转…</string>
     <string name="logining">使用%s帐号登录中…</string>
     <string name="userid_found">用户信息已存在，正在跳转登录操作…</string>
+    <string name="groups_name">我的群组</string>
 </resources>
