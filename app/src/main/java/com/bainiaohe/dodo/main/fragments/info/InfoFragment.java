@@ -14,6 +14,13 @@ import com.bainiaohe.dodo.main.fragments.info.adapter.InfoDataAdapter;
 import com.bainiaohe.dodo.main.fragments.info.animator.CustomItemAnimator;
 import com.bainiaohe.dodo.main.fragments.info.data_loader.LoadDataAsyncTask;
 import com.bainiaohe.dodo.main.fragments.info.model.InfoItem;
+import com.bainiaohe.dodo.utils.URLConstants;
+import com.koushikdutta.async.http.AsyncHttpClient;
+import com.koushikdutta.async.http.AsyncHttpGet;
+import com.koushikdutta.async.http.AsyncHttpResponse;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -26,12 +33,51 @@ public class InfoFragment extends Fragment {
     private LoadDataAsyncTask.DataLoader dataLoader = new LoadDataAsyncTask.DataLoader() {
         private ArrayList<InfoItem> dataSet = new ArrayList<InfoItem>();
 
+        /**
+         * 从服务器获取Info列表
+         */
+        private void fetchInfo() {
+            String url = URLConstants.FETCH_INFO_LIST + "?id=" + 2;//TODO 仅用于测试
+//                    + UserService.userId;
+
+            //请求数据
+            AsyncHttpGet request = new AsyncHttpGet(url);
+            AsyncHttpClient.getDefaultInstance().executeJSONObject(request, new AsyncHttpClient.JSONObjectCallback() {
+                @Override
+                public void onCompleted(Exception e, AsyncHttpResponse source, JSONObject result) {
+                    if (e != null) {
+                        e.printStackTrace();
+                        return;
+                    } else {
+                        Log.e(TAG, "fetch info : " + result);
+
+                        try {
+                            JSONArray messages = result.getJSONArray("messages");
+                            for (int i = 0; i < messages.length(); i++) {
+                                JSONObject message = messages.getJSONObject(i);
+
+                                //TODO 添加数据到data set
+                            }
+
+                        } catch (JSONException e1) {
+                            e1.printStackTrace();
+                        }
+
+                    }
+                }
+            });
+        }
+
         @Override
         public void doInBackground() {
-//TODO dummy implementation
+
             dataSet.clear();//清除数据
 
-            //TODO 请求数据
+            //请求数据
+            fetchInfo();
+
+//TODO dummy implementation
+            /*
             for (int i = 0; i < 10; i++) {
                 InfoItem item = new InfoItem();
 
@@ -45,7 +91,7 @@ public class InfoFragment extends Fragment {
                 item.imageUrls.add("http://square.github.io/picasso/static/debug.png");
 
                 dataSet.add(item);
-            }
+            }*/
         }
 
         @Override
