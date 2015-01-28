@@ -8,4 +8,10 @@
     <string name="logining">使用%s帐号登录中…</string>
     <string name="userid_found">用户信息已存在，正在跳转登录操作…</string>
     <string name="groups_name">我的群组</string>
+    <string name="set_shixiitem">我的实习</string>
+    <string name="set_alltitle">设置</string>
+    <string name="title_activity_setting">SettingActivity</string>
+    <string name="default_ps_name">用户</string>
+    <string name="set_about">关于DoDo</string>
+    <string name="zhuxiao">退出当前账户</string>
 </resources>

@@ -2,11 +2,58 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+    android:gravity="center">
 
 
-    <TextView
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:background="#ffffffff">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/touxiang"
+            android:focusableInTouchMode="false"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/rc_default_portrait" />
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="this is the view of person !"/>
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/default_ps_name"
+            android:id="@+id/textView"
+            android:layout_toRightOf="@+id/touxiang"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:textColor="#ff000000" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="190dp">
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/set_shixiitem"
+            android:id="@+id/shixiitems"
+            android:background="#ffffffff"
+            android:textColor="#ff000000" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/set_alltitle"
+            android:id="@+id/settingitems"
+            android:background="#ffffffff"
+            android:layout_marginTop="5dp"
+            android:textColor="#ff000000" />
+    </LinearLayout>
+
 </LinearLayout>
