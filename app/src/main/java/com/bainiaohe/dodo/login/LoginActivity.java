@@ -51,7 +51,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
     private static final int MSG_AUTH_COMPLETE = 5;
     private static final int MSG_NOT_REGISTER = 6;
     private static final String TAG = "LoginActivity";
-    SharedPreferences sharedPreferences;
+    public static SharedPreferences sharedPreferences;
     private Button login_btn;
     private EditText login_phone;
     private EditText login_pw;
@@ -217,6 +217,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
             case MSG_AUTH_COMPLETE: {
                 Toast.makeText(this, R.string.auth_complete, Toast.LENGTH_SHORT).show();
             }
+            break;
             case MSG_NOT_REGISTER: {
                 Toast.makeText(this, "您未在度度注册，请注册", Toast.LENGTH_SHORT).show();
             }
@@ -273,9 +274,9 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
                             HashMap<String,Object> phoneMap = (HashMap<String, Object>) data;
                             String country = (String) phoneMap.get("country");
                             String phone = (String) phoneMap.get("phone");
-                            //验证成功，进入系统并且向后台注册
+                            //TODO：验证成功，进入系统并且向后台注册
 //                            UserService.userRegister(phone,Integer.toString(otherplatformType),otherplatformId); 不能在主线程中使用网络操作
-
+                            UserService.registerByAsynchronous(phone,Integer.toString(otherplatformType),otherplatformId);
                             connectToIM.connectToIM();
                         }
                     }

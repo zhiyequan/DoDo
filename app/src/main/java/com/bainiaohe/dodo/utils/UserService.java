@@ -1,7 +1,14 @@
 package com.bainiaohe.dodo.utils;
 
+import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.bainiaohe.dodo.login.LoginActivity;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -11,10 +18,14 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,7 +37,17 @@ public class UserService {
     public static String userId;
     public static boolean isNew;
     public static String registerErrorMessage;
+    public static void writeMapIntoSp(HashMap<String,String> map){
+        SharedPreferences.Editor editor= LoginActivity.sharedPreferences.edit();
+        Iterator iterator = map.keySet().iterator();
+        while(iterator.hasNext()) {
+            Map.Entry entry= (Map.Entry) iterator.next();
+            editor.putString(entry.getKey().toString(),entry.getValue().toString());
+        }
 
+        editor.commit();
+
+    }
     public static String userLogin(String userphone, String password) {
         String result = null;
         String ret = "登陆成功";
@@ -48,6 +69,15 @@ public class UserService {
                 if (status == 0) {
                     ret = "success";
                     userId=object.getString("id");
+                    String token =object.getString("token");
+                    HashMap map=new HashMap();
+                    map.put("id",userId);
+                    map.put("token",token);
+                    map.put("name",object.getString("name"));
+                    map.put("sex",object.getString("sex"));
+                    map.put("phone",object.getString("phone"));
+                    map.put("email",object.getString("email"));
+                    writeMapIntoSp(map);
                 }
                 else
                     ret = "error";
@@ -66,7 +96,7 @@ public class UserService {
 
     /**
      * 判断其他平台的用户是否注册过
-     *
+     * 相当第三方平台的用户的登录
      * @param otherplatformId
      * @return
      */
@@ -90,8 +120,19 @@ public class UserService {
                 int status = object.getInt("status");
                 if (status == 1001)
                     ret = false;
-                else
+                else {
                     ret = true;
+                    userId=object.getString("id");
+                    String token =object.getString("token");
+                    HashMap map=new HashMap();
+                    map.put("id",userId);
+                    map.put("token",token);
+                    map.put("name",object.getString("name"));
+                    map.put("sex",object.getString("sex"));
+                    map.put("phone",object.getString("phone"));
+                    map.put("email",object.getString("email"));
+                    writeMapIntoSp(map);
+                }
 
 
             } else {
@@ -105,13 +146,37 @@ public class UserService {
     }
 
     public static void registerByAsynchronous(String phone, String plat_type,String plat_id){
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.put("phone", phone);
+        params.put("plat_type", plat_type);
+        params.put("plat_id", plat_id);
+        client.post(Url.registerUrl, params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                //第三方用户注册成功
+                Log.v("UserService","---"+new String(responseBody));
+                try {
+                    userId=new JSONObject(new String(responseBody)).getString("id");
+                    HashMap map=new HashMap();
+                    map.put("id",userId);
+                    writeMapIntoSp(map);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
 
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Log.v("UserService","failed");
+            }
+        });
     }
 
     /**
      * 本平台的用户和其他平台的用户
      * 本平台传两个参数：phone pw
-     * 其他平台的传三个参数 phone plat_type plat_id ,目前第三方平台的注册使用的是registerByAsyncHttpClient
+     * 其他平台的传三个参数 phone plat_type plat_id ,目前第三方平台的注册使用的是registerByAsynchronous
      * @param phone
      * @param p
      * @return
@@ -155,6 +220,9 @@ public class UserService {
                 String message = object.getString("message");
                 if (message.equals("success")) {
                     userId = object.getString("id");
+                    HashMap map=new HashMap();
+                    map.put("id",userId);
+                    writeMapIntoSp(map);
                     ret = true;
                 } else {
                     registerErrorMessage = object.getString("message");
