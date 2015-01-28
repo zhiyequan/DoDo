@@ -52,7 +52,7 @@ public class UserService {
         String result = null;
         String ret = "登陆成功";
         HttpClient client = new DefaultHttpClient();
-        HttpPost httpPost = new HttpPost(Url.loginUrl);
+        HttpPost httpPost = new HttpPost(URLConstants.LOGIN);
         List params = new ArrayList<BasicNameValuePair>();
         params.add(new BasicNameValuePair("phone", userphone));
         params.add(new BasicNameValuePair("password", password));
@@ -105,7 +105,7 @@ public class UserService {
         boolean ret = false;
         String result;
         HttpClient client = new DefaultHttpClient();
-        HttpPost httpPost = new HttpPost(Url.loginUrl);
+        HttpPost httpPost = new HttpPost(URLConstants.LOGIN);
         List params = new ArrayList<BasicNameValuePair>();
         params.add(new BasicNameValuePair("plat_type", Integer.toString(otherplatformType)));
         params.add(new BasicNameValuePair("plat_id", otherplatformId));
@@ -196,7 +196,7 @@ public class UserService {
         }
         Log.v("UserService", "phone  " + phone);
         Log.v("UserService", "pw  " + pw);
-        HttpPost httpPost = new HttpPost(Url.registerUrl);
+        HttpPost httpPost = new HttpPost(URLConstants.REGISTER);
         List params = new ArrayList<BasicNameValuePair>();
         params.add(new BasicNameValuePair("plat_type", plat_type));
         params.add(new BasicNameValuePair("plat_id", plat_id));
