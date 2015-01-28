@@ -41,8 +41,9 @@ public class UserService {
         SharedPreferences.Editor editor= LoginActivity.sharedPreferences.edit();
         Iterator iterator = map.keySet().iterator();
         while(iterator.hasNext()) {
-            Map.Entry entry= (Map.Entry) iterator.next();
-            editor.putString(entry.getKey().toString(),entry.getValue().toString());
+            String key=iterator.next().toString();
+            String value=map.get(key);
+            editor.putString(key,value);
         }
 
         editor.commit();

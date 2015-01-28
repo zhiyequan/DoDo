@@ -171,6 +171,17 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
 
             } else if (view.getId() == R.id.weixin_login_btn) {
                 otherplatformType = 2;
+                Platform[] tmp = ShareSDK.getPlatformList();
+                Platform platform = null;
+                for (Platform p : tmp) {
+                    String name = p.getName();
+                    if (name.equals("Wechat")) {
+                        platform = p;
+                        break;
+                    }
+                }
+                platform.setPlatformActionListener(this);
+                platform.showUser(null);
 
             } else {
                 //weibo login
