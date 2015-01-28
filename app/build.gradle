@@ -58,5 +58,5 @@ dependencies {
     compile 'com.facebook.rebound:rebound:0.3.6'
     compile 'com.squareup.picasso:picasso:2.4.0'
     compile 'com.koushikdutta.async:androidasync:2.+'
-
+    compile 'com.loopj.android:android-async-http:1.4.5'
 }

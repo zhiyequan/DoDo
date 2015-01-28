@@ -39,7 +39,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="25dp"
-                android:text="登陆"/>
+                android:text="登录"/>
 
         <TextView
                 android:layout_width="60dp"
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:gravity="center"
-                android:text="QQ登陆"/>
+                android:text="QQ登录"/>
 
         <Button
                 android:id="@+id/weixin_login_btn"
@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
-                android:text="微信登陆"/>
+                android:text="微信登录"/>
 
         <Button
                 android:id="@+id/weibo_login_btn"
@@ -81,6 +81,6 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="20dp"
                 android:gravity="center"
-                android:text="微博登陆"/>
+                android:text="微博登录"/>
     </RelativeLayout>
 </LinearLayout>
