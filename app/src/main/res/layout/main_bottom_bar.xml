@@ -93,16 +93,17 @@
             android:layout_weight="1"
             android:clickable="true"
             android:gravity="center"
+            android:layout_gravity="center_vertical"
             android:orientation="vertical"
-            android:padding="5dp"
+            android:padding="@dimen/default_padding"
             android:saveEnabled="false"
             android:onClick="onTabClick">
 
         <ImageView
                 android:src="@drawable/tab_personal_center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleType="matrix"/>
+                android:layout_width="@dimen/extreme_small_picture_size"
+                android:layout_height="@dimen/extreme_small_picture_size"
+                android:scaleType="fitXY"/>
 
         <TextView
                 android:id="@+id/personal_center_textView"
