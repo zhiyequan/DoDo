@@ -19,13 +19,6 @@ public class ResponseContants {
      */
     public static final String RESPONSE_MESSAGE = "message";
 
-
-    /**
-     * 服务器返回结果中的 消息列表 字段
-     * 仅限 /ground/fetch 使用
-     */
-    public static final String RESPONSE_MESSAGES = "messages";
-
     /**
      * 服务器返回结果中的 用户id 字段
      */
@@ -80,5 +73,40 @@ public class ResponseContants {
      */
     public static final String RESPONSE_FRIENDS = "friends";
 
+    /**
+     * 服务器返回结果中的 消息列表 字段
+     * 仅限 /ground/fetch 使用
+     */
+    public static final String RESPONSE_MESSAGES = "messages";
+
+    /**
+     * 服务器返回的 消息列表 中的 id 字段
+     */
+    public static final String RESPONSE_MESSAGES_ID = "id";
+
+    /**
+     * 服务器返回的 消息列表 中的 name 字段
+     */
+    public static final String RESPONSE_MESSAGES_NAME = "name";
+
+    /**
+     * 服务器返回的 消息列表 中的 content 字段
+     */
+    public static final String RESPONSE_MESSAGES_CONENT = "content";
+
+    /**
+     * 服务器返回的 消息列表 中的 images 字段
+     */
+    public static final String RESPONSE_MESSAGES_IMAGES = "images";
+
+    /**
+     * 服务器返回的 消息列表 中的 avatar 字段
+     */
+    public static final String RESPONSE_MESSAGES_AVATAR = "avatar";
+
+    /**
+     * 服务器返回的 消息列表 中的 isMarked 字段
+     */
+    public static final String RESPONSE_MESSAGES_IS_MARKED = "isMarked";
 
 }

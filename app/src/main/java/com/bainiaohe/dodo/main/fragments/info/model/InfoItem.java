@@ -1,7 +1,5 @@
 package com.bainiaohe.dodo.main.fragments.info.model;
 
-import android.graphics.drawable.Drawable;
-
 import java.util.ArrayList;
 
 /**
@@ -10,7 +8,7 @@ import java.util.ArrayList;
 public class InfoItem {
     public String name;//用户名
     public boolean isMarked;//是否已经赞过
-    public Drawable avatarImage;//头像
+    public String avatarImage;//头像
     public String text_content = "";//文本内容
     public ArrayList<String> imageUrls;
 }
