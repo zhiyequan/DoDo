@@ -151,7 +151,7 @@ public class UserService {
         params.put("phone", phone);
         params.put("plat_type", plat_type);
         params.put("plat_id", plat_id);
-        client.post(Url.registerUrl, params, new AsyncHttpResponseHandler() {
+        client.post(URLConstants.REGISTER, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 //第三方用户注册成功
