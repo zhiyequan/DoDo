@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bainiaohe.dodo.R;
@@ -41,7 +40,6 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
 
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.activity_main);
 
@@ -104,9 +102,24 @@ public class MainActivity extends FragmentActivity {
 
         //set fragment
         android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, this.fragments.get(tabIndex));
-        transaction.addToBackStack(null);
+//        transaction.replace(R.id.fragment_container, this.fragments.get(tabIndex));
+//        transaction.addToBackStack(null);
+//        transaction.commit();
+
+        for (int i = 0; i < this.fragments.size(); i++) {
+            if (i != tabIndex) {
+                if (this.fragments.get(i).isAdded())
+                    transaction.hide(this.fragments.get(i));
+            }
+        }
+
+        if (this.fragments.get(tabIndex).isAdded())
+            transaction.show(this.fragments.get(tabIndex));
+        else
+            transaction.add(R.id.fragment_container, this.fragments.get(tabIndex));
+
         transaction.commit();
+
     }
 
 

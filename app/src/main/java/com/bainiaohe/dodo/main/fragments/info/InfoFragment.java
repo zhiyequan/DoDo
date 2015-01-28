@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import com.bainiaohe.dodo.R;
 import com.bainiaohe.dodo.main.fragments.info.adapter.InfoDataAdapter;
 import com.bainiaohe.dodo.main.fragments.info.animator.CustomItemAnimator;
-import com.bainiaohe.dodo.main.fragments.info.data_loader.LoadDataAsyncTask;
 import com.bainiaohe.dodo.main.fragments.info.model.InfoItem;
 import com.bainiaohe.dodo.utils.ResponseContants;
 import com.bainiaohe.dodo.utils.URLConstants;
@@ -27,50 +26,6 @@ import java.util.ArrayList;
 
 public class InfoFragment extends Fragment {
     private static final String TAG = "InfoFragment";
-
-    /**
-     * 加载数据
-     */
-    private LoadDataAsyncTask.DataLoader dataLoader = new LoadDataAsyncTask.DataLoader() {
-        private ArrayList<InfoItem> dataSet = new ArrayList<InfoItem>();
-
-        /**
-         * 从服务器获取Info列表
-         */
-        private void fetchInfo() {
-
-        }
-
-        @Override
-        public void doInBackground() {
-
-            dataSet.clear();//清除数据
-
-            //请求数据
-            fetchInfo();
-
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-//TODO dummy implementation
-
-        }
-
-        @Override
-        public void onPostExecute() {
-
-            Log.e(TAG, "onPostExecute : " + dataSet.size());
-
-            adapter.setDataSet((ArrayList<InfoItem>) dataSet.clone());//需要clone，否则接收到的数据为空
-            //TODO recycler view 加载动画
-
-            //停止刷新
-            swipeRefreshLayout.setRefreshing(false);
-            adapter.notifyDataSetChanged();
-        }
-    };
 
     protected View view;//fragment view
     private RecyclerView recyclerView = null;//相当于list view
@@ -153,6 +108,12 @@ public class InfoFragment extends Fragment {
                     adapter.clearData();
 
                     dummyLoading();
+
+//                    try {
+//                        Thread.sleep(1000);
+//                    } catch (InterruptedException e1) {
+//                        e1.printStackTrace();
+//                    }
 
                     Log.e(TAG, "DATA SIZE : " + adapter.getItemCount());
 
