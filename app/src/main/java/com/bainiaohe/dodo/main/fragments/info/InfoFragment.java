@@ -15,9 +15,10 @@ import com.bainiaohe.dodo.main.fragments.info.animator.CustomItemAnimator;
 import com.bainiaohe.dodo.main.fragments.info.model.InfoItem;
 import com.bainiaohe.dodo.utils.ResponseContants;
 import com.bainiaohe.dodo.utils.URLConstants;
-import com.koushikdutta.async.http.AsyncHttpClient;
-import com.koushikdutta.async.http.AsyncHttpGet;
-import com.koushikdutta.async.http.AsyncHttpResponse;
+import com.bainiaohe.dodo.utils.UserService;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.DataAsyncHttpResponseHandler;
+import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,10 +48,11 @@ public class InfoFragment extends Fragment {
 
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
         swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.theme_accent));
-        swipeRefreshLayout.setRefreshing(true);
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                Log.e(TAG, "onRefresh");
                 loadData();
             }
         });
@@ -59,6 +61,10 @@ public class InfoFragment extends Fragment {
         return view;
     }
 
+    /**
+     * 加载测试数据
+     * 仅用于测试
+     */
     private void dummyLoading() {
 
         for (int i = 0; i < 1000; i++) {
@@ -83,83 +89,82 @@ public class InfoFragment extends Fragment {
      */
     private void loadData() {
         if (isLoadingData) return;
-
+//        Log.e(TAG, Thread.currentThread().getName());
         //设置正在加载数据，防止重复加载
         isLoadingData = true;
 
         swipeRefreshLayout.setRefreshing(true);
 
         //加载数据
-        String url = URLConstants.FETCH_INFO_LIST + "?id=" + 2;//TODO 仅用于测试
-//                    + UserService.userId;
+        String url = URLConstants.FETCH_INFO_LIST + "?id="
+//                + 2;//TODO 仅用于测试
+                + UserService.userId;
 
         Log.e(TAG, "URL: " + url);
+
         //请求数据
-        AsyncHttpGet request = new AsyncHttpGet(url);
-        AsyncHttpClient.getDefaultInstance().executeJSONObject(request, new AsyncHttpClient.JSONObjectCallback() {
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        client.get(url, new DataAsyncHttpResponseHandler() {
             @Override
-            public void onCompleted(Exception e, AsyncHttpResponse source, JSONObject result) {
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                Log.e(TAG, "onSuccess " + statusCode);
 
-                if (e != null) {
-                    e.printStackTrace();
-                } else {
-                    Log.e(TAG, "fetch info : " + result);
-                    //清除数据
-                    adapter.clearData();
+                // dummyLoading();//TODO test code
 
-                    dummyLoading();
+                try {
+                    //从byte[]转为JSONObject
+                    JSONObject result = new JSONObject(new String(responseBody));
 
-//                    try {
-//                        Thread.sleep(1000);
-//                    } catch (InterruptedException e1) {
-//                        e1.printStackTrace();
-//                    }
+                    Log.e(TAG, "result : " + result);
 
-                    Log.e(TAG, "DATA SIZE : " + adapter.getItemCount());
+                    final JSONArray messages = result.getJSONArray(ResponseContants.RESPONSE_MESSAGES);
+                    for (int i = 0; i < messages.length(); i++) {
+                        final JSONObject message = messages.getJSONObject(i);
 
-                    try {
-                        final JSONArray messages = result.getJSONArray(ResponseContants.RESPONSE_MESSAGES);
-                        for (int i = 0; i < messages.length(); i++) {
-                            final JSONObject message = messages.getJSONObject(i);
+                        //添加数据到adapter
+                        if (message.has(ResponseContants.RESPONSE_MESSAGES_ID)
+                                && message.has(ResponseContants.RESPONSE_MESSAGES_CONENT))//TODO 检验数据完整性
+                            adapter.addDataItem(new InfoItem() {
+                                {
+                                    this.name = message.getString(ResponseContants.RESPONSE_MESSAGES_NAME);
+                                    this.avatarImage = message.getString(ResponseContants.RESPONSE_MESSAGES_AVATAR);
 
-                            //添加数据到adapter
-                            if (message.has(ResponseContants.RESPONSE_MESSAGES_ID)
-                                    && message.has(ResponseContants.RESPONSE_MESSAGES_CONENT))//TODO 检验数据完整性
-                                adapter.addDataItem(new InfoItem() {
-                                    {
-                                        this.name = message.getString(ResponseContants.RESPONSE_MESSAGES_NAME);
-                                        this.avatarImage = message.getString(ResponseContants.RESPONSE_MESSAGES_AVATAR);
+                                    this.text_content = message.getString(ResponseContants.RESPONSE_MESSAGES_CONENT);
 
-                                        this.text_content = message.getString(ResponseContants.RESPONSE_MESSAGES_CONENT);
+                                    JSONArray imageURLs = message.getJSONArray(ResponseContants.RESPONSE_MESSAGES_IMAGES);
+                                    int imagesCount = imageURLs.length();
+                                    if (imagesCount > 0)
+                                        this.imageUrls = new ArrayList<>();
+                                    for (int i = 0; i < imagesCount; i++)
+                                        this.imageUrls.add(imageURLs.getString(i));
 
-                                        JSONArray imageURLs = message.getJSONArray(ResponseContants.RESPONSE_MESSAGES_IMAGES);
-                                        int imagesCount = imageURLs.length();
-                                        if (imagesCount > 0)
-                                            this.imageUrls = new ArrayList<>();
-                                        for (int i = 0; i < imagesCount; i++)
-                                            this.imageUrls.add(imageURLs.getString(i));
-
-                                        this.isMarked = message.getBoolean(ResponseContants.RESPONSE_MESSAGES_IS_MARKED);
-                                    }
-                                });
-                        }
-                    } catch (JSONException e1) {
-                        e1.printStackTrace();
+                                    this.isMarked = message.getBoolean(ResponseContants.RESPONSE_MESSAGES_IS_MARKED);
+                                }
+                            });
                     }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+                Log.e(TAG, "onFailure");
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                Log.e(TAG, "onFinish");
 
                 isLoadingData = false;
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        adapter.notifyDataSetChanged();
-                        //停止动画
-                        swipeRefreshLayout.setRefreshing(false);
-
-                    }
-                });
+                adapter.notifyDataSetChanged();
+                //停止动画
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
-
     }
 }
