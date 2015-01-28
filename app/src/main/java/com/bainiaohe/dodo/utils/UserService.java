@@ -80,7 +80,7 @@ public class UserService {
                     writeMapIntoSp(map);
                 }
                 else
-                    ret = "error";
+                    ret = "用户名或密码错误";
 
 
             } else {
