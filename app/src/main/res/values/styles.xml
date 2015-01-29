@@ -14,8 +14,9 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="setting_layout">
-        <item name="android:layout_width">fill_parent</item>
+    <style name="match_parent_and_wrap_content">
+        <item name="android:layout_margin">@dimen/default_padding</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
@@ -65,8 +66,8 @@
     <style name="button" parent="button_text">
     </style>
 
-    <style name="set_button" parent="setting_layout">
-        <item name="android:background">#FFFFFFFF</item>
+    <style name="set_button" parent="match_parent_and_wrap_content">
+    <item name="android:background">#FFFFFFFF</item>
         <item name="android:textColor">#FF000000</item>
         <item name="android:gravity">left|center_vertical</item>
         <item name="android:paddingLeft">20dp</item>
