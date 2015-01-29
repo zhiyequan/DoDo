@@ -77,6 +77,10 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
 
+    <style name="transparent_button_wide" parent="transparent_button">
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
     <style name="orange_button" parent="transparent_button">
         <item name="android:textColor">@color/yellow</item>
     </style>
