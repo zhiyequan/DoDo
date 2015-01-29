@@ -8,7 +8,7 @@ public class URLConstants {
     /**
      * 服务器IP
      */
-    public static final String SERVER_IP = "http://128.199.234.221:9000";
+    public static final String SERVER_IP = "http://123.57.142.203:9000";
 
     /**
      * 获取Info列表
