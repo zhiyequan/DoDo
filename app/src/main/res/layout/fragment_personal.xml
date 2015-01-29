@@ -3,7 +3,7 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-    android:gravity="center">
+    android:paddingTop="30dp">
 
 
     <RelativeLayout
@@ -36,7 +36,7 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="190dp">
+        android:layout_marginTop="50dp">
 
         <Button
             android:layout_width="fill_parent"
@@ -44,16 +44,36 @@
             android:text="@string/set_shixiitem"
             android:id="@+id/shixiitems"
             android:background="#ffffffff"
-            android:textColor="#ff000000" />
+            android:textColor="#ff000000"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="48dp" />
 
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/set_alltitle"
-            android:id="@+id/settingitems"
+        <LinearLayout android:id="@+id/settingitems"
             android:background="#ffffffff"
             android:layout_marginTop="5dp"
-            android:textColor="#ff000000" />
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:paddingLeft="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView"
+                android:background="@drawable/settings"
+                android:layout_gravity="center_vertical" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/set_alltitle"
+                android:id="@+id/textView3"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="10dp" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

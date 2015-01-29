@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.bainiaohe.dodo.R;
 import com.bainiaohe.dodo.setting.SettingActivity;
@@ -17,7 +18,7 @@ import com.bainiaohe.dodo.setting.SettingActivity;
 public class PersonalCenterFragment extends Fragment implements View.OnClickListener {
 
     protected View view;
-    private Button set_but;
+    private LinearLayout set_but;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -30,7 +31,7 @@ public class PersonalCenterFragment extends Fragment implements View.OnClickList
     }
 
     public void initView() {
-        set_but = (Button) view.findViewById(R.id.settingitems);
+        set_but = (LinearLayout) view.findViewById(R.id.settingitems);
     }
 
     public void initListen() {
