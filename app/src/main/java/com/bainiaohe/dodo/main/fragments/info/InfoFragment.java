@@ -110,7 +110,7 @@ public class InfoFragment extends Fragment {
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 Log.e(TAG, "onSuccess " + statusCode);
 
-                // dummyLoading();//TODO test code
+                dummyLoading();//TODO test code
 
                 try {
                     //从byte[]转为JSONObject

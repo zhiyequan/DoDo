@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">DoDo</string>
     <string name="login_button_name">登录</string>
     <string name="auth_cancel">授权操作已取消</string>
@@ -14,4 +15,8 @@
     <string name="default_ps_name">用户</string>
     <string name="set_about">关于DoDo</string>
     <string name="zhuxiao">退出当前账户</string>
+    <string name="title_activity_info_detail_acitivty">InfoDetailAcitivty</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
 </resources>

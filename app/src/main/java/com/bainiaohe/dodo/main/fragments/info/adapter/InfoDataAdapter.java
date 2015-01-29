@@ -1,11 +1,14 @@
 package com.bainiaohe.dodo.main.fragments.info.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.bainiaohe.dodo.R;
+import com.bainiaohe.dodo.info_detail.InfoDetailActivity;
 import com.bainiaohe.dodo.main.fragments.info.model.InfoItem;
 import com.bainiaohe.dodo.main.fragments.info.view_holder.InfoItemViewHolder;
 import com.squareup.picasso.Picasso;
@@ -79,7 +82,7 @@ public class InfoDataAdapter extends RecyclerView.Adapter<InfoItemViewHolder> {
     @Override
     public void onBindViewHolder(final InfoItemViewHolder infoItemViewHolder, int i) {
 
-        InfoItem dataItem = dataSet.get(i);
+        final InfoItem dataItem = dataSet.get(i);
 
         infoItemViewHolder.name.setText(dataItem.name);
         infoItemViewHolder.content.setText(dataItem.text_content);
@@ -157,6 +160,7 @@ public class InfoDataAdapter extends RecyclerView.Adapter<InfoItemViewHolder> {
             @Override
             public void onClick(View view) {
                 //TODO 跳转到详情页
+                jumpToDetailPage(dataItem);
             }
         });
 
@@ -171,8 +175,17 @@ public class InfoDataAdapter extends RecyclerView.Adapter<InfoItemViewHolder> {
             @Override
             public void onClick(View view) {
                 //TODO 跳转到详情页,同content点击事件
+                jumpToDetailPage(dataItem);
             }
         });
+    }
+
+    private void jumpToDetailPage(InfoItem infoItem) {
+        Intent intent = new Intent(context, InfoDetailActivity.class);
+        //TODO 传参
+        
+        Log.e(TAG, "JUMP:" + infoItem.name);
+        context.startActivity(intent);
     }
 
     @Override
