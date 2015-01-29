@@ -47,6 +47,7 @@
 
     <style name="caption_text" parent="black_text">
         <item name="android:textSize">@dimen/caption_text_size</item>
+        <item name="android:alpha">0.8</item>
     </style>
 
     <style name="menu_text" parent="black_text">
