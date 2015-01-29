@@ -3,10 +3,11 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/bottom_bar_height"
         android:orientation="horizontal"
         android:background="@color/bottom_bar_color"
         android:layout_gravity="bottom"
+        android:layout_margin="@dimen/default_padding"
         android:baselineAligned="true"
         tools:context=".MainActivity"
         android:showDividers="none">
@@ -16,15 +17,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:clickable="true"
             android:gravity="center"
+            android:layout_gravity="center_vertical"
             android:orientation="vertical"
-            android:padding="5dp"
+            android:padding="@dimen/default_padding"
+            android:saveEnabled="false"
             android:onClick="onTabClick">
 
         <ImageView
                 android:src="@drawable/tab_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                style="@style/extreme_small_picture"
+                android:scaleType="centerCrop"/>
 
         <TextView
                 android:id="@+id/info_textView"
@@ -40,16 +44,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-
+            android:clickable="true"
             android:gravity="center"
+            android:layout_gravity="center_vertical"
             android:orientation="vertical"
-            android:padding="5dp"
+            android:padding="@dimen/default_padding"
+            android:saveEnabled="false"
             android:onClick="onTabClick">
 
         <ImageView
                 android:src="@drawable/tab_message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                style="@style/extreme_small_picture"
+                android:scaleType="centerCrop"/>
 
         <TextView
                 android:id="@+id/message_textView"
@@ -67,15 +73,16 @@
             android:layout_weight="1"
             android:clickable="true"
             android:gravity="center"
+            android:layout_gravity="center_vertical"
             android:orientation="vertical"
-            android:padding="5dp"
+            android:padding="@dimen/default_padding"
             android:saveEnabled="false"
             android:onClick="onTabClick">
 
         <ImageView
                 android:src="@drawable/tab_friends"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                style="@style/extreme_small_picture"
+                android:scaleType="centerCrop"/>
 
         <TextView
                 android:id="@+id/friends_textView"
@@ -101,9 +108,8 @@
 
         <ImageView
                 android:src="@drawable/tab_personal_center"
-                android:layout_width="@dimen/extreme_small_picture_size"
-                android:layout_height="@dimen/extreme_small_picture_size"
-                android:scaleType="fitXY"/>
+                style="@style/extreme_small_picture"
+                android:scaleType="centerCrop"/>
 
         <TextView
                 android:id="@+id/personal_center_textView"
