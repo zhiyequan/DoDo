@@ -124,13 +124,12 @@ public class InfoFragment extends Fragment {
                         final JSONObject message = messages.getJSONObject(i);
 
                         //添加数据到adapter
-                        if (message.has(ResponseContants.RESPONSE_MESSAGES_ID)
-                                && message.has(ResponseContants.RESPONSE_MESSAGES_CONENT))//TODO 检验数据完整性
+                        if (message.has(ResponseContants.RESPONSE_MESSAGES_ID))//TODO 检验数据完整性
                             adapter.addDataItem(new InfoItem() {
                                 {
                                     this.name = message.getString(ResponseContants.RESPONSE_MESSAGES_NAME);
                                     this.avatarImage = message.getString(ResponseContants.RESPONSE_MESSAGES_AVATAR);
-
+                                    this.time = message.getString(ResponseContants.RESPONSE_MESSAGES_TIME);
                                     this.text_content = message.getString(ResponseContants.RESPONSE_MESSAGES_CONENT);
 
                                     JSONArray imageURLs = message.getJSONArray(ResponseContants.RESPONSE_MESSAGES_IMAGES);
