@@ -1,56 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <LinearLayout
-        style="@style/title_bar">
+            style="@style/title_bar">
 
         <Button
-            android:layout_width="36dp"
-            android:layout_height="40dp"
-            android:id="@+id/backset"
-            android:singleLine="false"
-            android:background="@drawable/backicon"
-            android:textSize="48sp" />
+                android:layout_width="36dp"
+                android:layout_height="40dp"
+                android:id="@+id/backset"
+                android:singleLine="false"
+                android:background="@drawable/backicon"
+                android:textSize="48sp"/>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/set_alltitle"
-            android:id="@+id/textView2"
-            android:layout_gravity="center_vertical"
-            android:textColor="#FFFFFFFF" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/set_alltitle"
+                android:id="@+id/textView2"
+                android:layout_gravity="center_vertical"
+                android:textColor="#FFFFFFFF"/>
 
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp">
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp">
 
         <Button style="@style/set_button"
-            android:text="消息"
-            android:id="@+id/button1" />
+                android:text="消息"
+                android:id="@+id/button1"/>
 
         <Button style="@style/set_button"
-            android:text="隐私"
-            android:id="@+id/button2" />
+                android:text="隐私"
+                android:id="@+id/button2"/>
 
         <Button style="@style/set_button"
-            android:text="@string/set_about"
-            android:id="@+id/about_but" />
+                android:text="@string/set_about"
+                android:id="@+id/about_but"/>
     </LinearLayout>
 
-    <Button style="@style/setting_layout"
-        android:background="#FFFF0000"
-        android:textColor="#FFFFFFFF"
-        android:text="@string/zhuxiao"
-        android:id="@+id/zhuxiao"
-        android:layout_marginTop="100dp" />
+    <Button
+            style="@style/match_parent_and_wrap_content"
+            android:background="#FFFF0000"
+            android:textColor="#FFFFFFFF"
+            android:text="@string/zhuxiao"
+            android:id="@+id/zhuxiao"
+            android:layout_marginTop="100dp"/>
 
 </LinearLayout>
