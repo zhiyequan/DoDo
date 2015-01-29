@@ -115,7 +115,7 @@ public class InfoDataAdapter extends RecyclerView.Adapter<InfoItemViewHolder> {
                 Picasso.with(context)
                         .load(dataItem.imageUrls.get(0))
                         .placeholder(R.drawable.picture_holder)
-                        .error(R.drawable.picture_holder)
+                        .error(R.drawable.picture_load_failed)
                         .resizeDimen(R.dimen.medium_picture_size, R.dimen.medium_picture_size).centerInside()
                         .into(infoItemViewHolder.imageView1);
 
@@ -130,7 +130,7 @@ public class InfoDataAdapter extends RecyclerView.Adapter<InfoItemViewHolder> {
                 Picasso.with(context)
                         .load(dataItem.imageUrls.get(1))
                         .placeholder(R.drawable.picture_holder)
-                        .error(R.drawable.picture_holder)
+                        .error(R.drawable.picture_load_failed)
                         .resizeDimen(R.dimen.medium_picture_size, R.dimen.medium_picture_size).centerInside()
                         .into(infoItemViewHolder.imageView2);
                 infoItemViewHolder.imageView2.setOnClickListener(new View.OnClickListener() {
@@ -144,7 +144,7 @@ public class InfoDataAdapter extends RecyclerView.Adapter<InfoItemViewHolder> {
                 Picasso.with(context)
                         .load(dataItem.imageUrls.get(2))
                         .placeholder(R.drawable.picture_holder)
-                        .error(R.drawable.picture_holder)
+                        .error(R.drawable.picture_load_failed)
                         .resizeDimen(R.dimen.medium_picture_size, R.dimen.medium_picture_size).centerInside()
                         .into(infoItemViewHolder.imageView3);
                 infoItemViewHolder.imageView3.setOnClickListener(new View.OnClickListener() {
