@@ -35,6 +35,7 @@ public class InfoItem implements Parcelable {
         this.isMarked = boolArray[0];
         this.avatarImage = in.readString();
         this.text_content = in.readString();
+        this.imageUrls = new ArrayList<>();
         in.readList(this.imageUrls, ClassLoader.getSystemClassLoader());
     }
 
