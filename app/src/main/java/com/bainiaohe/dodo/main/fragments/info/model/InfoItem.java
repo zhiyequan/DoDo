@@ -22,11 +22,12 @@ public class InfoItem implements Parcelable {
             return new InfoItem[size];
         }
     };
-    public String name;//用户名
+    public String name = "";//用户名
     public boolean isMarked;//是否已经赞过
-    public String avatarImage;//头像
+    public String avatarImage = "";//头像
     public String text_content = "";//文本内容
     public ArrayList<String> imageUrls;
+    public String time = "";
 
     public InfoItem(Parcel in) {
         this.name = in.readString();
@@ -37,6 +38,7 @@ public class InfoItem implements Parcelable {
         this.text_content = in.readString();
         this.imageUrls = new ArrayList<>();
         in.readList(this.imageUrls, ClassLoader.getSystemClassLoader());
+        this.time = in.readString();
     }
 
     public InfoItem() {
@@ -64,5 +66,6 @@ public class InfoItem implements Parcelable {
         dest.writeString(this.avatarImage);
         dest.writeString(this.text_content);
         dest.writeList(this.imageUrls);
+        dest.writeString(this.time);
     }
 }

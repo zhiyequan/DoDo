@@ -71,6 +71,7 @@ public class InfoFragment extends Fragment {
             InfoItem item = new InfoItem();
 
             item.name = "" + i;
+            item.time = "just now";
             item.avatarImage = "http://b.hiphotos.baidu.com/image/pic/item/d53f8794a4c27d1e1be708c318d5ad6edcc438f7.jpg";
             item.text_content = "阿飞你说的工商局的开个会按时发货就开始数据库的规划上课按时发货就卡死凤凰就开始的粉红色空间的水电费后就开始地方后就开始的供货商的健康OS读后感会计师的规划 阿斯顿黑金卡是符合加咖啡和科技阿飞hjfsdfhskdjgasdhjkafhjka 啊实打实的";
             item.imageUrls = new ArrayList<>();

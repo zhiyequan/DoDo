@@ -14,6 +14,7 @@ import com.bainiaohe.dodo.R;
 public class InfoItemViewHolder extends RecyclerView.ViewHolder {
 
     public TextView name = null;//用户名
+    public TextView time = null;//发表时间
     public ImageView avatarImage = null;//头像
     public ImageButton markButton = null;//赞
     public TextView content = null;//文本内容
@@ -27,6 +28,7 @@ public class InfoItemViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
 
         this.name = (TextView) itemView.findViewById(R.id.name);
+        this.time = (TextView) itemView.findViewById(R.id.time);
         this.avatarImage = (ImageView) itemView.findViewById(R.id.avatar);
         this.markButton = (ImageButton) itemView.findViewById(R.id.mark);
         this.content = (TextView) itemView.findViewById(R.id.text_content);

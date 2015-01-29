@@ -23,13 +23,26 @@
                     android:id="@+id/avatar"
                     style="@style/avatar"
                     android:src="@drawable/ic_launcher"/>
-            <!--昵称-->
-            <TextView
-                    android:id="@+id/name"
-                    style="@style/body_text"
-                    android:layout_gravity="top"
-                    android:text="name"
-                    />
+
+            <LinearLayout
+                    android:orientation="vertical"
+                    style="@style/wrap_content_layout"
+                    android:layout_gravity="center_vertical">
+                <!--昵称-->
+                <TextView
+                        android:id="@+id/name"
+                        style="@style/body_text"
+                        android:layout_gravity="top"
+                        android:text="name"
+                        />
+                <!--发表时间-->
+                <TextView
+                        android:id="@+id/time"
+                        style="@style/caption_text"
+                        android:layout_gravity="bottom"
+                        android:text="time"/>
+            </LinearLayout>
+
 
             <View
                     android:layout_width="0dp"

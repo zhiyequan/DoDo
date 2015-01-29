@@ -84,6 +84,7 @@ public class InfoDataAdapter extends RecyclerView.Adapter<InfoItemViewHolder> {
         final InfoItem dataItem = dataSet.get(i);
 
         infoItemViewHolder.name.setText(dataItem.name);
+        infoItemViewHolder.time.setText(dataItem.time);
         infoItemViewHolder.content.setText(dataItem.text_content);
         //加载头像
         Picasso.with(context).load(dataItem.avatarImage).placeholder(R.drawable.default_avatar).into(infoItemViewHolder.avatarImage);
