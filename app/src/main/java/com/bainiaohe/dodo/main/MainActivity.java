@@ -1,18 +1,20 @@
 package com.bainiaohe.dodo.main;
 
+import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.bainiaohe.dodo.R;
 import com.bainiaohe.dodo.main.fragments.friends.FriendsFragment;
 import com.bainiaohe.dodo.main.fragments.info.InfoFragment;
 import com.bainiaohe.dodo.main.fragments.messages.MessageFragment;
 import com.bainiaohe.dodo.main.fragments.personal_center.PersonalCenterFragment;
-import io.rong.imkit.view.ActionBar;
+import com.bainiaohe.dodo.publish_info.PublishInfoActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +23,7 @@ public class MainActivity extends FragmentActivity {
 
     private static final String TAG = "MainActivity";
 
-
-    private ActionBar mAction = null;
+    private LinearLayout titleBar = null;
 
     /**
      * Fragments
@@ -50,6 +51,22 @@ public class MainActivity extends FragmentActivity {
      * onCreate时初始化
      */
     private void init() {
+
+        //设置header bar
+        titleBar = (LinearLayout) findViewById(R.id.title_bar);
+//        ((ImageView) (titleBar.findViewById(R.id.back))).setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher));
+        ((TextView) titleBar.findViewById(R.id.title)).setText(getText(R.string.app_name));
+        ImageView publishInfoButton = new ImageView(this, null, R.style.extreme_small_picture);
+        publishInfoButton.setImageDrawable(getResources().getDrawable(R.drawable.add_photo));
+        publishInfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, PublishInfoActivity.class));//启动 发表info 页面
+            }
+        });
+        ((LinearLayout) titleBar.findViewById(R.id.action_container)).addView(publishInfoButton);
+
+
         this.fragments.add(new InfoFragment());
         this.fragments.add(new MessageFragment());
         this.fragments.add(new FriendsFragment());
@@ -66,12 +83,8 @@ public class MainActivity extends FragmentActivity {
         this.tabTexts.add(R.id.personal_center_textView);
 
         onTabSelected(0);
-
-        mAction = (ActionBar) findViewById(R.id.action_bar);
-        mAction.getTitleTextView().setText("DoDo");
-        ImageView backView = mAction.getBackView();
-        backView.setVisibility(View.GONE);
     }
+
 
     /**
      * 点击tab时调用

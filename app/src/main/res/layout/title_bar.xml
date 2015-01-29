@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              style="@style/title_bar"
+              android:background="#03a9f4">
+
+    <!--默认不显示-->
+    <ImageView
+            android:id="@+id/back"
+            android:layout_gravity="center_vertical"
+            style="@style/extreme_small_picture"
+            android:visibility="gone"/>
+
+    <TextView
+            android:id="@+id/title"
+            android:text=""
+            android:layout_gravity="center_vertical"
+            android:gravity="left"
+            style="@style/headline_text_white"
+            android:layout_weight="1"/>
+
+    <LinearLayout
+            android:id="@+id/action_container"
+            style="@style/wrap_content_layout"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"/>
+
+</LinearLayout>
