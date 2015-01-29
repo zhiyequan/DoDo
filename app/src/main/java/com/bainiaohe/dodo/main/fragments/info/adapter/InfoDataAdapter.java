@@ -3,7 +3,6 @@ package com.bainiaohe.dodo.main.fragments.info.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,6 +84,7 @@ public class InfoDataAdapter extends RecyclerView.Adapter<InfoItemViewHolder> {
         final InfoItem dataItem = dataSet.get(i);
 
         infoItemViewHolder.name.setText(dataItem.name);
+        infoItemViewHolder.time.setText(dataItem.time);
         infoItemViewHolder.content.setText(dataItem.text_content);
         //加载头像
         Picasso.with(context).load(dataItem.avatarImage).placeholder(R.drawable.default_avatar).into(infoItemViewHolder.avatarImage);
@@ -102,6 +102,7 @@ public class InfoDataAdapter extends RecyclerView.Adapter<InfoItemViewHolder> {
 
 
                     Picasso.with(context).load(R.drawable.marked).into(infoItemViewHolder.markButton);
+                    dataItem.isMarked = true;//设置为已经mark
                 }
             });
         }
@@ -159,7 +160,7 @@ public class InfoDataAdapter extends RecyclerView.Adapter<InfoItemViewHolder> {
         infoItemViewHolder.content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO 跳转到详情页
+                //跳转到详情页
                 jumpToDetailPage(dataItem);
             }
         });
@@ -174,17 +175,21 @@ public class InfoDataAdapter extends RecyclerView.Adapter<InfoItemViewHolder> {
         infoItemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO 跳转到详情页,同content点击事件
+                //跳转到详情页,同content点击事件
                 jumpToDetailPage(dataItem);
             }
         });
     }
 
+    /**
+     * 点击info item之后跳转到info详情页
+     *
+     * @param infoItem
+     */
     private void jumpToDetailPage(InfoItem infoItem) {
         Intent intent = new Intent(context, InfoDetailActivity.class);
-        //TODO 传参
-        
-        Log.e(TAG, "JUMP:" + infoItem.name);
+        //传参
+        intent.putExtra(InfoDetailActivity.PARAM_NAME, infoItem);
         context.startActivity(intent);
     }
 
