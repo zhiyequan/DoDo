@@ -1,7 +1,7 @@
 package com.bainiaohe.dodo.setting;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,8 +12,9 @@ import com.bainiaohe.dodo.R;
 import com.bainiaohe.dodo.login.LoginActivity;
 import com.bainiaohe.dodo.main.MainActivity;
 
-public class SettingActivity extends ActionBarActivity {
+public class SettingActivity extends Activity {
     private Button zhuxiao;
+    private Button backset;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +27,7 @@ public class SettingActivity extends ActionBarActivity {
 
     public void initView() {
         zhuxiao = (Button) findViewById(R.id.zhuxiao);
-
+        backset = (Button) findViewById(R.id.backset);
     }
 
     public void initListen() {
@@ -38,6 +39,12 @@ public class SettingActivity extends ActionBarActivity {
                 intent.setClass(SettingActivity.this, LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+            }
+        });
+        backset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SettingActivity.this.finish();
             }
         });
     }
