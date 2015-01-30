@@ -19,7 +19,7 @@ public class DoDoApplication extends Application {
          * 融云初始化
          * 第三个参数是自定义的push图标
          */
-        RongIM.init(this, RONG_APP_KEY, R.drawable.ic_launcher);
+        RongIM.init(this);
 
     }
 }

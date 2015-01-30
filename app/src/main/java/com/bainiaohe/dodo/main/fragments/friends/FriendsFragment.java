@@ -12,19 +12,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
-
 import com.bainiaohe.dodo.main.fragments.friends.adapter.FriendListAdapter;
 import com.bainiaohe.dodo.main.fragments.friends.adapter.FriendListAdapter.ViewHolder;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-
 import io.rong.imkit.RCloudContext;
 import io.rong.imkit.Res;
 import io.rong.imkit.adapter.FriendMultiChoiceAdapter;
-import io.rong.imkit.fragment.ActionBaseFrament;
+import io.rong.imkit.fragment.ActionBaseFragment;
 import io.rong.imkit.model.Friend;
 import io.rong.imkit.view.PinnedHeaderListView;
 import io.rong.imkit.view.SwitchGroup;
@@ -32,7 +25,12 @@ import io.rong.imkit.view.SwitchGroup.ItemHander;
 import io.rong.imkit.view.SwitchItemView;
 import io.rong.imlib.RongIMClient.UserInfo;
 
-public class FriendsFragment extends ActionBaseFrament implements ItemHander, OnClickListener, OnItemClickListener {
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+
+public class FriendsFragment extends ActionBaseFragment implements ItemHander, OnClickListener, OnItemClickListener {
     protected FriendListAdapter mAdapter;
     protected List<Friend> mFriendsList;
     //联系人列表
