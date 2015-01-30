@@ -2,9 +2,11 @@ package com.bainiaohe.dodo.main.fragments.friends.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +25,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import io.rong.imkit.Res;
-import io.rong.imkit.RongIM;
 import io.rong.imkit.model.Friend;
 import io.rong.imkit.model.FriendSectionIndexer;
 import io.rong.imkit.view.AsyncImageView;
@@ -113,7 +114,6 @@ public class FriendListAdapter extends PinnedHeaderAdapter<Friend> {
         }
 
 
-
     }
 
     protected View newHeaderView(Context context, int partition, List<Friend> data, ViewGroup parent) {
@@ -127,7 +127,6 @@ public class FriendListAdapter extends PinnedHeaderAdapter<Friend> {
         }
 
         return view;
-
 
 
     }
@@ -192,7 +191,10 @@ public class FriendListAdapter extends PinnedHeaderAdapter<Friend> {
 
 
     public void onItemClick(String friendId, String friendName) {
-        RongIM.getInstance().startPrivateChat(mContext, friendId, friendName);
+
+        Uri uri = Uri.parse("rong://" + mContext.getApplicationInfo().packageName).buildUpon().appendPath("conversation").appendPath("private")
+                .appendQueryParameter("targetId", friendId).appendQueryParameter("title", friendName).build();
+        mContext.startActivity(new Intent("android.intent.action.VIEW", uri));
     }
 
     public static class ViewHolder {
