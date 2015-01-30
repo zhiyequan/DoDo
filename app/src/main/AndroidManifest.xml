@@ -59,6 +59,7 @@
         <activity
             android:name=".login.LoginActivity"
             android:label="@string/app_name"
+            android:noHistory="true"
             android:screenOrientation="portrait"
             />
         <activity
@@ -86,11 +87,13 @@
         <activity
             android:name=".register.RegisterActivity"
             android:label="@string/app_name"
+            android:noHistory="true"
             android:screenOrientation="portrait"
            />
         <activity
             android:name=".register.ValidateSMS"
             android:label="@string/app_name"
+            android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
             android:name="cn.sharesdk.framework.ShareSDKUIShell"
