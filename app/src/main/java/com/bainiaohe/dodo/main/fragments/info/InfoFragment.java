@@ -18,6 +18,7 @@ import com.bainiaohe.dodo.utils.URLConstants;
 import com.bainiaohe.dodo.utils.UserService;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.DataAsyncHttpResponseHandler;
+import com.melnykov.fab.FloatingActionButton;
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,6 +32,7 @@ public class InfoFragment extends Fragment {
     protected View view;//fragment view
     private RecyclerView recyclerView = null;//相当于list view
     private SwipeRefreshLayout swipeRefreshLayout = null;//下拉刷新
+    private FloatingActionButton floatingActionButton = null;//
     private InfoDataAdapter adapter = null;
     private boolean isLoadingData = false;
 
@@ -45,6 +47,27 @@ public class InfoFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setItemAnimator(new CustomItemAnimator());
         recyclerView.setAdapter(adapter);
+
+        floatingActionButton = (FloatingActionButton) view.findViewById(R.id.floating_action_button_to_top);
+        floatingActionButton.attachToRecyclerView(recyclerView);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //back to top
+                recyclerView.smoothScrollToPosition(0);
+            }
+        });
+
+        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState != RecyclerView.SCROLL_STATE_IDLE) {
+                    floatingActionButton.hide();
+                } else
+                    floatingActionButton.show();
+            }
+        });
 
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
         swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.theme_accent));

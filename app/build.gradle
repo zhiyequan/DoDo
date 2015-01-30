@@ -57,4 +57,5 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.4.0'
     compile 'com.koushikdutta.async:androidasync:2.+'
     compile 'com.loopj.android:android-async-http:1.4.+'
+    compile 'com.melnykov:floatingactionbutton:1.1.0'
 }
