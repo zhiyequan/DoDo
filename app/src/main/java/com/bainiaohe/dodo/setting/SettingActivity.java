@@ -1,19 +1,16 @@
 package com.bainiaohe.dodo.setting;
 
-import android.content.Intent;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-
 import com.bainiaohe.dodo.R;
 import com.bainiaohe.dodo.login.LoginActivity;
-import com.bainiaohe.dodo.main.MainActivity;
+
 
 public class SettingActivity extends Activity {
-    private Button zhuxiao;
+    private Button logout;
     private Button backset;
 
     @Override
@@ -26,12 +23,12 @@ public class SettingActivity extends Activity {
     }
 
     public void initView() {
-        zhuxiao = (Button) findViewById(R.id.zhuxiao);
+        logout = (Button) findViewById(R.id.zhuxiao);
         backset = (Button) findViewById(R.id.backset);
     }
 
     public void initListen() {
-        zhuxiao.setOnClickListener(new View.OnClickListener() {
+        logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SettingActivity.this.getSharedPreferences("user", MODE_PRIVATE).edit().clear();
@@ -44,6 +41,8 @@ public class SettingActivity extends Activity {
         backset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //todo logout
                 SettingActivity.this.finish();
             }
         });
