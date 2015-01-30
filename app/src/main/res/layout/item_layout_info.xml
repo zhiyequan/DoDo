@@ -9,7 +9,7 @@
         card_view:cardElevation="4dp">
 
     <LinearLayout
-            style="@style/match_parent_layout"
+            style="@style/match_parent_layout_with_margin"
             android:orientation="vertical">
 
         <!--头像、昵称、赞-->
@@ -26,7 +26,7 @@
 
             <LinearLayout
                     android:orientation="vertical"
-                    style="@style/wrap_content_layout"
+                    style="@style/wrap_content_layout_with_margin"
                     android:layout_gravity="center_vertical">
                 <!--昵称-->
                 <TextView
@@ -76,17 +76,17 @@
 
             <ImageView
                     android:id="@+id/image1"
-                    style="@style/wrap_content_layout"
+                    style="@style/wrap_content_layout_with_margin"
                     android:layout_gravity="center_vertical"/>
 
             <ImageView
                     android:id="@+id/image2"
-                    style="@style/wrap_content_layout"
+                    style="@style/wrap_content_layout_with_margin"
                     android:layout_gravity="center_vertical"/>
 
             <ImageView
                     android:id="@+id/image3"
-                    style="@style/wrap_content_layout"
+                    style="@style/wrap_content_layout_with_margin"
                     android:layout_gravity="center_vertical"/>
 
         </LinearLayout>

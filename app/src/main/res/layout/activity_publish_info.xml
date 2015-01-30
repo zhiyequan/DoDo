@@ -12,12 +12,12 @@
     <EditText
             android:layout_weight="1"
             android:id="@+id/inputText"
-            style="@style/match_parent_and_wrap_content"
+            style="@style/match_parent_and_wrap_content_with_padding"
             android:gravity="top|left"/>
 
     <LinearLayout
             android:orientation="horizontal"
-            style="@style/match_parent_and_wrap_content">
+            style="@style/match_parent_and_wrap_content_with_padding">
 
         <ImageView
                 android:id="@+id/photo1"
@@ -55,7 +55,7 @@
             style="@style/transparent_button_wide"/>
 
     <LinearLayout
-            style="@style/match_parent_and_wrap_content"
+            style="@style/match_parent_and_wrap_content_with_padding"
             android:layout_weight="1"/>
 
 </LinearLayout>

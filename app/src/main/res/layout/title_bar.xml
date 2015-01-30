@@ -21,7 +21,7 @@
 
     <LinearLayout
             android:id="@+id/action_container"
-            style="@style/wrap_content_layout"
+            style="@style/wrap_content_layout_with_margin"
             android:orientation="horizontal"
             android:gravity="center"
             android:layout_gravity="center_vertical"/>

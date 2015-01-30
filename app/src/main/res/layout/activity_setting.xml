@@ -33,21 +33,24 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp">
 
-        <Button style="@style/set_button"
+        <Button
+                style="@style/set_button"
                 android:text="消息"
                 android:id="@+id/button1"/>
 
-        <Button style="@style/set_button"
+        <Button
+                style="@style/set_button"
                 android:text="隐私"
                 android:id="@+id/button2"/>
 
-        <Button style="@style/set_button"
+        <Button
+                style="@style/set_button"
                 android:text="@string/set_about"
                 android:id="@+id/about_but"/>
     </LinearLayout>
 
     <Button
-            style="@style/match_parent_and_wrap_content"
+            style="@style/match_parent_and_wrap_content_with_padding"
             android:background="#FFFF0000"
             android:textColor="#FFFFFFFF"
             android:text="@string/zhuxiao"
