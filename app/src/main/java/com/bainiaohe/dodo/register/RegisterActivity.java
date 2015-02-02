@@ -19,7 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bainiaohe.dodo.R;
-import com.bainiaohe.dodo.utils.ConnectToIM;
 import com.bainiaohe.dodo.utils.UserService;
 
 import cn.smssdk.EventHandler;
@@ -29,15 +28,46 @@ import cn.smssdk.SMSSDK;
  * Created by xiaoran on 2015/1/19.
  */
 public class RegisterActivity extends Activity implements View.OnClickListener {
-    private TextView register_tv;
-    private EditText phone_et, pw_et;
-    private Button register_btn;
-    String pw;
     public static String phone;
     // 填写从短信SDK应用后台注册得到的APPKEY
     private static String APPKEY = "57373ffffa48";
     // 填写从短信SDK应用后台注册得到的APPSECRET
     private static String APPSECRET = "fa96f512580053c8ec87a588b7ec077e";
+    String pw;
+    Handler handler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            // TODO Auto-generated method stub
+            super.handleMessage(msg);
+            int event = msg.arg1;
+            int result = msg.arg2;
+            Object data = msg.obj;
+            Log.e("event", "event=" + event);
+            if (result == SMSSDK.RESULT_COMPLETE) {
+                //短信注册成功后，返回此Activity
+                if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {//提交验证码成功
+                    Toast.makeText(getApplicationContext(), "提交验证码成功", Toast.LENGTH_SHORT).show();
+                    //短信验证成功，注册
+                    new RegisterTask().execute(phone, pw);
+
+                } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
+                    Toast.makeText(getApplicationContext(), "验证码已经发送", Toast.LENGTH_SHORT).show();
+                } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {//返回支持发送验证码的国家列表
+                    Toast.makeText(getApplicationContext(), "获取国家列表成功", Toast.LENGTH_SHORT).show();
+
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), "验证码错误", Toast.LENGTH_SHORT).show();
+                ((Throwable) data).printStackTrace();
+            }
+
+        }
+
+    };
+    private TextView register_tv;
+    private EditText phone_et, pw_et;
+    private Button register_btn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,39 +102,6 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
         SMSSDK.registerEventHandler(eh);
 
     }
-
-    Handler handler = new Handler() {
-
-        @Override
-        public void handleMessage(Message msg) {
-            // TODO Auto-generated method stub
-            super.handleMessage(msg);
-            int event = msg.arg1;
-            int result = msg.arg2;
-            Object data = msg.obj;
-            Log.e("event", "event=" + event);
-            if (result == SMSSDK.RESULT_COMPLETE) {
-                //短信注册成功后，返回此Activity
-                if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {//提交验证码成功
-                    Toast.makeText(getApplicationContext(), "提交验证码成功", Toast.LENGTH_SHORT).show();
-                    //短信验证成功，注册
-                   new RegisterTask().execute(phone,pw);
-
-                } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
-                    Toast.makeText(getApplicationContext(), "验证码已经发送", Toast.LENGTH_SHORT).show();
-                } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {//返回支持发送验证码的国家列表
-                    Toast.makeText(getApplicationContext(), "获取国家列表成功", Toast.LENGTH_SHORT).show();
-
-                }
-            } else {
-                 Toast.makeText(getApplicationContext(),"验证码错误",Toast.LENGTH_SHORT).show();
-                ((Throwable) data).printStackTrace();
-            }
-
-        }
-
-    };
-
 
     @Override
     protected void onDestroy() {
@@ -147,8 +144,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
             });
             builder.create().show();
 
-        }
-        else{
+        } else {
             Toast.makeText(this, UserService.userInputError, Toast.LENGTH_LONG).show();
         }
     }
@@ -176,9 +172,9 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
             dialog.cancel();
             boolean ret = Boolean.parseBoolean(result.toString());
             if (ret) {
-                //注册成功,进入系统
-                ConnectToIM connectToIM=new ConnectToIM(RegisterActivity.this);
-                connectToIM.connectToIM();
+//                //注册成功,进入系统
+//                ConnectToIM connectToIM=new ConnectToIM(RegisterActivity.this);
+//                connectToIM.connectToIM();
 
             } else {
                 Toast.makeText(RegisterActivity.this, UserService.registerErrorMessage, Toast.LENGTH_LONG).show();
