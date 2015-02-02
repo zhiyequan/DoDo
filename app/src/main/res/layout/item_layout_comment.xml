@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <!--头像、昵称、赞-->
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/default_padding">
+        <!--头像-->
+        <ImageView
+                android:id="@+id/avatar"
+                style="@style/avatar"
+                android:src="@drawable/ic_launcher"/>
+
+        <LinearLayout
+                android:orientation="vertical"
+                style="@style/wrap_content_layout_with_margin"
+                android:layout_gravity="center_vertical">
+            <!--昵称-->
+            <TextView
+                    android:id="@+id/name"
+                    style="@style/body_text"
+                    android:layout_gravity="top"
+                    android:text="name"/>
+            <!--发表时间-->
+            <TextView
+                    android:id="@+id/time"
+                    style="@style/caption_text"
+                    android:layout_gravity="bottom"
+                    android:text="time"/>
+
+            <TextView
+                    android:id="@+id/content"
+                    android:text="CONTENT"
+                    style="@style/body_text"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>
