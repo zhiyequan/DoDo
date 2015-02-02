@@ -10,18 +10,19 @@ import java.util.ArrayList;
  * 实现Parcelable，可以用intent传递
  * Created by zhugongpu on 15/1/22.
  */
-public class InfoItem implements Parcelable {
-    public static final Creator<InfoItem> CREATOR = new Creator<InfoItem>() {
+public class InfoItemModel implements Parcelable {
+    public static final Creator<InfoItemModel> CREATOR = new Creator<InfoItemModel>() {
         @Override
-        public InfoItem createFromParcel(Parcel parcel) {
-            return new InfoItem(parcel);
+        public InfoItemModel createFromParcel(Parcel parcel) {
+            return new InfoItemModel(parcel);
         }
 
         @Override
-        public InfoItem[] newArray(int size) {
-            return new InfoItem[size];
+        public InfoItemModel[] newArray(int size) {
+            return new InfoItemModel[size];
         }
     };
+    public String id = "";
     public String name = "";//用户名
     public boolean isMarked;//是否已经赞过
     public String avatarImage = "";//头像
@@ -29,7 +30,9 @@ public class InfoItem implements Parcelable {
     public ArrayList<String> imageUrls;
     public String time = "";
 
-    public InfoItem(Parcel in) {
+
+    public InfoItemModel(Parcel in) {
+        this.id = in.readString();
         this.name = in.readString();
         boolean[] boolArray = new boolean[1];
         in.readBooleanArray(boolArray);
@@ -41,7 +44,7 @@ public class InfoItem implements Parcelable {
         this.time = in.readString();
     }
 
-    public InfoItem() {
+    public InfoItemModel() {
 
     }
 
@@ -61,6 +64,7 @@ public class InfoItem implements Parcelable {
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
         dest.writeString(this.name);
         dest.writeBooleanArray(new boolean[]{this.isMarked});
         dest.writeString(this.avatarImage);
