@@ -29,6 +29,7 @@ public class InfoItemModel implements Parcelable {
     public String text_content = "";//文本内容
     public ArrayList<String> imageUrls;
     public String time = "";
+    public ArrayList<CommentModel> comments;//评论列表
 
 
     public InfoItemModel(Parcel in) {
@@ -42,6 +43,8 @@ public class InfoItemModel implements Parcelable {
         this.imageUrls = new ArrayList<>();
         in.readList(this.imageUrls, ClassLoader.getSystemClassLoader());
         this.time = in.readString();
+        this.comments = new ArrayList<>();
+        in.readList(this.comments, ClassLoader.getSystemClassLoader());
     }
 
     public InfoItemModel() {
@@ -71,5 +74,6 @@ public class InfoItemModel implements Parcelable {
         dest.writeString(this.text_content);
         dest.writeList(this.imageUrls);
         dest.writeString(this.time);
+        dest.writeList(this.comments);
     }
 }

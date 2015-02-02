@@ -117,5 +117,19 @@
                     android:text="评论"/>
 
         </LinearLayout>
+
+
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/comment_list"
+                style="@style/match_parent_and_wrap_content"/>
+
+        <LinearLayout
+                android:visibility="gone"
+                android:orientation="vertical"
+                style="@style/match_parent_and_wrap_content_with_padding">
+
+        </LinearLayout>
+
+
     </LinearLayout>
 </android.support.v7.widget.CardView>

@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import com.bainiaohe.dodo.R;
-import com.bainiaohe.dodo.main.fragments.info.model.InfoItem;
+import com.bainiaohe.dodo.main.fragments.info.model.InfoItemModel;
 
 /**
  * info详情页
@@ -22,7 +22,7 @@ public class InfoDetailActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_detail_activity);
 
-        InfoItem infoItem = getIntent().getParcelableExtra(PARAM_NAME);
+        InfoItemModel infoItem = getIntent().getParcelableExtra(PARAM_NAME);
 
         Log.e(TAG, "Param:" + infoItem.name + " " + infoItem.isMarked);
 

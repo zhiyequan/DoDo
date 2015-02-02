@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.bainiaohe.dodo.R;
 import com.bainiaohe.dodo.info_detail.InfoDetailActivity;
-import com.bainiaohe.dodo.main.fragments.info.model.InfoItem;
+import com.bainiaohe.dodo.main.fragments.info.model.InfoItemModel;
 import com.bainiaohe.dodo.main.fragments.info.view_holder.InfoItemViewHolder;
 import com.squareup.picasso.Picasso;
 
@@ -20,7 +20,7 @@ import java.util.List;
 public class InfoDataAdapter extends RecyclerView.Adapter<InfoItemViewHolder> {
     private static final String TAG = "DataAdapter";
 
-    private List<InfoItem> dataSet = null;
+    private List<InfoItemModel> dataSet = null;
     private int dataItemLayout;//每个item的布局id
 
     private Context context = null;
@@ -31,7 +31,7 @@ public class InfoDataAdapter extends RecyclerView.Adapter<InfoItemViewHolder> {
      * @param dataItemLayout 每个条目的布局id
      */
 
-    public InfoDataAdapter(Context context, List<InfoItem> dataSet, int dataItemLayout) {
+    public InfoDataAdapter(Context context, List<InfoItemModel> dataSet, int dataItemLayout) {
         this.context = context;
         this.dataSet = dataSet;
         this.dataItemLayout = dataItemLayout;
@@ -41,7 +41,7 @@ public class InfoDataAdapter extends RecyclerView.Adapter<InfoItemViewHolder> {
      * Create new views (invoked by the layout manager)
      */
     @Override
-    public InfoItemViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public InfoItemViewHolder onCreateViewHolder(ViewGroup viewGroup, int position) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(dataItemLayout, viewGroup, false);
         return new InfoItemViewHolder(view);
     }
@@ -51,7 +51,7 @@ public class InfoDataAdapter extends RecyclerView.Adapter<InfoItemViewHolder> {
      *
      * @param data
      */
-    public void setDataSet(List<InfoItem> data) {
+    public void setDataSet(List<InfoItemModel> data) {
         this.clearData();
         this.dataSet = data;
 
@@ -71,7 +71,7 @@ public class InfoDataAdapter extends RecyclerView.Adapter<InfoItemViewHolder> {
      *
      * @param dataItem
      */
-    public void addDataItem(InfoItem dataItem) {
+    public void addDataItem(InfoItemModel dataItem) {
         this.dataSet.add(dataItem);
     }
 
@@ -79,9 +79,9 @@ public class InfoDataAdapter extends RecyclerView.Adapter<InfoItemViewHolder> {
      * Replace the contents of a view (invoked by the layout manager)
      */
     @Override
-    public void onBindViewHolder(final InfoItemViewHolder infoItemViewHolder, int i) {
+    public void onBindViewHolder(final InfoItemViewHolder infoItemViewHolder, int position) {
 
-        final InfoItem dataItem = dataSet.get(i);
+        final InfoItemModel dataItem = dataSet.get(position);
 
         infoItemViewHolder.name.setText(dataItem.name);
         infoItemViewHolder.time.setText(dataItem.time);
@@ -156,6 +156,22 @@ public class InfoDataAdapter extends RecyclerView.Adapter<InfoItemViewHolder> {
             }
         }
 
+        CommentListAdapter commentListAdapter = new CommentListAdapter(context, R.layout.item_layout_comment);
+        infoItemViewHolder.commentList.setAdapter(commentListAdapter);
+        //TODO 加载评论列表
+        if (dataItem.comments != null) {
+            commentListAdapter.clearData();
+            for (int i = 0; i < dataItem.comments.size(); i++) {
+                commentListAdapter.addData(dataItem.comments.get(i));
+            }
+
+
+            //TODO 换用linear layout
+
+
+        }
+        commentListAdapter.notifyDataSetChanged();
+
         //响应点击事件
         infoItemViewHolder.content.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -186,7 +202,7 @@ public class InfoDataAdapter extends RecyclerView.Adapter<InfoItemViewHolder> {
      *
      * @param infoItem
      */
-    private void jumpToDetailPage(InfoItem infoItem) {
+    private void jumpToDetailPage(InfoItemModel infoItem) {
         Intent intent = new Intent(context, InfoDetailActivity.class);
         //传参
         intent.putExtra(InfoDetailActivity.PARAM_NAME, infoItem);

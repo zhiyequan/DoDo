@@ -24,6 +24,8 @@ public class InfoItemViewHolder extends RecyclerView.ViewHolder {
     public Button shareButton = null;//转发
     public Button commentButton = null;//评论
 
+    public RecyclerView commentList = null;//评论列表
+
     public InfoItemViewHolder(View itemView) {
         super(itemView);
 
@@ -37,5 +39,7 @@ public class InfoItemViewHolder extends RecyclerView.ViewHolder {
         this.imageView3 = (ImageView) itemView.findViewById(R.id.image3);
         this.shareButton = (Button) itemView.findViewById(R.id.share);
         this.commentButton = (Button) itemView.findViewById(R.id.comment);
+        this.commentList = (RecyclerView) itemView.findViewById(R.id.comment_list);
+
     }
 }

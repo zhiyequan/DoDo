@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import com.bainiaohe.dodo.R;
 import com.bainiaohe.dodo.main.fragments.info.adapter.InfoDataAdapter;
 import com.bainiaohe.dodo.main.fragments.info.animator.CustomItemAnimator;
-import com.bainiaohe.dodo.main.fragments.info.model.InfoItem;
+import com.bainiaohe.dodo.main.fragments.info.model.InfoItemModel;
 import com.bainiaohe.dodo.utils.ResponseContants;
 import com.bainiaohe.dodo.utils.URLConstants;
 import com.bainiaohe.dodo.utils.UserService;
@@ -41,7 +41,7 @@ public class InfoFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_info, container, false);
 
-        adapter = new InfoDataAdapter(getActivity(), new ArrayList<InfoItem>(), R.layout.item_layout_info);
+        adapter = new InfoDataAdapter(getActivity(), new ArrayList<InfoItemModel>(), R.layout.item_layout_info);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
@@ -91,7 +91,7 @@ public class InfoFragment extends Fragment {
     private void dummyLoading() {
 
         for (int i = 0; i < 1000; i++) {
-            InfoItem item = new InfoItem();
+            InfoItemModel item = new InfoItemModel();
 
             item.name = "" + i;
             item.time = "just now";
@@ -126,6 +126,8 @@ public class InfoFragment extends Fragment {
 
         Log.e(TAG, "URL: " + url);
 
+        dummyLoading();
+
         //请求数据
         AsyncHttpClient client = new AsyncHttpClient();
 
@@ -134,7 +136,7 @@ public class InfoFragment extends Fragment {
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 Log.e(TAG, "onSuccess " + statusCode);
 
-                dummyLoading();//TODO test code
+                //dummyLoading();//TODO test code
 
                 try {
                     //从byte[]转为JSONObject
@@ -148,7 +150,7 @@ public class InfoFragment extends Fragment {
 
                         //添加数据到adapter
                         if (message.has(ResponseContants.RESPONSE_MESSAGES_ID))//TODO 检验数据完整性
-                            adapter.addDataItem(new InfoItem() {
+                            adapter.addDataItem(new InfoItemModel() {
                                 {
                                     this.name = message.getString(ResponseContants.RESPONSE_MESSAGES_NAME);
                                     this.avatarImage = message.getString(ResponseContants.RESPONSE_MESSAGES_AVATAR);
@@ -169,13 +171,14 @@ public class InfoFragment extends Fragment {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Log.e(TAG, "EXCEPTION");
                 }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 
-                Log.e(TAG, "onFailure");
+                Log.e(TAG, "onFailure:" + statusCode);
             }
 
             @Override

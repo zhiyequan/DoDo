@@ -1,12 +1,123 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              style="@style/match_parent_layout_with_margin"
+              android:paddingLeft="@dimen/activity_horizontal_margin"
+              android:paddingRight="@dimen/activity_horizontal_margin"
+              android:paddingTop="@dimen/activity_vertical_margin"
+              android:paddingBottom="@dimen/activity_vertical_margin"
+              tools:context="com.bainiaohe.dodo.info_detail.InfoDetailActivity"
+              android:orientation="vertical">
+
+
+    <LinearLayout
+            style="@style/match_parent_and_wrap_content"
+            android:orientation="vertical">
+
+        <!--头像、昵称、赞-->
+        <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                tools:context="com.bainiaohe.dodo.info_detail.InfoDetailActivity">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/default_padding">
+            <!--头像-->
+            <ImageView
+                    android:id="@+id/avatar"
+                    style="@style/avatar"
+                    android:src="@drawable/ic_launcher"/>
+
+            <LinearLayout
+                    android:orientation="vertical"
+                    style="@style/wrap_content_layout_with_margin"
+                    android:layout_gravity="center_vertical">
+                <!--昵称-->
+                <TextView
+                        android:id="@+id/name"
+                        style="@style/body_text"
+                        android:layout_gravity="top"
+                        android:text="name"
+                        />
+                <!--发表时间-->
+                <TextView
+                        android:id="@+id/time"
+                        style="@style/caption_text"
+                        android:layout_gravity="bottom"
+                        android:text="time"/>
+            </LinearLayout>
 
 
-</RelativeLayout>
+            <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"/>
+            <!--赞-->
+            <!--TODO 设置图标和大小-->
+            <ImageButton
+                    android:id="@+id/mark"
+                    android:layout_gravity="center_vertical"
+                    style="@style/extreme_small_picture"
+                    android:scaleType="centerInside"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_launcher"/>
+        </LinearLayout>
+
+        <!--正文-->
+        <TextView
+                android:id="@+id/text_content"
+                style="@style/body_text"/>
+
+        <!--图片列表-->
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp">
+
+            <ImageView
+                    android:id="@+id/image1"
+                    style="@style/wrap_content_layout_with_margin"
+                    android:layout_gravity="center_vertical"/>
+
+            <ImageView
+                    android:id="@+id/image2"
+                    style="@style/wrap_content_layout_with_margin"
+                    android:layout_gravity="center_vertical"/>
+
+            <ImageView
+                    android:id="@+id/image3"
+                    style="@style/wrap_content_layout_with_margin"
+                    android:layout_gravity="center_vertical"/>
+
+        </LinearLayout>
+
+        <!--分割线-->
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/dividers"/>
+
+        <!--转发、评论-->
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@android:color/transparent">
+            <!--转发-->
+            <Button
+                    android:id="@+id/share"
+                    style="@style/transparent_button"
+                    android:layout_weight="1"
+                    android:text="转发"/>
+            <!--评论-->
+            <Button
+                    android:id="@+id/comment"
+                    style="@style/orange_button"
+                    android:layout_weight="1"
+                    android:text="评论"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <!--TODO 评论列表-->
+</LinearLayout>
