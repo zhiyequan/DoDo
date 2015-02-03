@@ -44,7 +44,7 @@ public class InfoItemModel implements Parcelable {
         in.readList(this.imageUrls, ClassLoader.getSystemClassLoader());
         this.time = in.readString();
         this.comments = new ArrayList<>();
-        in.readList(this.comments, ClassLoader.getSystemClassLoader());
+        in.readList(this.comments, CommentModel.class.getClassLoader());
     }
 
     public InfoItemModel() {
