@@ -118,13 +118,8 @@
 
         </LinearLayout>
 
-
-        <android.support.v7.widget.RecyclerView
-                android:id="@+id/comment_list"
-                style="@style/match_parent_and_wrap_content"/>
-
         <LinearLayout
-                android:visibility="gone"
+                android:id="@+id/comment_list"
                 android:orientation="vertical"
                 style="@style/match_parent_and_wrap_content_with_padding">
 

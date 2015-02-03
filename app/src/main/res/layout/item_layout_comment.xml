@@ -20,19 +20,27 @@
                 android:orientation="vertical"
                 style="@style/wrap_content_layout_with_margin"
                 android:layout_gravity="center_vertical">
-            <!--昵称-->
-            <TextView
-                    android:id="@+id/name"
-                    style="@style/body_text"
-                    android:layout_gravity="top"
-                    android:text="name"/>
-            <!--发表时间-->
-            <TextView
-                    android:id="@+id/time"
-                    style="@style/caption_text"
-                    android:layout_gravity="bottom"
-                    android:text="time"/>
 
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    style="@style/wrap_content_layout_with_margin">
+                <!--昵称-->
+                <TextView
+                        android:id="@+id/name"
+                        style="@style/body_text"
+                        android:layout_gravity="center_vertical"
+                        android:text="name"/>
+                <!--发表时间-->
+                <TextView
+                        android:id="@+id/time"
+                        style="@style/caption_text"
+                        android:padding="@dimen/default_padding"
+                        android:layout_gravity="center_vertical"
+                        android:text="time"/>
+            </LinearLayout>
+
+            <!--评论内容-->
             <TextView
                     android:id="@+id/content"
                     android:text="CONTENT"

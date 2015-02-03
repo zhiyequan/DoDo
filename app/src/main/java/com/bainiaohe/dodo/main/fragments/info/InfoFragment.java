@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.bainiaohe.dodo.R;
 import com.bainiaohe.dodo.main.fragments.info.adapter.InfoDataAdapter;
 import com.bainiaohe.dodo.main.fragments.info.animator.CustomItemAnimator;
+import com.bainiaohe.dodo.main.fragments.info.model.CommentModel;
 import com.bainiaohe.dodo.main.fragments.info.model.InfoItemModel;
 import com.bainiaohe.dodo.utils.ResponseContants;
 import com.bainiaohe.dodo.utils.URLConstants;
@@ -102,6 +103,16 @@ public class InfoFragment extends Fragment {
             item.imageUrls.add("http://www.baidu.com/img/bdlogo.png");
             item.imageUrls.add("http://square.github.io/picasso/static/sample.png");
             item.imageUrls.add("http://square.github.io/picasso/static/debug.png");
+
+            CommentModel commentModel = new CommentModel();
+            commentModel.content = "CONTENT";
+            commentModel.time = "time";
+            commentModel.name = "name";
+            commentModel.avatar = "http://www.baidu.com/img/bdlogo.png";
+            commentModel.id = "id";
+
+            item.comments = new ArrayList<>();
+            item.comments.add(commentModel);
 
             adapter.addDataItem(item);
         }

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.bainiaohe.dodo.R;
 import com.bainiaohe.dodo.info_detail.InfoDetailActivity;
 import com.bainiaohe.dodo.main.fragments.info.model.InfoItemModel;
+import com.bainiaohe.dodo.main.fragments.info.view.CommentListItem;
 import com.bainiaohe.dodo.main.fragments.info.view_holder.InfoItemViewHolder;
 import com.squareup.picasso.Picasso;
 
@@ -156,21 +157,18 @@ public class InfoDataAdapter extends RecyclerView.Adapter<InfoItemViewHolder> {
             }
         }
 
-        CommentListAdapter commentListAdapter = new CommentListAdapter(context, R.layout.item_layout_comment);
-        infoItemViewHolder.commentList.setAdapter(commentListAdapter);
-        //TODO 加载评论列表
+//        CommentListAdapter commentListAdapter = new CommentListAdapter(context, R.layout.item_layout_comment);
+//        infoItemViewHolder.commentList.setAdapter(commentListAdapter);
+        //加载评论列表
         if (dataItem.comments != null) {
-            commentListAdapter.clearData();
+
             for (int i = 0; i < dataItem.comments.size(); i++) {
-                commentListAdapter.addData(dataItem.comments.get(i));
+                infoItemViewHolder.commentList
+                        .addView(CommentListItem.genView(context, dataItem.comments.get(i)));
             }
 
-
-            //TODO 换用linear layout
-
-
+            infoItemViewHolder.commentList.invalidate();
         }
-        commentListAdapter.notifyDataSetChanged();
 
         //响应点击事件
         infoItemViewHolder.content.setOnClickListener(new View.OnClickListener() {

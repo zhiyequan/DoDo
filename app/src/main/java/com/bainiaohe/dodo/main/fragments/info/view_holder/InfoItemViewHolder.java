@@ -2,10 +2,7 @@ package com.bainiaohe.dodo.main.fragments.info.view_holder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.*;
 import com.bainiaohe.dodo.R;
 
 /**
@@ -24,7 +21,7 @@ public class InfoItemViewHolder extends RecyclerView.ViewHolder {
     public Button shareButton = null;//转发
     public Button commentButton = null;//评论
 
-    public RecyclerView commentList = null;//评论列表
+    public LinearLayout commentList = null;//评论列表
 
     public InfoItemViewHolder(View itemView) {
         super(itemView);
@@ -39,7 +36,7 @@ public class InfoItemViewHolder extends RecyclerView.ViewHolder {
         this.imageView3 = (ImageView) itemView.findViewById(R.id.image3);
         this.shareButton = (Button) itemView.findViewById(R.id.share);
         this.commentButton = (Button) itemView.findViewById(R.id.comment);
-        this.commentList = (RecyclerView) itemView.findViewById(R.id.comment_list);
+        this.commentList = (LinearLayout) itemView.findViewById(R.id.comment_list);
 
     }
 }
