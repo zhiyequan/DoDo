@@ -3,7 +3,9 @@ package com.bainiaohe.dodo.utils;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.bainiaohe.dodo.DoDoContext;
 import com.bainiaohe.dodo.login.LoginActivity;
+import com.bainiaohe.dodo.model.User;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -38,19 +40,11 @@ public class UserService {
     public static String registerErrorMessage;
     public static String userInputError;
 
-    public static void writeMapIntoSp(HashMap<String, String> map) {
-        SharedPreferences.Editor editor = LoginActivity.sharedPreferences.edit();
-        Iterator iterator = map.keySet().iterator();
-        while (iterator.hasNext()) {
-            String key = iterator.next().toString();
-            String value = map.get(key);
-            editor.putString(key, value);
-        }
-
-        editor.commit();
-
+    private static void saveUser(User user){
+        DoDoContext doDoContext=DoDoContext.getInstance();
+        doDoContext.setmSharedPreferences(LoginActivity.sharedPreferences);
+        doDoContext.saveCurrentUser(user);
     }
-
     public static String userLogin(String userphone, String password) {
         String result = null;
         String ret = "登陆成功";
@@ -73,14 +67,14 @@ public class UserService {
                     ret = "success";
                     userId=object.getString("id");
                     String token =object.getString("token");
-                    HashMap map=new HashMap();
-                    map.put("id",userId);
-                    map.put("token",token);
-                    map.put("name",object.getString("name"));
-                    map.put("sex",object.getString("sex"));
-                    map.put("phone",object.getString("phone"));
-                    map.put("email",object.getString("email"));
-                    writeMapIntoSp(map);
+                    User user=new User();
+                    user.setUserId(userId);
+                    user.setToken(token);
+                    user.setName(object.getString("name"));
+                    user.setSex(object.getString("sex"));
+                    user.setPhone(object.getString("phone"));
+                    user.setEmail(object.getString("email"));
+                    saveUser(user);
                 } else
                     ret = "用户名或密码错误";
 
@@ -126,14 +120,14 @@ public class UserService {
                     ret = true;
                     userId = object.getString("id");
                     String token = object.getString("token");
-                    HashMap map = new HashMap();
-                    map.put("id", userId);
-                    map.put("token", token);
-                    map.put("name", object.getString("name"));
-                    map.put("sex", object.getString("sex"));
-                    map.put("phone", object.getString("phone"));
-                    map.put("email", object.getString("email"));
-                    writeMapIntoSp(map);
+                    User user=new User();
+                    user.setUserId(userId);
+                    user.setToken(token);
+                    user.setName(object.getString("name"));
+                    user.setSex(object.getString("sex"));
+                    user.setPhone(object.getString("phone"));
+                    user.setEmail(object.getString("email"));
+                    saveUser(user);
 
                 }
 
@@ -161,9 +155,10 @@ public class UserService {
                 Log.v("UserService", "---" + new String(responseBody));
                 try {
                     userId = new JSONObject(new String(responseBody)).getString("id");
-                    HashMap map=new HashMap();
-                    map.put("id",userId);
-                    writeMapIntoSp(map);
+                    User user=new User();
+                    user.setUserId(userId);
+                    saveUser(user);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -224,9 +219,9 @@ public class UserService {
                 String message = object.getString("message");
                 if (message.equals("success")) {
                     userId = object.getString("id");
-                    HashMap map = new HashMap();
-                    map.put("id", userId);
-                    writeMapIntoSp(map);
+                    User user=new User();
+                    user.setUserId(userId);
+                    saveUser(user);
                     ret = true;
                 } else {
                     registerErrorMessage = object.getString("message");

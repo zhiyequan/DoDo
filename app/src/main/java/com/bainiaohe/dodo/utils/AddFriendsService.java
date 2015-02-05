@@ -9,6 +9,10 @@ import com.loopj.android.http.RequestParams;
  */
 public class AddFriendsService {
 
+    /**
+     * 得到想要添加的好友的信息
+     * @param userId
+     */
     public static void getUserInfo(String userId){
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params=new RequestParams();
