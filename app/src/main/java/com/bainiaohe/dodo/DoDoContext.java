@@ -25,12 +25,10 @@ public class DoDoContext {
     private static DoDoContext instance;
     private Context mContext;
     private SharedPreferences mSharedPreferences;
-
     private List<UserInfo> mUserInfos;
 
     public DoDoContext() {
     }
-
 
     /**
      * 获得一个DoDoContext 实例
@@ -44,6 +42,14 @@ public class DoDoContext {
         }
 
         return instance;
+    }
+
+    public SharedPreferences getmSharedPreferences() {
+        return mSharedPreferences;
+    }
+
+    public void setmSharedPreferences(SharedPreferences mSharedPreferences) {
+        this.mSharedPreferences = mSharedPreferences;
     }
 
     public void init(Context context) {
