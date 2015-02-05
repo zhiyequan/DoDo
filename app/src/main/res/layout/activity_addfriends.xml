@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout style="@style/title_bar">
+
+        <Button
+            android:id="@+id/backset"
+            android:layout_width="36dp"
+            android:layout_height="40dp"
+            android:background="@drawable/backicon"
+            android:singleLine="false"
+            android:textSize="48sp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/set_alltitle"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#FFFFFFFF" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/search_friends_button"
+            style="@style/set_button"
+            android:text="这应该是一个搜索框图标" />
+    </LinearLayout>
+</LinearLayout>

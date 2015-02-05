@@ -8,22 +8,22 @@
     </style>
 
     <style name="match_parent_layout_with_margin" parent="match_parent_layout">
-    <item name="android:layout_margin">@dimen/default_padding</item>
+        <item name="android:layout_margin">@dimen/default_padding</item>
 
     </style>
 
     <style name="wrap_content">
-    <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
     <style name="wrap_content_layout_with_margin" parent="wrap_content">
-    <item name="android:layout_margin">@dimen/default_padding</item>
+        <item name="android:layout_margin">@dimen/default_padding</item>
 
     </style>
 
     <style name="match_parent_and_wrap_content">
-    <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
@@ -33,13 +33,15 @@
 
     <!--Text Styles-->
     <style name="black_text" parent="wrap_content_layout_with_margin">
-    <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="round_black_text">
         <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="white_text" parent="wrap_content_layout_with_margin">
-    <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="headline_text_white" parent="white_text">
@@ -84,14 +86,15 @@
     </style>
 
     <!--Button Styles-->
-    <style name="button" parent="button_text">
-    </style>
+    <style name="button" parent="button_text"></style>
+
     <style name="round_button_text" parent="round_black_text">
         <item name="android:textSize">@dimen/button_text_size</item>
         <item name="android:textStyle">bold</item>
     </style>
+
     <style name="set_button" parent="match_parent_and_wrap_content_with_padding">
-    <item name="android:background">#FFFFFFFF</item>
+        <item name="android:background">#FFFFFFFF</item>
         <item name="android:textColor">#FF000000</item>
         <item name="android:gravity">left|center_vertical</item>
         <item name="android:paddingLeft">20dp</item>
@@ -100,8 +103,8 @@
     <style name="transparent_button" parent="button">
         <item name="android:background">@android:color/transparent</item>
     </style>
-    <style name="round_button" parent="round_button_text">
-    </style>
+
+    <style name="round_button" parent="round_button_text"></style>
 
     <style name="transparent_button_wide" parent="transparent_button">
         <item name="android:layout_width">match_parent</item>
@@ -143,8 +146,7 @@
         <item name="android:layout_height">@dimen/small_picture_size</item>
     </style>
 
-    <style name="avatar" parent="small_picture">
-    </style>
+    <style name="avatar" parent="small_picture"></style>
 
     <style name="medium_picture">
         <item name="android:layout_width">@dimen/medium_picture_size</item>
@@ -152,7 +154,7 @@
     </style>
 
     <!--Themes-->
-    <style name="AppTheme" parent="BaseTheme"/>
+    <style name="AppTheme" parent="BaseTheme" />
 
     <style name="BaseTheme" parent="android:Theme.Holo.Light.NoActionBar">
 
