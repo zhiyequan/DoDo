@@ -1,6 +1,7 @@
 package com.bainiaohe.dodo;
 
 import android.app.Application;
+
 import io.rong.imkit.RongIM;
 
 /**
@@ -11,6 +12,9 @@ public class DoDoApplication extends Application {
     //APP_KEY from Rong IM
     public static String RONG_APP_KEY = "bmdehs6pdv7ds";
 
+    //全局使用一次
+    private DoDoContext mDoDoContext;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -20,6 +24,9 @@ public class DoDoApplication extends Application {
          * 第三个参数是自定义的push图标
          */
         RongIM.init(this);
+
+        mDoDoContext = DoDoContext.getInstance();
+        mDoDoContext.init(this);
 
     }
 }

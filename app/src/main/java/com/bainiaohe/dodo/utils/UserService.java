@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -37,18 +36,21 @@ public class UserService {
     public static String userId;
     public static boolean isNew;
     public static String registerErrorMessage;
-    public static void writeMapIntoSp(HashMap<String,String> map){
-        SharedPreferences.Editor editor= LoginActivity.sharedPreferences.edit();
+    public static String userInputError;
+
+    public static void writeMapIntoSp(HashMap<String, String> map) {
+        SharedPreferences.Editor editor = LoginActivity.sharedPreferences.edit();
         Iterator iterator = map.keySet().iterator();
-        while(iterator.hasNext()) {
-            String key=iterator.next().toString();
-            String value=map.get(key);
-            editor.putString(key,value);
+        while (iterator.hasNext()) {
+            String key = iterator.next().toString();
+            String value = map.get(key);
+            editor.putString(key, value);
         }
 
         editor.commit();
 
     }
+
     public static String userLogin(String userphone, String password) {
         String result = null;
         String ret = "登陆成功";
@@ -66,7 +68,7 @@ public class UserService {
                 result = EntityUtils.toString(response.getEntity());
                 JSONObject object = new JSONObject(result);
                 int status = object.getInt("status");
-                Log.v("login","---status: "+status);
+                Log.v("login", "---status: " + status);
                 if (status == 0) {
                     ret = "success";
                     userId=object.getString("id");
@@ -79,8 +81,7 @@ public class UserService {
                     map.put("phone",object.getString("phone"));
                     map.put("email",object.getString("email"));
                     writeMapIntoSp(map);
-                }
-                else
+                } else
                     ret = "用户名或密码错误";
 
 
@@ -89,7 +90,7 @@ public class UserService {
             }
 
         } catch (Exception e) {
-            Log.v("login",e.toString());
+            Log.v("login", e.toString());
             e.printStackTrace();
         }
         return ret;
@@ -123,16 +124,17 @@ public class UserService {
                     ret = false;
                 else {
                     ret = true;
-                    userId=object.getString("id");
-                    String token =object.getString("token");
-                    HashMap map=new HashMap();
-                    map.put("id",userId);
-                    map.put("token",token);
-                    map.put("name",object.getString("name"));
-                    map.put("sex",object.getString("sex"));
-                    map.put("phone",object.getString("phone"));
-                    map.put("email",object.getString("email"));
+                    userId = object.getString("id");
+                    String token = object.getString("token");
+                    HashMap map = new HashMap();
+                    map.put("id", userId);
+                    map.put("token", token);
+                    map.put("name", object.getString("name"));
+                    map.put("sex", object.getString("sex"));
+                    map.put("phone", object.getString("phone"));
+                    map.put("email", object.getString("email"));
                     writeMapIntoSp(map);
+
                 }
 
 
@@ -156,9 +158,9 @@ public class UserService {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 //第三方用户注册成功
-                Log.v("UserService","---"+new String(responseBody));
+                Log.v("UserService", "---" + new String(responseBody));
                 try {
-                    userId=new JSONObject(new String(responseBody)).getString("id");
+                    userId = new JSONObject(new String(responseBody)).getString("id");
                     HashMap map=new HashMap();
                     map.put("id",userId);
                     writeMapIntoSp(map);
@@ -169,7 +171,7 @@ public class UserService {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Log.v("UserService","failed");
+                Log.v("UserService", "failed");
             }
         });
     }
@@ -178,22 +180,23 @@ public class UserService {
      * 本平台的用户和其他平台的用户
      * 本平台传两个参数：phone pw
      * 其他平台的传三个参数 phone plat_type plat_id ,目前第三方平台的注册使用的是registerByAsynchronous
+     *
      * @param phone
      * @param p
      * @return
      */
-    public static boolean userRegister(String phone,  String... p) {
+    public static boolean userRegister(String phone, String... p) {
         boolean ret = false;
-        String pw="";
-        String plat_id="";
-        String plat_type="0";
-        if (p.length==1){
-           //本平台的用户的注册
-            pw=p[0];
-        }else{
+        String pw = "";
+        String plat_id = "";
+        String plat_type = "0";
+        if (p.length == 1) {
+            //本平台的用户的注册
+            pw = p[0];
+        } else {
             //其他平台的用户
-            plat_type=p[0];
-            plat_id=p[1];
+            plat_type = p[0];
+            plat_id = p[1];
         }
         Log.v("UserService", "phone  " + phone);
         Log.v("UserService", "pw  " + pw);
@@ -221,8 +224,8 @@ public class UserService {
                 String message = object.getString("message");
                 if (message.equals("success")) {
                     userId = object.getString("id");
-                    HashMap map=new HashMap();
-                    map.put("id",userId);
+                    HashMap map = new HashMap();
+                    map.put("id", userId);
                     writeMapIntoSp(map);
                     ret = true;
                 } else {
@@ -242,8 +245,6 @@ public class UserService {
         }
         return ret;
     }
-
-    public static String userInputError;
 
     public static boolean phonePatternMatch(String str) {
         Pattern pattern = Pattern.compile("[0-9]{11}", Pattern.CASE_INSENSITIVE);
