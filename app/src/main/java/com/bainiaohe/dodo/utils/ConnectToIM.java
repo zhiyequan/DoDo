@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
+
 import com.bainiaohe.dodo.main.MainActivity;
+
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 
@@ -32,6 +34,7 @@ public class ConnectToIM {
                     RongUtil ru = new RongUtil();
                     ru.setFriends();
                     ru.setUserInfo();
+                  
                     context.startActivity(new Intent(context, MainActivity.class));
                 }
 
