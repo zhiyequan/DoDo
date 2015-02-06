@@ -1,0 +1,45 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              tools:context="com.bainiaohe.dodo.main.fragments.internship.InternshipFragment">
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/intern_location"
+            android:hint="@string/internship_location"
+            app:floatingLabel="highlight"
+            app:floatingLabelText="@string/internship_location"
+            app:floatingLabelTextSize="@dimen/caption_text_size"
+            style="@style/material_eidttext"/>
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/intern_mentor"
+            android:hint="@string/intern_mentor"
+            app:floatingLabel="highlight"
+            app:floatingLabelText="@string/intern_mentor"
+            app:floatingLabelTextSize="@dimen/caption_text_size"
+            style="@style/material_eidttext"/>
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/school_teacher"
+            android:hint="@string/school_teacher"
+            app:floatingLabel="highlight"
+            app:floatingLabelText="@string/school_teacher"
+            app:floatingLabelTextSize="@dimen/caption_text_size"
+            style="@style/material_eidttext"/>
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/intern_report"
+            android:hint="@string/internship_report"
+            app:floatingLabel="highlight"
+            app:floatingLabelText="@string/internship_report"
+            app:floatingLabelTextSize="@dimen/caption_text_size"
+            style="@style/material_eidttext"/>
+
+    <Button
+            android:id="@+id/submit"
+            android:text="@string/submit_report"
+            style="@style/transparent_button_wide"/>
+</LinearLayout>
