@@ -42,7 +42,6 @@ public class UserService {
 
     private static void saveUser(User user){
         DoDoContext doDoContext=DoDoContext.getInstance();
-        doDoContext.setmSharedPreferences(LoginActivity.sharedPreferences);
         doDoContext.saveCurrentUser(user);
     }
     public static String userLogin(String userphone, String password) {
