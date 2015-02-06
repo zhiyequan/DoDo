@@ -151,7 +151,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
             } else {
                 Toast.makeText(this, UserService.userInputError, Toast.LENGTH_SHORT).show();
             }
-            view.setEnabled(false);
+
 
         } else {
             //click  other platform button
