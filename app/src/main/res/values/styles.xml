@@ -94,7 +94,7 @@
     </style>
 
     <!--Button Styles-->
-    <style name="button" parent="button_text"></style>
+    <style name="button" parent="button_text"/>
 
     <style name="round_button_text" parent="round_black_text">
         <item name="android:textSize">@dimen/button_text_size</item>
@@ -123,6 +123,10 @@
 
     <style name="transparent_button_wide" parent="transparent_button">
         <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="transparent_button_wide_white" parent="transparent_button_wide">
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="orange_button" parent="transparent_button">

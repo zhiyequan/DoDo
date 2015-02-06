@@ -38,8 +38,11 @@
             app:floatingLabelTextSize="@dimen/caption_text_size"
             style="@style/material_eidttext"/>
 
-    <Button
+    <com.dd.CircularProgressButton
             android:id="@+id/submit"
-            android:text="@string/submit_report"
-            style="@style/transparent_button_wide"/>
+            app:cpb_textIdle="@string/submit_report"
+            app:cpb_textComplete="@string/submit_complete"
+            app:cpb_textError="@string/submit_error"
+            style="@style/transparent_button_wide_white"
+            />
 </LinearLayout>

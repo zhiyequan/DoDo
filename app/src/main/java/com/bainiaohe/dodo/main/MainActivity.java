@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.bainiaohe.dodo.R;
 import com.bainiaohe.dodo.main.fragments.friends.FriendsFragment;
-import com.bainiaohe.dodo.main.fragments.info.InfoFragment;
+import com.bainiaohe.dodo.main.fragments.internship.InternshipFragment;
 import com.bainiaohe.dodo.main.fragments.messages.MessageFragment;
 import com.bainiaohe.dodo.main.fragments.personal_center.PersonalCenterFragment;
 import com.bainiaohe.dodo.publish_info.PublishInfoActivity;
@@ -67,7 +67,7 @@ public class MainActivity extends FragmentActivity {
         ((LinearLayout) titleBar.findViewById(R.id.action_container)).addView(publishInfoButton);
 
 
-        this.fragments.add(new InfoFragment());
+        this.fragments.add(new InternshipFragment());
         this.fragments.add(new MessageFragment());
         this.fragments.add(new FriendsFragment());
         this.fragments.add(new PersonalCenterFragment());

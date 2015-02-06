@@ -5,6 +5,8 @@
     <string name="school_teacher">学校负责人</string>
     <string name="internship_report">实习报告</string>
     <string name="submit_report">提交实习报告</string>
+    <string name="submit_complete">完成</string>
+    <string name="submit_error">提交失败</string>
     <string name="punch_card">签到</string>
 
 </resources>
