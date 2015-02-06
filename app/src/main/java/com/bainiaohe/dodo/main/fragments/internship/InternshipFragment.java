@@ -15,7 +15,7 @@ public class InternshipFragment extends Fragment {
 
     private MaterialEditText internship_location = null;
     private MaterialEditText internship_mentor = null;
-    private MaterialEditText shcool_teacher = null;
+    private MaterialEditText school_teacher = null;
     private MaterialEditText internship_report = null;
     private CircularProgressButton submitButton = null;
 
@@ -29,18 +29,17 @@ public class InternshipFragment extends Fragment {
         return view;
     }
 
-
     /**
      * 初始化界面
      */
     private void initViews(View view) {
         //todo set title bar 设置签到
 
-        //TODO
-        view.findViewById(R.id.intern_location);
-
+        //TODO 自动获取位置  &&  自动完成
+        internship_location = (MaterialEditText) view.findViewById(R.id.intern_location);
+        internship_mentor = (MaterialEditText) view.findViewById(R.id.intern_mentor);
+        school_teacher = (MaterialEditText) view.findViewById(R.id.school_teacher);
         internship_report = (MaterialEditText) view.findViewById(R.id.intern_report);
-
 
         submitButton = (CircularProgressButton) view.findViewById(R.id.submit);
         submitButton.setIndeterminateProgressMode(true);
@@ -51,16 +50,15 @@ public class InternshipFragment extends Fragment {
                 if (submitButton.getProgress() == -1) {
                     submitButton.setProgress(0);
                 } else if (submitButton.getProgress() == 0) {
-                    //TODO 发送
+                    //TODO 发送数据(点击事件的处理逻辑可能需要调整)
                     submitButton.setProgress(50);
                 } else if (submitButton.getProgress() == 100) {
                     submitButton.setProgress(0);
                 } else
                     submitButton.setProgress(100);
-
             }
         });
-
     }
+
 
 }
