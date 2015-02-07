@@ -2,12 +2,17 @@ package com.bainiaohe.dodo.main.fragments.internship;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.util.Log;
+import android.view.*;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.bainiaohe.dodo.R;
 import com.dd.CircularProgressButton;
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.squareup.timessquare.CalendarPickerView;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class InternshipFragment extends Fragment {
 
@@ -22,6 +27,7 @@ public class InternshipFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        setHasOptionsMenu(true);//否则不执行onCreateOptionsMenu
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_internship, container, false);
         initViews(view);
@@ -60,5 +66,54 @@ public class InternshipFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();//清除activity中其他的menu item
+        inflater.inflate(R.menu.menu_internship, menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.punch_card) {
+
+            View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.view_calendar, null);
+
+            initCalendar((CalendarPickerView) contentView.findViewById(R.id.calendar_view));
+
+            new MaterialDialog.Builder(getActivity())
+                    .title("您已连续签到10天")//todo 引用res，并从服务器加载数据
+                    .customView(contentView, true)
+                    .show();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * 从服务器获取数据，初始化签到日历
+     *
+     * @param calendarPickerView
+     */
+    private void initCalendar(CalendarPickerView calendarPickerView) {
+        //TODO dummy implementation
+
+        Date today = new Date();
+        Log.e(TAG, "today:" + today);
+
+        Calendar nextYear = Calendar.getInstance();
+        nextYear.add(Calendar.YEAR, 1);
+
+        calendarPickerView.init(today, nextYear.getTime())
+                .inMode(CalendarPickerView.SelectionMode.RANGE);
+
+
+        ArrayList<Date> selectedDates = new ArrayList<>(10);
+        for (int i = 0; i < 10; i++) {
+            Calendar temp = Calendar.getInstance();
+            temp.add(Calendar.DATE, i);
+            selectedDates.add(temp.getTime());
+        }
+
+        calendarPickerView.highlightDates(selectedDates);
+    }
 }

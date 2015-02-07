@@ -4,9 +4,10 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.bainiaohe.dodo.R;
@@ -19,7 +20,7 @@ import com.bainiaohe.dodo.publish_info.PublishInfoActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends ActionBarActivity {
 
     private static final String TAG = "MainActivity";
 
@@ -51,22 +52,6 @@ public class MainActivity extends FragmentActivity {
      * onCreate时初始化
      */
     private void init() {
-
-        //设置header bar
-        titleBar = (LinearLayout) findViewById(R.id.title_bar);
-//        ((ImageView) (titleBar.findViewById(R.id.back))).setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher));
-        ((TextView) titleBar.findViewById(R.id.title)).setText(getText(R.string.app_name));
-        ImageView publishInfoButton = new ImageView(this, null, R.style.extreme_small_picture);
-        publishInfoButton.setImageDrawable(getResources().getDrawable(R.drawable.add_photo));
-        publishInfoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, PublishInfoActivity.class));//启动 发表info 页面
-            }
-        });
-        ((LinearLayout) titleBar.findViewById(R.id.action_container)).addView(publishInfoButton);
-
-
         this.fragments.add(new InternshipFragment());
         this.fragments.add(new MessageFragment());
         this.fragments.add(new FriendsFragment());
@@ -135,10 +120,25 @@ public class MainActivity extends FragmentActivity {
 
     }
 
-
     @Override
     public void onBackPressed() {
         finish();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.publish_info) {
+            startActivity(new Intent(MainActivity.this, PublishInfoActivity.class));//启动 发表info 页面
+
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
 

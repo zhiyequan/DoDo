@@ -6,10 +6,6 @@
         android:background="@color/primary_background_color"
         android:orientation="vertical">
 
-    <include
-            android:id="@+id/title_bar"
-            layout="@layout/title_bar"/>
-
     <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"

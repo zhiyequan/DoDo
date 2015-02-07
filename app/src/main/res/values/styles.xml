@@ -164,7 +164,7 @@
         <item name="android:layout_height">@dimen/small_picture_size</item>
     </style>
 
-    <style name="avatar" parent="small_picture"></style>
+    <style name="avatar" parent="small_picture"/>
 
     <style name="medium_picture">
         <item name="android:layout_width">@dimen/medium_picture_size</item>
@@ -174,7 +174,7 @@
     <!--Themes-->
     <style name="AppTheme" parent="BaseTheme"/>
 
-    <style name="BaseTheme" parent="android:Theme.Holo.Light.NoActionBar">
+    <style name="BaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 
         <!-- ...and here we setting appcompat’s color theming attrs -->
         <item name="colorPrimary">@color/theme_default_primary</item>
