@@ -115,5 +115,13 @@ public class InternshipFragment extends Fragment {
         }
 
         calendarPickerView.highlightDates(selectedDates);
+
+        //截获点击事件，不再继续响应
+        calendarPickerView.setCellClickInterceptor(new CalendarPickerView.CellClickInterceptor() {
+            @Override
+            public boolean onCellClicked(Date date) {
+                return true;
+            }
+        });
     }
 }
