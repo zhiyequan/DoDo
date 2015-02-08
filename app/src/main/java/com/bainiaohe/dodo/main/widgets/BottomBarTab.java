@@ -14,20 +14,9 @@ import com.bainiaohe.dodo.R;
  */
 public class BottomBarTab {
 
-    private View view = null;
-
     /**
-     * @param context
-     * @param image   selector res id
-     * @param text    text res id
-     */
-    public BottomBarTab(Context context, int image, int text) {
-        this.view = LayoutInflater.from(context).inflate(R.layout.widget_bottom_bar_tab, null);
-        ((ImageView) this.view.findViewById(R.id.tab_image)).setImageResource(image);//设置图标
-        ((TextView) this.view.findViewById(R.id.tab_text)).setText(context.getResources().getText(text));//设置说明文字
-    }
-
-    /**
+     * 根据image和text生成一个tab
+     *
      * @param context
      * @param image   selector res id
      * @param text    text res id
@@ -40,16 +29,6 @@ public class BottomBarTab {
         ((ImageView) tab.findViewById(R.id.tab_image)).setImageResource(image);//设置图标
         ((TextView) tab.findViewById(R.id.tab_text)).setText(context.getResources().getText(text));//设置说明文字
         return tab;
-    }
-
-    /**
-     * 根据是否选中调整图片和文字颜色
-     *
-     * @param selected
-     */
-    public void setSelected(boolean selected) {
-        this.view.findViewById(R.id.tab_image).setSelected(selected);
-        this.view.findViewById(R.id.tab_text).setSelected(selected);
     }
 
 }
