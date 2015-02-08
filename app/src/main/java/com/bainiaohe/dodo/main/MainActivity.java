@@ -5,16 +5,18 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import com.bainiaohe.dodo.R;
 import com.bainiaohe.dodo.main.fragments.friends.FriendsFragment;
+import com.bainiaohe.dodo.main.fragments.info.InfoFragment;
 import com.bainiaohe.dodo.main.fragments.internship.InternshipFragment;
 import com.bainiaohe.dodo.main.fragments.messages.MessageFragment;
 import com.bainiaohe.dodo.main.fragments.personal_center.PersonalCenterFragment;
+import com.bainiaohe.dodo.main.widgets.BottomBarTab;
 import com.bainiaohe.dodo.publish_info.PublishInfoActivity;
 
 import java.util.ArrayList;
@@ -24,15 +26,15 @@ public class MainActivity extends ActionBarActivity {
 
     private static final String TAG = "MainActivity";
 
-    private LinearLayout titleBar = null;
-
     /**
      * Fragments
      */
     private List<Fragment> fragments = new ArrayList<Fragment>(4);
 
-    private ArrayList<Integer> tabs = new ArrayList<Integer>(4);
-    private ArrayList<Integer> tabTexts = new ArrayList<Integer>(4);
+    /**
+     * Bottom Bar
+     */
+    private LinearLayout bottomBar = null;
 
     /**
      * Called when the activity is first created.
@@ -52,53 +54,61 @@ public class MainActivity extends ActionBarActivity {
      * onCreate时初始化
      */
     private void init() {
+        setupBottomBar();
+
+        setupFragments();
+
+        //默认选中第0个
+        onTabSelected(bottomBar.getChildAt(0));
+    }
+
+    /**
+     * 设置bottom bar
+     */
+    private void setupBottomBar() {
+        bottomBar = (LinearLayout) findViewById(R.id.main_bottom_bar);
+
+        bottomBar.addView(BottomBarTab.genTab(this, R.drawable.tab_info, R.string.tab_internship));
+        bottomBar.addView(BottomBarTab.genTab(this, R.drawable.tab_info, R.string.tab_info));
+        bottomBar.addView(BottomBarTab.genTab(this, R.drawable.tab_message, R.string.tab_messages));
+        bottomBar.addView(BottomBarTab.genTab(this, R.drawable.tab_friends, R.string.tab_friends));
+        bottomBar.addView(BottomBarTab.genTab(this, R.drawable.tab_personal_center, R.string.tab_personal_center));
+    }
+
+    /**
+     * 添加fragments
+     */
+    private void setupFragments() {
+        //Setup Fragments
         this.fragments.add(new InternshipFragment());
+        this.fragments.add(new InfoFragment());
         this.fragments.add(new MessageFragment());
         this.fragments.add(new FriendsFragment());
         this.fragments.add(new PersonalCenterFragment());
-
-        this.tabs.add(R.id.tab_info);
-        this.tabs.add(R.id.tab_message);
-        this.tabs.add(R.id.tab_friends);
-        this.tabs.add(R.id.tab_personal_center);
-
-        this.tabTexts.add(R.id.info_textView);
-        this.tabTexts.add(R.id.message_textView);
-        this.tabTexts.add(R.id.friends_textView);
-        this.tabTexts.add(R.id.personal_center_textView);
-
-        onTabSelected(0);
-    }
-
-
-    /**
-     * 点击tab时调用
-     *
-     * @param v
-     */
-    public void onTabClick(View v) {
-        onTabSelected(tabs.indexOf(v.getId()));
     }
 
     /**
      * 当页面被选中时调用
      * 在xml中绑定点击事件
      *
-     * @param tabIndex
+     * @param view
      */
-    private void onTabSelected(int tabIndex) {
-        for (int i = 0; i < tabs.size(); i++) {
-            if (i != tabIndex) {
-                findViewById(tabs.get(i)).setSelected(false);
-                ((TextView) findViewById(tabTexts.get(i))).setTextColor(getResources().getColor(R.color.default_text_color));
-            }
-        }
-        if (tabIndex >= 0 && tabIndex < tabs.size()) {
-            findViewById(tabs.get(tabIndex)).setSelected(true);
-            ((TextView) findViewById(tabTexts.get(tabIndex))).setTextColor(getResources().getColor(R.color.blue));
+    public void onTabSelected(View view) {
+
+        //调整tab颜色
+        view.setSelected(true);
+        int tabIndex = 0;
+        for (int i = 0; i < bottomBar.getChildCount(); i++) {
+            if (bottomBar.getChildAt(i) != view) {
+                bottomBar.getChildAt(i).setSelected(false);
+            } else
+                tabIndex = i;
+
         }
 
-        //set fragment
+        Log.e(TAG, "tab index = " + tabIndex);
+
+        //Set Fragment
         android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 //        transaction.replace(R.id.fragment_container, this.fragments.get(tabIndex));
 //        transaction.addToBackStack(null);
@@ -117,7 +127,6 @@ public class MainActivity extends ActionBarActivity {
             transaction.add(R.id.fragment_container, this.fragments.get(tabIndex));
 
         transaction.commit();
-
     }
 
     @Override
