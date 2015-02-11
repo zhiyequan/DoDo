@@ -170,14 +170,15 @@ public class InfoDataAdapter extends RecyclerView.Adapter<InfoItemViewHolder> {
             infoItemViewHolder.commentList.invalidate();
         }
 
-        //响应点击事件
-        infoItemViewHolder.content.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //跳转到详情页
-                jumpToDetailPage(dataItem);
-            }
-        });
+
+//        //响应点击事件
+//        infoItemViewHolder.content.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //跳转到详情页
+//                jumpToDetailPage(dataItem);
+//            }
+//        });
 
         infoItemViewHolder.shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -186,13 +187,14 @@ public class InfoDataAdapter extends RecyclerView.Adapter<InfoItemViewHolder> {
             }
         });
 
-        infoItemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //跳转到详情页,同content点击事件
-                jumpToDetailPage(dataItem);
-            }
-        });
+
+//        infoItemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //跳转到详情页,同content点击事件
+//                jumpToDetailPage(dataItem);
+//            }
+//        });
     }
 
     /**
