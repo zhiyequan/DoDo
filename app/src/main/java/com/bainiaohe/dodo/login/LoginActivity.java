@@ -88,6 +88,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
             //TODO:进入系统
             String phone = sharedPreferences.getString("phone", "");
             connectToIM.connectToIM();
+            LoginActivity.this.finish();
         }
 
 
@@ -273,6 +274,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
                 //用户注册过
                 //用户ID
                 connectToIM.connectToIM();
+                LoginActivity.this.finish();
 
             } else {
                 //用户没注册过，进入第三方注册流程
@@ -291,6 +293,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
 //                            UserService.userRegister(phone,Integer.toString(otherplatformType),otherplatformId); 不能在主线程中使用网络操作
                             UserService.registerByAsynchronous(phone,Integer.toString(otherplatformType),otherplatformId);
                             connectToIM.connectToIM();
+                            LoginActivity.this.finish();
                         }
                     }
                 });
@@ -362,6 +365,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
                 edit.putString("pw", pw);
                 //注意等登陆成功之后才能进入聊天
                 connectToIM.connectToIM();
+                LoginActivity.this.finish();
             } else {
                 edit.putBoolean("ischecked", false);
             }
