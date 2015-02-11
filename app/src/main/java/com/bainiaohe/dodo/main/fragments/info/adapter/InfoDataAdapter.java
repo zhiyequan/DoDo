@@ -7,12 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.bainiaohe.dodo.R;
+import com.bainiaohe.dodo.image_viewer.ImageViewerActivity;
 import com.bainiaohe.dodo.info_detail.InfoDetailActivity;
 import com.bainiaohe.dodo.main.fragments.info.model.InfoItemModel;
 import com.bainiaohe.dodo.main.fragments.info.view.CommentListItem;
 import com.bainiaohe.dodo.main.fragments.info.view_holder.InfoItemViewHolder;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -123,7 +125,8 @@ public class InfoDataAdapter extends RecyclerView.Adapter<InfoItemViewHolder> {
                 infoItemViewHolder.imageView1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //TODO 响应点击事件
+
+                        showImageViewer(dataItem.imageUrls, 0);
                     }
                 });
             }
@@ -137,7 +140,8 @@ public class InfoDataAdapter extends RecyclerView.Adapter<InfoItemViewHolder> {
                 infoItemViewHolder.imageView2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //todo
+
+                        showImageViewer(dataItem.imageUrls, 1);
                     }
                 });
             }
@@ -151,7 +155,8 @@ public class InfoDataAdapter extends RecyclerView.Adapter<InfoItemViewHolder> {
                 infoItemViewHolder.imageView3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //TODO
+
+                        showImageViewer(dataItem.imageUrls, 2);
                     }
                 });
             }
@@ -195,6 +200,19 @@ public class InfoDataAdapter extends RecyclerView.Adapter<InfoItemViewHolder> {
 //                jumpToDetailPage(dataItem);
 //            }
 //        });
+    }
+
+    /**
+     * 显示大图
+     *
+     * @param imageUrls
+     * @param startPosition
+     */
+    private void showImageViewer(ArrayList<String> imageUrls, int startPosition) {
+        Intent intent = new Intent(context, ImageViewerActivity.class);
+        intent.putStringArrayListExtra(ImageViewerActivity.PARAM_IMAGE_URLS, imageUrls);
+        intent.putExtra(ImageViewerActivity.PARAM_SELECTED_IMAGE_INDEX, startPosition);
+        context.startActivity(intent);
     }
 
     /**
