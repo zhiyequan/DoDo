@@ -15,7 +15,7 @@
             android:layout_height="60dp" />
 
         <TextView
-            android:id="@+id/person_name"
+            android:id="@+id/person_nickname"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_toRightOf="@id/person_avatar" />
@@ -24,8 +24,8 @@
             android:id="@+id/person_account"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:layout_alignLeft="@id/person_name"
-            android:layout_below="@id/person_name" />
+            android:layout_alignLeft="@id/person_nickname"
+            android:layout_below="@id/person_nickname" />
     </RelativeLayout>
 
     <LinearLayout
