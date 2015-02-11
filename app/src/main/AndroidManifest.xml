@@ -64,11 +64,14 @@
                 />
         <activity
                 android:name=".info_detail.InfoDetailActivity"
-                android:label="@string/title_activity_info_detail_activity"></activity>
+                android:label="@string/title_activity_info_detail_activity"/>
         <activity
                 android:name=".publish_info.PublishInfoActivity"
-                android:label="@string/title_activity_publish_info">
-
+                android:label="@string/title_activity_publish_info"
+                android:parentActivityName=".main.MainActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.bainiaohe.dodo.main.MainActivity"/>
         </activity>
         <activity
                 android:name=".setting.SettingActivity"

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_activity_publish_info">发状态</string>
+
+    <string name="publish_info_helper_text">说点什么吧…</string>
+    <string name="publish_succeed">发表成功</string>
+    <string name="publish_failed">发表失败，请检查网络设置</string>
+    <string name="photo_count_limited">最多只能上传3张照片</string>
+</resources>

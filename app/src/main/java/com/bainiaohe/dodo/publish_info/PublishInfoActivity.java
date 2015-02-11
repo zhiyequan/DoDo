@@ -1,14 +1,15 @@
 package com.bainiaohe.dodo.publish_info;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -26,14 +27,12 @@ import java.util.ArrayList;
 /**
  * 发布info 页面
  */
-public class PublishInfoActivity extends Activity {
+public class PublishInfoActivity extends ActionBarActivity {
 
     private static final int PICK_PICTURE_RESULT_CODE = 20150129;
     private static final String TAG = "PublishInfoActivity";
     //输入框
     private EditText inputText = null;
-    //提交按钮
-    private Button submitButton = null;
 
     /**
      * 用于标记从图库中选完图片后该把图片加载到哪个image view
@@ -84,7 +83,6 @@ public class PublishInfoActivity extends Activity {
      */
     private void initViews() {
         inputText = (EditText) findViewById(R.id.inputText);
-        submitButton = (Button) findViewById(R.id.submit);
 
         photoPlaceHolders[0] = (ImageView) findViewById(R.id.photo1);
         photoPlaceHolders[1] = (ImageView) findViewById(R.id.photo2);
@@ -100,47 +98,6 @@ public class PublishInfoActivity extends Activity {
                 }
             });
         }
-
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //发表
-                String text = inputText.getText().toString();
-
-                RequestParams params = new RequestParams();
-
-                params.put("id", UserService.userId);
-                params.put("message", text);
-
-                //todo 上传图片
-                for (int i = 0; i < selectedPhotoPaths.size(); i++) {
-                    Log.e(TAG, "path:" + selectedPhotoPaths.get(i));
-                    params.add("images", selectedPhotoPaths.get(i));
-                }
-
-
-//                params.put("images", images);//TODO 上传图片
-
-                Log.e(TAG, "Params:" + params);
-
-                AsyncHttpClient client = new AsyncHttpClient();
-
-                client.post(URLConstants.POST_INFO, params, new AsyncHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                        Log.e(TAG, "success:" + statusCode);
-                        Toast.makeText(PublishInfoActivity.this, R.string.publish_succeed, Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                        Toast.makeText(PublishInfoActivity.this, R.string.publish_succeed, Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-            }
-        });
     }
 
     /**
@@ -152,5 +109,61 @@ public class PublishInfoActivity extends Activity {
         startActivityForResult(intent, PICK_PICTURE_RESULT_CODE);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_publish_info, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.publish_info) {
+            //todo 发表状态
+            publishInfo();
+
+            finish();//TODO 向main activity中插入新发布的状态
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * 发表状态
+     */
+    private void publishInfo() {
+        //发表
+        String text = inputText.getText().toString();
+
+        RequestParams params = new RequestParams();
+
+        params.put("id", UserService.userId);
+        params.put("message", text);
+
+        //todo 上传图片
+        for (int i = 0; i < selectedPhotoPaths.size(); i++) {
+            Log.e(TAG, "path:" + selectedPhotoPaths.get(i));
+            params.add("images", selectedPhotoPaths.get(i));
+        }
+
+
+//                params.put("images", images);//TODO 上传图片
+
+        Log.e(TAG, "Params:" + params);
+
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        client.post(URLConstants.POST_INFO, params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                Log.e(TAG, "success:" + statusCode);
+                Toast.makeText(PublishInfoActivity.this, R.string.publish_succeed, Toast.LENGTH_SHORT).show();
+                finish();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Toast.makeText(PublishInfoActivity.this, R.string.publish_succeed, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }
