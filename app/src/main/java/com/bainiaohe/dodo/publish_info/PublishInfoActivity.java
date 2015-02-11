@@ -29,7 +29,7 @@ import java.util.ArrayList;
  */
 public class PublishInfoActivity extends ActionBarActivity {
 
-    private static final int PICK_PICTURE_RESULT_CODE = 20150129;
+    private static final int PICK_PICTURE_RESULT_CODE = 1155;
     private static final String TAG = "PublishInfoActivity";
     //输入框
     private EditText inputText = null;
