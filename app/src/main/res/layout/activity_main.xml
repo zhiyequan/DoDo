@@ -6,16 +6,14 @@
         android:background="@color/primary_background_color"
         android:orientation="vertical">
 
-    <include
-            android:id="@+id/title_bar"
-            layout="@layout/title_bar"/>
-
     <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"/>
 
-    <include layout="@layout/main_bottom_bar"/>
+    <include
+            android:id="@+id/main_bottom_bar"
+            layout="@layout/main_bottom_bar"/>
 
 </LinearLayout>

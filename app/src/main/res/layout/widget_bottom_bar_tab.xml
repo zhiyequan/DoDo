@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tools:LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:gravity="center"
+        android:layout_gravity="center_vertical"
+        style="@style/match_parent_layout_with_margin"
+        tools:context="com.bainiaohe.dodo.main.MainActivity"
+        android:onClick="onTabSelected">
+
+    <ImageView
+            android:id="@+id/tab_image"
+            style="@style/extreme_small_picture"
+            android:scaleType="centerCrop"/>
+
+    <TextView
+            android:id="@+id/tab_text"
+            android:textColor="@drawable/bottom_bar_text_color"
+            android:layout_gravity="center|bottom"
+            style="@style/caption_text"/>
+
+</tools:LinearLayout>

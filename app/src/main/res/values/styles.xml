@@ -85,8 +85,16 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <!--Material EditText-->
+    <style name="material_eidttext" parent="match_parent_and_wrap_content_with_padding">
+        <item name="android:layout_marginTop">@dimen/material_edittext_margin</item>
+        <item name="android:layout_marginBottom">@dimen/material_edittext_margin</item>
+        <item name="android:lineSpacingExtra">@dimen/line_space</item>
+        <item name="android:textSize">@dimen/subtitle_text_size</item>
+    </style>
+
     <!--Button Styles-->
-    <style name="button" parent="button_text"></style>
+    <style name="button" parent="button_text"/>
 
     <style name="round_button_text" parent="round_black_text">
         <item name="android:textSize">@dimen/button_text_size</item>
@@ -99,20 +107,26 @@
         <item name="android:gravity">left|center_vertical</item>
         <item name="android:paddingLeft">20dp</item>
     </style>
+
     <style name="person_profile_button" parent="match_parent_and_wrap_content">
         <item name="android:background">#FFFFFFFF</item>
         <item name="android:textColor">#8c000000</item>
         <item name="android:gravity">left|center_vertical</item>
         <item name="android:paddingLeft">20dp</item>
     </style>
+
     <style name="transparent_button" parent="button">
         <item name="android:background">@android:color/transparent</item>
     </style>
 
-    <style name="round_button" parent="round_button_text"></style>
+    <style name="round_button" parent="round_button_text"/>
 
     <style name="transparent_button_wide" parent="transparent_button">
         <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="transparent_button_wide_white" parent="transparent_button_wide">
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="orange_button" parent="transparent_button">
@@ -129,9 +143,6 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:layout_marginRight">10dp</item>
-
-
-
     </style>
 
     <!--Title Bar Style-->
@@ -153,7 +164,7 @@
         <item name="android:layout_height">@dimen/small_picture_size</item>
     </style>
 
-    <style name="avatar" parent="small_picture"></style>
+    <style name="avatar" parent="small_picture"/>
 
     <style name="medium_picture">
         <item name="android:layout_width">@dimen/medium_picture_size</item>
@@ -161,9 +172,9 @@
     </style>
 
     <!--Themes-->
-    <style name="AppTheme" parent="BaseTheme" />
+    <style name="AppTheme" parent="BaseTheme"/>
 
-    <style name="BaseTheme" parent="android:Theme.Holo.Light.NoActionBar">
+    <style name="BaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 
         <!-- ...and here we setting appcompat’s color theming attrs -->
         <item name="colorPrimary">@color/theme_default_primary</item>

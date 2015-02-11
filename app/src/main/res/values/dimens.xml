@@ -25,4 +25,10 @@
 
     <!--Padding-->
     <dimen name="default_padding">2dp</dimen>
+
+    <!--Line Space-->
+    <dimen name="line_space">8dp</dimen>
+
+    <!--EditText Margin-->
+    <dimen name="material_edittext_margin">16dp</dimen>
 </resources>
