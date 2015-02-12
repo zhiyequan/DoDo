@@ -19,11 +19,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="@drawable/search_btn_background"
             android:gravity="center"
             android:text="搜索"
             android:textSize="12sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            />
 
         <RelativeLayout
             android:id="@+id/rlSearchFrameDelete"

@@ -38,4 +38,5 @@ public class URLConstants {
     public static final String CHECK_IS_OTHER_PLATFORMS_REGISTERED = SERVER_IP + "/user/check";
     public static final String REGISTER = SERVER_IP + "/user/register";
     public static final String USER_INFO = SERVER_IP + "/user/info";
+    public static final String ADD_FRIEND=SERVER_IP+"/friend/add";
 }

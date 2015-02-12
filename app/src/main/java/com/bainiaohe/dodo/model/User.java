@@ -13,7 +13,7 @@ public class User implements Serializable {
     private String sex;
     private String phone;
     private String email;
-
+    private String nickName;
 
     //用户的头像
     private String avatar;
@@ -90,6 +90,12 @@ public class User implements Serializable {
         this.avatar = avatar;
     }
 
+    public String getNickName(){
+        return nickName;
+    }
+    public void setNickName(String nickName){
+        this.nickName=nickName;
+    }
     @Override
     public String toString() {
         return "Person [id=" + userId + ", name=" + name + ", token=" + token + ", phone=" + phone + ", sex=" + sex + ", email=" +

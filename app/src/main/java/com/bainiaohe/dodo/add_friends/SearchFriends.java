@@ -3,21 +3,27 @@ package com.bainiaohe.dodo.add_friends;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bainiaohe.dodo.R;
+import com.bainiaohe.dodo.utils.AddFriendsService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,7 +37,8 @@ public class SearchFriends extends Activity {
     private ImageView ivDeleteText;
     private EditText etSearch;
     private ListView searchListView;
-
+    private static final String TAG = "search_friends";
+    private Button searchButton;
 
     //电话联系人的电话--姓名
     private HashMap phoneToName;
@@ -52,6 +59,19 @@ public class SearchFriends extends Activity {
         retPhone = new ArrayList<String>();
         retName = new ArrayList<String>();
 
+        searchButton= (Button) findViewById(R.id.btnSearch);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AddFriendsService.getUserInfo(etSearch.getText().toString().trim(),SearchFriends.this);
+
+            }
+        });
+        //得到手机联系人的信息
+        getPhoneContacts();
+        Log.v(TAG, "" + phoneToName.size());
+
+
         ivDeleteText.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
@@ -59,21 +79,21 @@ public class SearchFriends extends Activity {
             }
         });
 
-        //得到手机联系人的信息
-        getPhoneContacts();
 
         //listview 绑定adapter
         final ListViewAdapter adapter = new ListViewAdapter(this);
         searchListView.setAdapter(adapter);
 
         //监听listview的每个Item的点击
-        searchListView.setOnClickListener(new View.OnClickListener() {
+        searchListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
-            public void onClick(View view) {
-               //TODO：点击之后看对应人的资料，可以添加好友
-                ViewHolder holder= (ViewHolder) view.getTag();
-
-
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //点击之后看对应人的资料，可以添加好友
+                ViewHolder holder = (ViewHolder) view.getTag();
+                AddFriendsService.getUserInfo(holder.personAccount.getText().toString().trim(),SearchFriends.this);
+                Intent intent = new Intent(SearchFriends.this, PersonProfile.class);
+                startActivity(intent);
             }
         });
 
@@ -136,8 +156,9 @@ public class SearchFriends extends Activity {
                 convertView = mInflater.inflate(R.layout.friends_result_listview, null);
                 holder = new ViewHolder();
                 /*得到各个控件的对象*/
-                holder.portrait.setImageResource(R.drawable.default_contact);
+
                 holder.portrait = (ImageView) convertView.findViewById(R.id.portrait_iv);
+
                 holder.nameText = (TextView) convertView.findViewById(R.id.name_tv);
                 holder.personAccount = (TextView) convertView.findViewById(R.id.person_account_tv);
 
@@ -149,7 +170,7 @@ public class SearchFriends extends Activity {
             /*设置TextView显示的内容，即我们存放在动态数组中的数据*/
             holder.nameText.setText(retName.get(position));
             holder.personAccount.setText(retPhone.get(position));
-
+            holder.portrait.setImageResource(R.drawable.default_contact);
 
             return convertView;
         }
@@ -174,6 +195,8 @@ public class SearchFriends extends Activity {
 
             String contactPhone = (String) iterator.next();
             String contactName = (String) phoneToName.get(contactPhone);
+
+
             if (contactPhone.contains(inputNumber)) {
 
                 retPhone.add(contactPhone);
@@ -187,39 +210,37 @@ public class SearchFriends extends Activity {
      * 得到手机通讯录联系人信息*
      */
     private void getPhoneContacts() {
-        ContentResolver resolver = getContentResolver();
-        Uri uri = Uri.parse("content://com.android.contacts/raw_contacts");
-        Uri dataUri = Uri.parse("content://com.android.contacts/data");
-        Cursor cursor = resolver.query(uri, null, null, null, null);
-
-
+        //得到contentresolver对象
+        ContentResolver cr = getContentResolver();
+        //取得电话本中开始一项的光标，必须先moveToNext()
+        Cursor cursor = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
+        String string="";
+        String name;
+        String contact_phone="";
+        Log.v(TAG,cr.toString());
         while (cursor.moveToNext()) {
-
-            String id = cursor.getString(cursor.getColumnIndex("contact_id"));
-            Cursor cursor1 = resolver.query(dataUri, null, "raw_contact_id=?", new String[]{id}, null);
-//            String[] all = cursor1.getColumnNames();
-
-            while (cursor1.moveToNext()) {
-                String data = cursor1.getString(cursor1.getColumnIndex("data1"));
-                String mimetype = cursor1.getString(cursor1.getColumnIndex("mimetype"));
-                String name = cursor1.getString(cursor1.getColumnIndex("display_name"));
-//                System.out.println("data==" + data);
-//                System.out.println("mimetype==" + mimetype);
-                if (mimetype.equals("vnd.android.cursor.item/phone_v2")) {
-                    data = data.replace(" ", "");
-//                    contactPhone.add(data);
-                    phoneToName.put(data, name);
-//                    contactName.add(name);
-                }
-
+            //取得联系人的名字索引
+            Log.v(TAG,"arrivein");
+            int nameIndex = cursor.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME);
+            String contact = cursor.getString(nameIndex);
+            string += (contact + ":" + "/n");
+            name=contact;
+            //取得联系人的ID索引值
+            String contactId = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
+            //查询该位联系人的电话号码，类似的可以查询email，photo
+            Cursor phone = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
+                    ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = "
+                            + contactId, null, null);//第一个参数是确定查询电话号，第三个参数是查询具体某个人的过滤值
+            //一个人可能有几个号码
+            while (phone.moveToNext()) {
+                String strPhoneNumber = phone.getString(phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                contact_phone=strPhoneNumber;
+                string += (strPhoneNumber + "/n");
             }
-
-            cursor1.close();
-
-
+            phoneToName.put(name,contact_phone);
+            phone.close();
         }
         cursor.close();
-
 
     }
 }

@@ -57,7 +57,6 @@
         <activity
                 android:name=".login.LoginActivity"
                 android:label="@string/app_name"
-                android:noHistory="true"
                 android:screenOrientation="portrait"/>
         <activity
                 android:name=".info_detail.InfoDetailActivity"
@@ -134,6 +133,7 @@
                         android:path="/grouplist"
                         android:scheme="rong"/>
             </intent-filter>
+
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
 
@@ -218,6 +218,7 @@
                 <action android:name="io.rong.push"/>
             </intent-filter>
         </service>
+
         <service
                 android:name="io.rong.imlib.push.CommandService"
                 android:process=":push">
@@ -247,6 +248,30 @@
             </intent-filter>
         </receiver>
         <!-- End Rong Cloud -->
+        <!-- add friends-->
+
+        <activity
+            android:name=".add_friends.PersonProfile"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".add_friends.AddFriends"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".add_friends.SearchFriends"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <!-- end -->
 
         <activity
                 android:name=".image_viewer.ImageViewerActivity"
