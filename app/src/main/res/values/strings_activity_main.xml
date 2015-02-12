@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="tab_internship">实习</string>
-    <string name="tab_info">资讯</string>
-    <string name="tab_messages">消息</string>
-    <string name="tab_friends">好友</string>
-    <string name="tab_personal_center">我</string>
+    <!--<string name="tab_internship">实习</string>-->
+    <!--<string name="tab_info">资讯</string>-->
+    <!--<string name="tab_messages">消息</string>-->
+    <!--<string name="tab_friends">好友</string>-->
+    <!--<string name="tab_personal_center">我</string>-->
+
+    <string name="section_info">资讯</string>
+    <string name="section_internship">我的实习</string>
+    <string name="sub_header_friends">好友</string>
+    <string name="section_friends">我的好友</string>
+    <string name="section_messages">消息</string>
+    <string name="section_discovery">发现</string>
+
+    <string name="section_settings">设置</string>
 </resources>

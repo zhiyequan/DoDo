@@ -172,11 +172,18 @@
     </style>
 
     <!--Themes-->
-    <style name="AppTheme" parent="BaseTheme"/>
+    <style name="AppTheme" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar">
+        <item name="colorPrimary">#8bc34a</item>
+        <item name="colorPrimaryDark">#558b2f</item>
+        <item name="colorAccent">#FFFFFF</item>
+        <item name="singleAccount">true</item>
+        <item name="rippleBackport">true</item>
+
+        <item name="android:alertDialogTheme">@style/BaseTheme.Dialog</item>
+    </style>
 
     <style name="BaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 
-        <!-- ...and here we setting appcompat’s color theming attrs -->
         <item name="colorPrimary">@color/theme_default_primary</item>
         <item name="colorPrimaryDark">@color/theme_default_primary_dark</item>
         <item name="colorAccent">@color/theme_accent</item>
