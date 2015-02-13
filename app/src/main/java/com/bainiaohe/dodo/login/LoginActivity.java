@@ -24,6 +24,9 @@ import com.bainiaohe.dodo.utils.ConnectToIM;
 import com.bainiaohe.dodo.utils.RongUtil;
 import com.bainiaohe.dodo.utils.UserService;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 
 import cn.sharesdk.framework.Platform;
@@ -267,6 +270,26 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
             //res  是用户资料  ，返回的json数据
             Log.v(TAG, res.toString());
             nickName = platform.getDb().getUserName();
+            final HashMap userInfoMap =new HashMap();
+            userInfoMap.put("nickname",nickName);
+            int sex;
+            try {
+                JSONObject object=new JSONObject(res.toString());
+                if(object.has("gender")){
+                    String gender=object.getString("gender");
+                    if (gender.equals("男")){
+                        sex=0;
+                        userInfoMap.put("sex",sex);
+                    }
+                    else {
+                        sex=1;
+                        userInfoMap.put("sex",sex);
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
             otherplatformId = platform.getDb().getUserId();
             // 判断这个平台的用户是否注册过
             boolean ret = UserService.isRegisted(otherplatformType, otherplatformId);
@@ -291,7 +314,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
                             String phone = (String) phoneMap.get("phone");
                             //TODO：验证成功，进入系统并且向后台注册
 //                            UserService.userRegister(phone,Integer.toString(otherplatformType),otherplatformId); 不能在主线程中使用网络操作
-                            UserService.registerByAsynchronous(phone,Integer.toString(otherplatformType),otherplatformId);
+                            UserService.registerByAsynchronous(phone,Integer.toString(otherplatformType),otherplatformId,userInfoMap);
                             connectToIM.connectToIM();
                             LoginActivity.this.finish();
                         }

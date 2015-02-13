@@ -141,7 +141,7 @@ public class UserService {
         return ret;
     }
 
-    public static void registerByAsynchronous(String phone, String plat_type,String plat_id){
+    public static void registerByAsynchronous(String phone, String plat_type,String plat_id, final HashMap userInfo){
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         params.put("phone", phone);
@@ -156,7 +156,19 @@ public class UserService {
                     userId = new JSONObject(new String(responseBody)).getString("id");
                     User user=new User();
                     user.setUserId(userId);
+                    user.setNickName(userInfo.get("nickname").toString());
+                    if (userInfo.containsKey("sex")){
+                        if (userInfo.get("sex")==0){
+                            user.setSex("male");
+                        }
+                        else {
+                            user.setSex("female");
+                        }
+                    }
                     saveUser(user);
+                    userInfo.put("id",userId);
+                    updateUserInfo(userInfo);
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -170,6 +182,32 @@ public class UserService {
         });
     }
 
+    /**
+     * 在第三方注册之后，更新用户信息
+     */
+    public static void updateUserInfo(HashMap userInfo){
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params =new RequestParams();
+        Iterator iterator = userInfo.keySet().iterator();
+        while(iterator.hasNext()){
+            String key= (String) iterator.next();
+            String value=(String) userInfo.get(key);
+            params.put(key,value);
+        }
+        client.post(URLConstants.USER_UPDATE,params,new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                Log.v("UserService", "updatesuccess");
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Log.v("UserService", "updatefailed");
+            }
+        });
+
+
+    }
     /**
      * 本平台的用户和其他平台的用户
      * 本平台传两个参数：phone pw
