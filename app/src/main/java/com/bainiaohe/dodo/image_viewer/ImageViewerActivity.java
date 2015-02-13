@@ -62,7 +62,8 @@ public class ImageViewerActivity extends ActionBarActivity {
         Log.e(TAG, "Selected Index:" + selected_index);
 
         //不显示ActionBar
-        getSupportActionBar().hide();
+        if (getSupportActionBar() != null)
+            getSupportActionBar().hide();
         setContentView(R.layout.activity_image_viewer);
 
         initViews(selected_index);
