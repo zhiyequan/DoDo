@@ -40,10 +40,11 @@ public class UserService {
     public static String registerErrorMessage;
     public static String userInputError;
 
-    private static void saveUser(User user){
-        DoDoContext doDoContext=DoDoContext.getInstance();
+    private static void saveUser(User user) {
+        DoDoContext doDoContext = DoDoContext.getInstance();
         doDoContext.saveCurrentUser(user);
     }
+
     public static String userLogin(String userphone, String password) {
         String result = null;
         String ret = "登陆成功";
@@ -64,9 +65,9 @@ public class UserService {
                 Log.v("login", "---status: " + status);
                 if (status == 0) {
                     ret = "success";
-                    userId=object.getString("id");
-                    String token =object.getString("token");
-                    User user=new User();
+                    userId = object.getString("id");
+                    String token = object.getString("token");
+                    User user = new User();
                     user.setUserId(userId);
                     user.setToken(token);
                     user.setName(object.getString("name"));
@@ -92,6 +93,7 @@ public class UserService {
     /**
      * 判断其他平台的用户是否注册过
      * 相当第三方平台的用户的登录
+     *
      * @param otherplatformId
      * @return
      */
@@ -119,7 +121,7 @@ public class UserService {
                     ret = true;
                     userId = object.getString("id");
                     String token = object.getString("token");
-                    User user=new User();
+                    User user = new User();
                     user.setUserId(userId);
                     user.setToken(token);
                     user.setName(object.getString("name"));
@@ -141,7 +143,7 @@ public class UserService {
         return ret;
     }
 
-    public static void registerByAsynchronous(String phone, String plat_type,String plat_id, final HashMap userInfo){
+    public static void registerByAsynchronous(String phone, String plat_type, String plat_id, final HashMap userInfo) {
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         params.put("phone", phone);
@@ -154,19 +156,18 @@ public class UserService {
                 Log.v("UserService", "---" + new String(responseBody));
                 try {
                     userId = new JSONObject(new String(responseBody)).getString("id");
-                    User user=new User();
+                    User user = new User();
                     user.setUserId(userId);
                     user.setNickName(userInfo.get("nickname").toString());
-                    if (userInfo.containsKey("sex")){
-                        if (userInfo.get("sex")==0){
+                    if (userInfo.containsKey("sex")) {
+                        if (Integer.parseInt(userInfo.get("sex").toString()) == 1) {
                             user.setSex("male");
-                        }
-                        else {
+                        } else {
                             user.setSex("female");
                         }
                     }
                     saveUser(user);
-                    userInfo.put("id",userId);
+                    userInfo.put("id", userId);
                     updateUserInfo(userInfo);
 
 
@@ -185,16 +186,17 @@ public class UserService {
     /**
      * 在第三方注册之后，更新用户信息
      */
-    public static void updateUserInfo(HashMap userInfo){
+    public static void updateUserInfo(HashMap userInfo) {
         AsyncHttpClient client = new AsyncHttpClient();
-        RequestParams params =new RequestParams();
+        RequestParams params = new RequestParams();
         Iterator iterator = userInfo.keySet().iterator();
-        while(iterator.hasNext()){
-            String key= (String) iterator.next();
-            String value=(String) userInfo.get(key);
-            params.put(key,value);
+        while (iterator.hasNext()) {
+            String key = (String) iterator.next();
+            String value = userInfo.get(key).toString();
+            Log.v("UserService", key + "  " + value);
+            params.put(key, value);
         }
-        client.post(URLConstants.USER_UPDATE,params,new AsyncHttpResponseHandler() {
+        client.post(URLConstants.USER_UPDATE, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 Log.v("UserService", "updatesuccess");
@@ -208,6 +210,7 @@ public class UserService {
 
 
     }
+
     /**
      * 本平台的用户和其他平台的用户
      * 本平台传两个参数：phone pw
@@ -256,7 +259,7 @@ public class UserService {
                 String message = object.getString("message");
                 if (message.equals("success")) {
                     userId = object.getString("id");
-                    User user=new User();
+                    User user = new User();
                     user.setUserId(userId);
                     saveUser(user);
                     ret = true;

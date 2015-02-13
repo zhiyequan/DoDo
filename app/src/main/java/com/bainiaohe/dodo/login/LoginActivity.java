@@ -44,9 +44,9 @@ import io.rong.imlib.RongIMClient;
  */
 public class LoginActivity extends Activity implements View.OnClickListener, PlatformActionListener, Handler.Callback {
 
-     //第三方用户注册时短信验证需要的变量
-    private String APPKEY="57373ffffa48";
-    private String APPSECRET="fa96f512580053c8ec87a588b7ec077e";
+    //第三方用户注册时短信验证需要的变量
+    private String APPKEY = "57373ffffa48";
+    private String APPSECRET = "fa96f512580053c8ec87a588b7ec077e";
 
     private static final int MSG_USERID_FOUND = 1;
     private static final int MSG_LOGIN = 2;
@@ -66,6 +66,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
     private String otherplatformId;
     private int otherplatformType = 0;
     ConnectToIM connectToIM;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +77,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
         sharedPreferences = LoginActivity.this.getSharedPreferences("user", MODE_PRIVATE);
         //init sharesdk
         ShareSDK.initSDK(this);
-        connectToIM=new ConnectToIM(this);
+        connectToIM = new ConnectToIM(this);
         login_btn = (Button) findViewById(R.id.login_login_btn);
         login_btn.setOnClickListener(this);
         login_phone = (EditText) findViewById(R.id.login_phone);
@@ -100,6 +101,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
         initSDK();
 
     }
+
     private void initSDK() {
         // 初始化短信SDK
         SMSSDK.initSDK(this, APPKEY, APPSECRET);
@@ -209,7 +211,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
     }
 
 
-
     @Override
     public boolean handleMessage(Message msg) {
         //处理第三方登陆
@@ -267,29 +268,22 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
             UIHandler.sendEmptyMessage(MSG_AUTH_COMPLETE, this);
 //            login(platform.getName(), platform.getDb().getUserId(), res);
 
-            //res  是用户资料  ，返回的json数据
+            //res  是用户资料  ，返回的数据
             Log.v(TAG, res.toString());
             nickName = platform.getDb().getUserName();
-            final HashMap userInfoMap =new HashMap();
-            userInfoMap.put("nickname",nickName);
+            final HashMap userInfoMap = new HashMap();
+            userInfoMap.put("nickname", nickName);
             int sex;
-            try {
-                JSONObject object=new JSONObject(res.toString());
-                if(object.has("gender")){
-                    String gender=object.getString("gender");
-                    if (gender.equals("男")){
-                        sex=0;
-                        userInfoMap.put("sex",sex);
-                    }
-                    else {
-                        sex=1;
-                        userInfoMap.put("sex",sex);
-                    }
+            if (res.containsKey("gender")) {
+                String gender = res.get("gender").toString();
+                if (gender.equals("男")) {
+                    sex = 1;
+                    userInfoMap.put("sex", sex);
+                } else {
+                    sex = 2;
+                    userInfoMap.put("sex", sex);
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
-
             otherplatformId = platform.getDb().getUserId();
             // 判断这个平台的用户是否注册过
             boolean ret = UserService.isRegisted(otherplatformType, otherplatformId);
@@ -309,12 +303,12 @@ public class LoginActivity extends Activity implements View.OnClickListener, Pla
                         // 解析注册结果
                         if (result == SMSSDK.RESULT_COMPLETE) {
                             @SuppressWarnings("unchecked")
-                            HashMap<String,Object> phoneMap = (HashMap<String, Object>) data;
+                            HashMap<String, Object> phoneMap = (HashMap<String, Object>) data;
                             String country = (String) phoneMap.get("country");
                             String phone = (String) phoneMap.get("phone");
                             //TODO：验证成功，进入系统并且向后台注册
 //                            UserService.userRegister(phone,Integer.toString(otherplatformType),otherplatformId); 不能在主线程中使用网络操作
-                            UserService.registerByAsynchronous(phone,Integer.toString(otherplatformType),otherplatformId,userInfoMap);
+                            UserService.registerByAsynchronous(phone, Integer.toString(otherplatformType), otherplatformId, userInfoMap);
                             connectToIM.connectToIM();
                             LoginActivity.this.finish();
                         }
