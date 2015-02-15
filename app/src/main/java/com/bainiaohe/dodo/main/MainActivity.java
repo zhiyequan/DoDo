@@ -28,9 +28,10 @@ public class MainActivity extends MaterialNavigationDrawer {
 
         //TODO 设置头像和背景
         //设置account
-        MaterialAccount account = new MaterialAccount(this.getResources(), currentUser.getName(), currentUser.getEmail(), R.drawable.photo, R.drawable.bamboo);
-        addAccount(account);
-
+        if (currentUser != null) {
+            MaterialAccount account = new MaterialAccount(this.getResources(), currentUser.getName(), currentUser.getEmail(), R.drawable.photo, R.drawable.bamboo);
+            addAccount(account);
+        }
         //添加sections
         addSection(newSection(getText(R.string.section_info).toString(), new InfoFragment()));
         addSection(newSection(getText(R.string.section_internship).toString(), new InternshipFragment()));
