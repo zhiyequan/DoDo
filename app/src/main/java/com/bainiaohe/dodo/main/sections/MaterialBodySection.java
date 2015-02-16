@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.TextView;
-import com.andexert.library.RippleView;
 import com.bainiaohe.dodo.R;
 import com.bainiaohe.dodo.main.sections.listeners.MaterialBodySectionOnClickListener;
 import com.squareup.picasso.Picasso;
@@ -24,7 +23,6 @@ public class MaterialBodySection extends MaterialSection {
     private int position;
     private Fragment targetFragment = null;
     private View contentView = null;
-    private RippleView rippleLayout = null;
     private Context context = null;
     private boolean isSelected = false;
 
@@ -67,10 +65,6 @@ public class MaterialBodySection extends MaterialSection {
 
             ((TextView) contentView.findViewById(R.id.section_text)).setText(title);
             ((TextView) contentView.findViewById(R.id.section_notification)).setText(notification);
-//TODO
-            rippleLayout = (RippleView) contentView.findViewById(R.id.section_ripple);
-//            rippleLayout.setRippleColor(colorPressed);
-//            rippleLayout.setRippleBackground(colorUnpressed);
 
             contentView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -100,10 +94,9 @@ public class MaterialBodySection extends MaterialSection {
      */
     public void setSelected(boolean isSelected) {
         this.isSelected = isSelected;
-//TODO
-        if (rippleLayout != null) {
-            rippleLayout.setSelected(isSelected());
-        }
+
+        if (contentView != null)
+            contentView.setSelected(isSelected());
 
         //Log.e(TAG, "set selected : " + isSelected + "  " + getPosition() + "   " + (rippleLayout == null));
     }

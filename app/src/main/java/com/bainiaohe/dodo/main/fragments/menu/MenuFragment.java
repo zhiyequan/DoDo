@@ -27,7 +27,6 @@ import com.bainiaohe.dodo.main.sections.listeners.MaterialAccountSectionOnClickL
 import com.bainiaohe.dodo.main.sections.listeners.MaterialBodySectionOnClickListener;
 import com.bainiaohe.dodo.main.sections.listeners.MaterialBottomSectionOnClickListener;
 import com.bainiaohe.dodo.main.util.Utils;
-import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 import java.util.ArrayList;
 
@@ -192,23 +191,9 @@ public class MenuFragment extends Fragment implements MaterialBodySectionOnClick
 
         if (!selectedSection.isSelected() && selectedSection.getTargetFragment() != null)//已处于选中状态时，不再响应点击事件
         {
-//            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-//            Fragment target = selectedSection.getTargetFragment();
-//
-//            if (currentFragment != null)
-//                transaction.hide(currentFragment);
-//            if (target.isAdded())
-//                transaction.show(target);
-//            else
-//                transaction.add(R.id.content_frame, target);
-//            transaction.commit();//隐藏当前fragment，显示target
-//
-//            currentFragment = target;//设置当前fragment为target
-//            ((SlidingFragmentActivity) (getActivity())).showContent();//show content
-
             ((MainActivity) getActivity()).switchContent(selectedSection.getTargetFragment());
 
-            Log.e(TAG, "show content : " + selectedSection.getTargetFragment().getClass().getSimpleName());
+//            Log.e(TAG, "show content : " + selectedSection.getTargetFragment().getClass().getSimpleName());
         }
 
         //取消其他section的选中状态
@@ -234,13 +219,6 @@ public class MenuFragment extends Fragment implements MaterialBodySectionOnClick
         if (selectedSection.getTargetIntent() != null) {
             startActivity(selectedSection.getTargetIntent());
         }
-    }
-
-    /**
-     * 关闭sliding menu，并show content
-     */
-    private void closeMenu() {
-        ((SlidingFragmentActivity) getActivity()).showContent();
     }
 }
 

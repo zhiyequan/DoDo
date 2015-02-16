@@ -23,7 +23,6 @@ public class MaterialBottomSection extends MaterialSection {
     private MaterialBottomSectionOnClickListener onClickListener = null;
     private Intent targetIntent = null;
     private View contentView = null;
-    //    private MaterialRippleLayout rippleLayout = null;
     private Context context = null;
 
 
@@ -60,11 +59,6 @@ public class MaterialBottomSection extends MaterialSection {
             Picasso.with(context).load(iconResourceId).into((android.widget.ImageView) section.findViewById(R.id.section_icon));
             ((TextView) section.findViewById(R.id.section_text)).setText(title);
             ((TextView) section.findViewById(R.id.section_notification)).setText(notification);
-
-            //TODO
-//            rippleLayout = (MaterialRippleLayout) section.findViewById(R.id.section_ripple);
-//            rippleLayout.setRippleColor(colorPressed);
-//            rippleLayout.setRippleBackground(colorUnpressed);
 
             section.setOnClickListener(new View.OnClickListener() {
                 @Override

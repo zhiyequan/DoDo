@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.andexert.library.RippleView
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/section_ripple"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/sliding_menu_section_ripple_selector"
-        app:rv_color="@color/ripple_color"
-        >
+        android:background="@drawable/sliding_menu_section_ripple_selector">
 
     <RelativeLayout
             android:orientation="horizontal"
@@ -56,4 +53,4 @@
                 android:layout_centerVertical="true"/>
 
     </RelativeLayout>
-</com.andexert.library.RippleView>
+</RelativeLayout>
