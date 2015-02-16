@@ -1,6 +1,7 @@
 package com.bainiaohe.dodo.main;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -12,6 +13,8 @@ import com.bainiaohe.dodo.main.fragments.menu.MenuFragment;
 import com.bainiaohe.dodo.publish_info.PublishInfoActivity;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+import com.joanzapata.android.iconify.IconDrawable;
+import com.joanzapata.android.iconify.Iconify;
 
 public class MainActivity extends SlidingFragmentActivity {
 
@@ -99,6 +102,13 @@ public class MainActivity extends SlidingFragmentActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        //set icon
+        menu.findItem(R.id.publish_info).setIcon(
+                new IconDrawable(this, Iconify.IconValue.fa_pencil_square_o)
+                        .color(Color.WHITE)
+                        .actionBarSize());
+
         return super.onCreateOptionsMenu(menu);
     }
 
