@@ -2,6 +2,7 @@ package com.bainiaohe.dodo.publish_info;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 import com.bainiaohe.dodo.R;
 import com.bainiaohe.dodo.utils.URLConstants;
 import com.bainiaohe.dodo.utils.UserService;
+import com.joanzapata.android.iconify.IconDrawable;
+import com.joanzapata.android.iconify.Iconify;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -90,6 +93,7 @@ public class PublishInfoActivity extends ActionBarActivity {
 
         for (int i = 0; i < photoPlaceHolders.length; i++) {
             final int temp = i;
+            setPlaceHolderIcon(photoPlaceHolders[i]);
             photoPlaceHolders[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -98,6 +102,17 @@ public class PublishInfoActivity extends ActionBarActivity {
                 }
             });
         }
+    }
+
+    /**
+     * 设置默认图片
+     *
+     * @param placeHolder
+     */
+    private void setPlaceHolderIcon(ImageView placeHolder) {
+        placeHolder.setImageDrawable(new IconDrawable(this, Iconify.IconValue.fa_plus)
+                .color(Color.WHITE)
+                .actionBarSize());
     }
 
     /**
