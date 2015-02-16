@@ -166,7 +166,7 @@ public class InfoDataAdapter extends RecyclerView.Adapter<InfoItemViewHolder> {
 //        infoItemViewHolder.commentList.setAdapter(commentListAdapter);
         //加载评论列表
         if (dataItem.comments != null) {
-
+            infoItemViewHolder.commentList.removeAllViews();
             for (int i = 0; i < dataItem.comments.size(); i++) {
                 infoItemViewHolder.commentList
                         .addView(CommentListItem.genView(context, dataItem.comments.get(i)));

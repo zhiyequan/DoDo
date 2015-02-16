@@ -96,6 +96,7 @@ public class InfoFragment extends Fragment {
      */
     private void dummyLoading() {
 
+        adapter.clearData();
         for (int i = 0; i < 1000; i++) {
             InfoItemModel item = new InfoItemModel();
 
@@ -112,7 +113,7 @@ public class InfoFragment extends Fragment {
             CommentModel commentModel = new CommentModel();
             commentModel.content = "CONTENT";
             commentModel.time = "time";
-            commentModel.name = "name";
+            commentModel.name = "name" + i;
             commentModel.avatar = "http://www.baidu.com/img/bdlogo.png";
             commentModel.id = "id";
 
