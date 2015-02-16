@@ -16,7 +16,7 @@
             android:src="@drawable/bamboo"
             android:scaleType="centerCrop"/>
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/account_section_avatar"
             android:layout_width="64dp"
             android:layout_height="64dp"

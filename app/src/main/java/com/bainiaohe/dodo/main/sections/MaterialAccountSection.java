@@ -72,9 +72,9 @@ public class MaterialAccountSection extends MaterialSection {
 
             //加载头像
             if (avatarURL != null)
-                Picasso.with(context).load(avatarURL).into(avatar);
+                Picasso.with(context).load(avatarURL).noFade().into(avatar);
             else
-                Picasso.with(context).load(avatarResourceId).into(avatar);
+                Picasso.with(context).load(avatarResourceId).noFade().into(avatar);
             userName.setText(name);
             userEmail.setText(email);
 
