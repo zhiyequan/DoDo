@@ -1,1 +1,1 @@
-include ':app', 'libraries:SMSSDK'
+include ':app', 'libraries:SlidingMenu', 'libraries:SMSSDK'

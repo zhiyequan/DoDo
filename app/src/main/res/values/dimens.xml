@@ -31,4 +31,10 @@
 
     <!--EditText Margin-->
     <dimen name="material_edittext_margin">16dp</dimen>
+
+
+    <!--Drawer Layout-->
+    <dimen name="drawerWidth">-1dp</dimen>
+    <dimen name="userSpace">164dp</dimen>
+    <dimen name="photoMarginTop">16dp</dimen>
 </resources>
