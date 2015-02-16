@@ -1,5 +1,6 @@
 package com.bainiaohe.dodo.main.fragments.info;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -17,6 +18,8 @@ import com.bainiaohe.dodo.main.fragments.info.model.InfoItemModel;
 import com.bainiaohe.dodo.utils.ResponseContants;
 import com.bainiaohe.dodo.utils.URLConstants;
 import com.bainiaohe.dodo.utils.UserService;
+import com.joanzapata.android.iconify.IconDrawable;
+import com.joanzapata.android.iconify.Iconify;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.DataAsyncHttpResponseHandler;
 import com.melnykov.fab.FloatingActionButton;
@@ -50,6 +53,8 @@ public class InfoFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         floatingActionButton = (FloatingActionButton) view.findViewById(R.id.floating_action_button_to_top);
+        floatingActionButton.setImageDrawable(new IconDrawable(getActivity(), Iconify.IconValue.fa_arrow_up)
+                .color(Color.WHITE).actionBarSize());
         floatingActionButton.attachToRecyclerView(recyclerView);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
