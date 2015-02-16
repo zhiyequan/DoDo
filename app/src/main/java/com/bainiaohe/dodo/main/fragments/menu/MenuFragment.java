@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -16,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.bainiaohe.dodo.R;
+import com.bainiaohe.dodo.main.MainActivity;
 import com.bainiaohe.dodo.main.fragments.friends.FriendsFragment;
 import com.bainiaohe.dodo.main.fragments.info.InfoFragment;
 import com.bainiaohe.dodo.main.fragments.internship.InternshipFragment;
@@ -192,21 +192,23 @@ public class MenuFragment extends Fragment implements MaterialBodySectionOnClick
 
         if (!selectedSection.isSelected() && selectedSection.getTargetFragment() != null)//已处于选中状态时，不再响应点击事件
         {
-            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-            Fragment target = selectedSection.getTargetFragment();
-            if (!target.isAdded()) {
-                transaction.add(target, null);
-            }
-            if (currentFragment != null)
-                transaction.hide(currentFragment);
-            transaction.show(target)
-                    .commit();//隐藏当前fragment，显示target
+//            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//            Fragment target = selectedSection.getTargetFragment();
+//
+//            if (currentFragment != null)
+//                transaction.hide(currentFragment);
+//            if (target.isAdded())
+//                transaction.show(target);
+//            else
+//                transaction.add(R.id.content_frame, target);
+//            transaction.commit();//隐藏当前fragment，显示target
+//
+//            currentFragment = target;//设置当前fragment为target
+//            ((SlidingFragmentActivity) (getActivity())).showContent();//show content
 
-            currentFragment = target;//设置当前fragment为target
-            ((SlidingFragmentActivity) (getActivity())).showContent();//show content
+            ((MainActivity) getActivity()).switchContent(selectedSection.getTargetFragment());
 
             Log.e(TAG, "show content : " + selectedSection.getTargetFragment().getClass().getSimpleName());
-            //closeMenu();
         }
 
         //取消其他section的选中状态

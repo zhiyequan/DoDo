@@ -2,6 +2,7 @@ package com.bainiaohe.dodo.main;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import com.bainiaohe.dodo.R;
 import com.bainiaohe.dodo.main.fragments.info.InfoFragment;
@@ -45,6 +46,7 @@ public class MainActivity extends SlidingFragmentActivity {
 
     private Fragment contentFragment;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,12 +78,14 @@ public class MainActivity extends SlidingFragmentActivity {
         // 设置主界面视图
         setContentView(R.layout.activity_main);
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.content_frame, new InfoFragment()).commit();
+                .add(R.id.content_frame, contentFragment, contentFragment.getClass().getSimpleName())
+                .commit();
 
         // 设置滑动菜单的视图
         setBehindContentView(R.layout.container_menu);
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.menu_frame, new MenuFragment()).commit();
+                .add(R.id.menu_frame, new MenuFragment(), MenuFragment.class.getSimpleName())
+                .commit();
 
         // 实例化滑动菜单对象
         SlidingMenu menu = getSlidingMenu();
@@ -97,6 +101,29 @@ public class MainActivity extends SlidingFragmentActivity {
         menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
     }
 
+    /**
+     * 切换content，并关闭menu
+     *
+     * @param targetFragment
+     */
+    public void switchContent(Fragment targetFragment) {
+        if (contentFragment.getClass() != targetFragment.getClass()) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+            if (targetFragment.isAdded())
+                transaction.show(
+                        getSupportFragmentManager().findFragmentByTag(targetFragment.getClass().getSimpleName())
+                );
+            else
+                transaction.add(R.id.content_frame, targetFragment, targetFragment.getClass().getSimpleName());
+
+            transaction.hide(contentFragment);
+            transaction.commit();
+
+            contentFragment = targetFragment;
+            showContent();
+        }
+    }
 
 }
 
