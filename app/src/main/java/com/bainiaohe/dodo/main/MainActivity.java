@@ -1,59 +1,30 @@
 package com.bainiaohe.dodo.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import com.bainiaohe.dodo.R;
 import com.bainiaohe.dodo.main.fragments.info.InfoFragment;
 import com.bainiaohe.dodo.main.fragments.menu.MenuFragment;
+import com.bainiaohe.dodo.publish_info.PublishInfoActivity;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 public class MainActivity extends SlidingFragmentActivity {
 
     private static final String TAG = "MainActivity";
-
-
-//    public void init(Bundle bundle) {
-//        allowArrowAnimation();
-//        //TODO 设置只有首次打开时显示
-//        //disableLearningPattern();
-//
-//        User currentUser = DoDoContext.getInstance().getCurrentUser();
-//
-//        //TODO 设置头像和背景
-//        //设置account
-//        if (currentUser != null) {
-//            MaterialAccount account = new MaterialAccount(this.getResources(), currentUser.getName(), currentUser.getEmail(), R.drawable.photo, R.drawable.bamboo);
-//            addAccount(account);
-//        }
-//        //添加sections
-//        addSection(newSection(getText(R.string.section_info).toString(), new InfoFragment()));
-//        addSection(newSection(getText(R.string.section_internship).toString(), new InternshipFragment()));
-//
-//        addSubheader(getText(R.string.sub_header_friends).toString());
-//        addSection(newSection(getText(R.string.section_friends).toString(), R.drawable.tab_friends, new FriendsFragment()));
-//        addSection(newSection(getText(R.string.section_messages).toString(), R.drawable.tab_message, new MessageFragment()));
-//        addSection(newSection(getText(R.string.section_discovery).toString(), new MessageFragment()));//TODO 添加图标
-//        addDivisor();
-//
-//        //添加bottom section
-//        addBottomSection(newSection(getText(R.string.section_settings).toString(), R.drawable.settings, new Intent(this, SettingActivity.class)));
-//
-//    }
-
-
+    /**
+     * 当前显示的content fragment
+     */
     private Fragment contentFragment;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Log.e(TAG, "Unpressed#" + Integer.toHexString(0x00FFFFFF));
-        Log.e(TAG, "Selected#" + Integer.toHexString(0x0A000000));
-
+//TODO 判断bundle是否为空
         // 设置是否能够使用ActionBar来滑动
         setSlidingActionBarEnabled(true);
         // 初始化sliding menu
@@ -125,5 +96,22 @@ public class MainActivity extends SlidingFragmentActivity {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.publish_info) {
+            Intent intent = new Intent(this, PublishInfoActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }
 

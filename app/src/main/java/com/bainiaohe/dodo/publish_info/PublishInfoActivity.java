@@ -121,7 +121,6 @@ public class PublishInfoActivity extends ActionBarActivity {
             //todo 发表状态
             publishInfo();
 
-            finish();//TODO 向main activity中插入新发布的状态
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -157,7 +156,7 @@ public class PublishInfoActivity extends ActionBarActivity {
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 Log.e(TAG, "success:" + statusCode);
                 Toast.makeText(PublishInfoActivity.this, R.string.publish_succeed, Toast.LENGTH_SHORT).show();
-                finish();
+                finish();//TODO 向main activity中插入新发布的状态
             }
 
             @Override
