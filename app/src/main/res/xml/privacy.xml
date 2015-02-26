@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceCategory android:title="\n通讯录" android:layout="@layout/preference_category">
+	<CheckBoxPreference android:key="needtest" android:layout="@layout/preference_nosum"
+		android:title="加我为朋友时需要验证"></CheckBoxPreference>
+    <CheckBoxPreference android:key="cmdcalls" android:layout="@layout/preference_nosum"
+        android:title="向我推荐通讯录朋友"></CheckBoxPreference>
+    </PreferenceCategory>
+</PreferenceScreen>

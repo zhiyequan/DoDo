@@ -266,6 +266,14 @@
                 android:name=".image_viewer.ImageViewerActivity"
                 android:label="@string/title_activity_image_viewer">
         </activity>
+        <activity android:name=".setting.NewmesActivity" android:label="@string/title_activity_newmes" />
+        <activity android:name=".setting.NodisturbActivity" android:label="@string/title_activity_nodisturb" />
+        <activity android:name=".setting.ChatActivity" android:label="@string/title_activity_chat" />
+        <activity android:name=".setting.PrivacyActivity" android:label="@string/title_activity_privacy" />
+        <activity android:name=".setting.NormalActivity" android:label="@string/title_activity_normal" />
+        <activity android:name=".setting.SafetyActivity" android:label="@string/title_activity_safety" />
+        <activity android:name=".setting.AboutActivity" android:label="@string/title_activity_about" />
+
     </application>
 
 </manifest>

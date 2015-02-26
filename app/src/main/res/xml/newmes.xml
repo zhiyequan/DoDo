@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceCategory android:title="\t" android:key="mespg" android:layout="@layout/preference_category">
+	<CheckBoxPreference android:key="callnewmes" android:layout="@layout/preference_nosum"
+		android:title="接受新消息通知" android:defaultValue="true"></CheckBoxPreference>
+    <CheckBoxPreference android:key="detailmes" android:layout="@layout/preference"
+        android:title="通知显示消息详情" android:summary="若关闭，当收到微信消息时，通知提示将不显示发信人和内容摘要。" android:defaultValue="true"></CheckBoxPreference>
+    </PreferenceCategory>
+	<PreferenceCategory android:key="vspg" android:title="\t" android:layout="@layout/preference_category">
+	<CheckBoxPreference android:key="isring" android:layout="@layout/preference_nosum"
+	    android:title="声音" android:defaultValue="true"></CheckBoxPreference>
+    <CheckBoxPreference android:key="isshake" android:layout="@layout/preference_nosum"
+        android:title="振动" android:defaultValue="true"></CheckBoxPreference>
+    </PreferenceCategory>
+	<PreferenceCategory android:title="\t" android:layout="@layout/preference_category">
+	<CheckBoxPreference android:key="callupdate" android:layout="@layout/preference"
+	    android:title="朋友圈照片更新" android:summary="关闭后，有朋友圈更新时，不再出现红点提示。" android:defaultValue="true"></CheckBoxPreference>
+    </PreferenceCategory>
+</PreferenceScreen>

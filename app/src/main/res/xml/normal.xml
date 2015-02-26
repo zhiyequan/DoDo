@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceCategory android:title="\t" android:layout="@layout/preference_category">
+	<CheckBoxPreference android:key="ophorizon" android:layout="@layout/preference_nosum"
+		android:title="开启横屏模式"></CheckBoxPreference>
+    </PreferenceCategory>
+</PreferenceScreen>

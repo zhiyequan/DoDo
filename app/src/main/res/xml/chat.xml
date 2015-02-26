@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceCategory android:title="\t" android:layout="@layout/preference_category">
+	<CheckBoxPreference android:key="usehear" android:layout="@layout/preference_nosum"
+		android:title="使用听筒播放语音"></CheckBoxPreference>
+    <CheckBoxPreference android:key="useenter" android:layout="@layout/preference_nosum"
+        android:title="回车键发送消息"></CheckBoxPreference>
+    </PreferenceCategory>
+	<PreferenceCategory android:title="\n聊天记录" android:layout="@layout/preference_category">
+    <Preference android:title="清空聊天记录" android:layout="@layout/preference_nosum" android:key="clearrecord"/>
+    </PreferenceCategory>
+</PreferenceScreen>

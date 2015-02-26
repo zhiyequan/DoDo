@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceCategory android:title="\n安全" android:layout="@layout/preference_category">
+    <Preference android:title="修改密码" android:layout="@layout/preference_nosum" android:key="changepwd"/>
+    </PreferenceCategory>
+</PreferenceScreen>

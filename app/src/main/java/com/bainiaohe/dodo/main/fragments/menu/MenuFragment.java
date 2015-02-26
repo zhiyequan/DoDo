@@ -27,6 +27,7 @@ import com.bainiaohe.dodo.main.sections.listeners.MaterialAccountSectionOnClickL
 import com.bainiaohe.dodo.main.sections.listeners.MaterialBodySectionOnClickListener;
 import com.bainiaohe.dodo.main.sections.listeners.MaterialBottomSectionOnClickListener;
 import com.bainiaohe.dodo.main.util.Utils;
+import com.bainiaohe.dodo.setting.SettingActivity;
 
 import java.util.ArrayList;
 
@@ -84,7 +85,7 @@ public class MenuFragment extends Fragment implements MaterialBodySectionOnClick
         addDivider();//结束body section
 
         //set up bottom section
-        setBottomSection(getText(R.string.section_settings).toString(), "", R.drawable.settings, null);
+        setBottomSection(getText(R.string.section_settings).toString(), "", R.drawable.settings, new Intent(MenuFragment.this.getActivity(), SettingActivity.class));
 
         //设置第一个被选中
         bodySections.get(0).setSelected(true);

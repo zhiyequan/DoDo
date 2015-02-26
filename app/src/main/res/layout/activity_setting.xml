@@ -31,30 +31,65 @@
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp">
+            android:layout_marginTop="10dp">
 
-        <Button
-                style="@style/set_button"
-                android:text="消息"
-                android:id="@+id/button1"/>
+        <RelativeLayout style="@style/set_button"
+            android:id="@+id/newmesset">
 
-        <Button
-                style="@style/set_button"
-                android:text="隐私"
-                android:id="@+id/button2"/>
+            <TextView style="@style/set_item_title"
+                android:text="新消息提醒"/>
+        </RelativeLayout>
 
-        <Button
-                style="@style/set_button"
-                android:text="@string/set_about"
-                android:id="@+id/about_but"/>
+        <RelativeLayout style="@style/set_button"
+            android:id="@+id/nodisturbset">
+
+            <TextView style="@style/set_item_title"
+                android:text="勿扰模式"/>
+        </RelativeLayout>
+
+        <RelativeLayout style="@style/set_button"
+            android:id="@+id/chatset">
+
+            <TextView style="@style/set_item_title"
+                android:text="聊天"/>
+        </RelativeLayout>
+
+        <RelativeLayout style="@style/set_button"
+            android:id="@+id/privacyset">
+
+            <TextView style="@style/set_item_title"
+                android:text="隐私"/>
+        </RelativeLayout>
+
+        <RelativeLayout style="@style/set_button"
+            android:id="@+id/normalset">
+
+            <TextView style="@style/set_item_title"
+                android:text="通用"/>
+        </RelativeLayout>
+
+        <RelativeLayout style="@style/set_button"
+            android:id="@+id/safetyset">
+
+            <TextView style="@style/set_item_title"
+                android:text="安全"/>
+        </RelativeLayout>
+
+        <RelativeLayout style="@style/set_button"
+            android:id="@+id/aboutset">
+
+            <TextView style="@style/set_item_title"
+                android:text="关于"/>
+        </RelativeLayout>
     </LinearLayout>
 
     <Button
-            style="@style/match_parent_and_wrap_content_with_padding"
+            style="@style/match_parent_and_wrap_content"
             android:background="#FFFF0000"
             android:textColor="#FFFFFFFF"
             android:text="@string/zhuxiao"
             android:id="@+id/zhuxiao"
-            android:layout_marginTop="100dp"/>
+            android:textSize="18sp"
+            android:layout_marginTop="30dp"/>
 
 </LinearLayout>

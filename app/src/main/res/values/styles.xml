@@ -103,9 +103,8 @@
 
     <style name="set_button" parent="match_parent_and_wrap_content_with_padding">
         <item name="android:background">#FFFFFFFF</item>
-        <item name="android:textColor">#FF000000</item>
-        <item name="android:gravity">left|center_vertical</item>
-        <item name="android:paddingLeft">20dp</item>
+        <item name="android:minHeight">45dp</item>
+        <item name="android:paddingLeft">15dp</item>
     </style>
 
     <style name="person_profile_button" parent="match_parent_and_wrap_content">
@@ -152,6 +151,14 @@
         <item name="android:layout_height">@dimen/title_bar_height</item>
         <item name="android:background">@color/blue</item>
     </style>
+
+    <style name="set_item_title" parent="wrap_content">
+        <item name="android:textColor">#FF000000</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
 
     <!--Picture Styles-->
     <style name="extreme_small_picture">
