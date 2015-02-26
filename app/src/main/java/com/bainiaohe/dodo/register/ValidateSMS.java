@@ -46,7 +46,7 @@ public class ValidateSMS extends Activity implements View.OnClickListener{
         else if (view.getId()==R.id.send_again_btn){
             SMSSDK.getVerificationCode("86", RegisterActivity.phone);
             send_again_btn.setVisibility(View.INVISIBLE);
-            t = new Timer(60000,1000);
+            show_time_tv.setVisibility(View.VISIBLE);
             t.start();
         }
     }
@@ -68,7 +68,11 @@ public class ValidateSMS extends Activity implements View.OnClickListener{
             send_again_btn.setVisibility(View.VISIBLE);
             show_time_tv.setVisibility(View.INVISIBLE);
             auth_code_et.setText("");
-            t.cancel();
         }
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        t.cancel();
     }
 }

@@ -97,7 +97,7 @@ public class InfoFragment extends Fragment {
     private void dummyLoading() {
 
         adapter.clearData();
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 1000; i > 0; i--) {
             InfoItemModel item = new InfoItemModel();
 
             item.name = "" + i;
