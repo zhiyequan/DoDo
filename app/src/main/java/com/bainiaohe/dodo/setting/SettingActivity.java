@@ -1,6 +1,7 @@
 package com.bainiaohe.dodo.setting;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -81,7 +82,7 @@ public class SettingActivity extends Activity implements View.OnClickListener {
                 startActivity(new Intent(SettingActivity.this, SafetyActivity.class));
                 break;
             case R.id.aboutset:
-                startActivity(new Intent(SettingActivity.this, AboutActivity.class));
+                new AlertDialog.Builder(this).setTitle("关于职圈").setMessage("版本：v1.0\n尚在开发中……").setPositiveButton("确定", null).show();
                 break;
         }
     }
