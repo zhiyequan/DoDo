@@ -78,4 +78,6 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.4.0'
     //Icons
     compile 'com.joanzapata.android:android-iconify:1.0.9'
+    //Material Menu
+    compile 'com.balysv.materialmenu:material-menu-abc:1.5.1'
 }
