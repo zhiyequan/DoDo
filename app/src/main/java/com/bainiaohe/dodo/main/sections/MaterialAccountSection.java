@@ -7,6 +7,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.bainiaohe.dodo.R;
 import com.bainiaohe.dodo.main.sections.listeners.MaterialAccountSectionOnClickListener;
+import com.joanzapata.android.iconify.IconDrawable;
+import com.joanzapata.android.iconify.Iconify;
 import com.squareup.picasso.Picasso;
 
 
@@ -26,6 +28,7 @@ public class MaterialAccountSection extends MaterialSection {
     private ImageView avatar = null;
     private TextView userName = null;
     private TextView userEmail = null;
+    private ImageView notificationsImageView = null;
 
     private MaterialAccountSectionOnClickListener onClickListener = null;
 
@@ -69,6 +72,13 @@ public class MaterialAccountSection extends MaterialSection {
             avatar = (ImageView) contentView.findViewById(R.id.account_section_avatar);
             userName = (TextView) contentView.findViewById(R.id.account_section_user_name);
             userEmail = (TextView) contentView.findViewById(R.id.account_section_user_email);
+
+            notificationsImageView = (ImageView) contentView.findViewById(R.id.notifications);
+            notificationsImageView.setImageDrawable(
+                    new IconDrawable(context, Iconify.IconValue.fa_envelope_o)
+                            .colorRes(R.color.white)
+            );
+            //TODO 响应点击事件
 
             //加载头像
             if (avatarURL != null)
