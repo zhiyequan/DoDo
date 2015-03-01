@@ -11,6 +11,7 @@ import com.bainiaohe.dodo.R;
 import com.bainiaohe.dodo.main.fragments.info.InfoFragment;
 import com.bainiaohe.dodo.main.fragments.menu.MenuFragment;
 import com.bainiaohe.dodo.publish_info.PublishInfoActivity;
+import com.bainiaohe.dodo.searchable.SearchableActivity;
 import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
@@ -129,6 +130,11 @@ public class MainActivity extends SlidingFragmentActivity {
                 new IconDrawable(this, Iconify.IconValue.fa_pencil_square_o)
                         .color(Color.WHITE)
                         .actionBarSize());
+        menu.findItem(R.id.search).setIcon(
+                new IconDrawable(this, Iconify.IconValue.fa_search)
+                        .color(Color.WHITE)
+                        .actionBarSize()
+        ).collapseActionView();
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -142,9 +148,14 @@ public class MainActivity extends SlidingFragmentActivity {
             Intent intent = new Intent(this, PublishInfoActivity.class);
             startActivity(intent);
             return true;
+        } else if (item.getItemId() == R.id.search) {
+            startActivity(new Intent(this, SearchableActivity.class));
+            
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }
 

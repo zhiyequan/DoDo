@@ -40,7 +40,12 @@
                 android:name=".main.MainActivity"
                 android:label="@string/app_name"
                 android:screenOrientation="portrait">
-
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH"/>
+            </intent-filter>
+            <meta-data
+                    android:name="android.app.searchable"
+                    android:resource="@xml/searchable"/>
         </activity>
         <activity
                 android:name=".welcome.WelcomeActivity"
@@ -49,6 +54,7 @@
                 android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
@@ -130,7 +136,6 @@
                         android:path="/grouplist"
                         android:scheme="rong"/>
             </intent-filter>
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
 
@@ -215,7 +220,6 @@
                 <action android:name="io.rong.push"/>
             </intent-filter>
         </service>
-
         <service
                 android:name="io.rong.imlib.push.CommandService"
                 android:process=":push">
@@ -246,7 +250,8 @@
         </receiver>
         <!-- End Rong Cloud -->
 
-        <!-- add friends-->
+
+        <!-- add friends -->
         <activity
                 android:name=".add_friends.PersonProfile"
                 android:label="@string/app_name"
@@ -265,14 +270,48 @@
                 android:name=".image_viewer.ImageViewerActivity"
                 android:label="@string/title_activity_image_viewer">
         </activity>
-        <activity android:name=".setting.NewmesActivity" android:label="@string/title_activity_newmes" />
-        <activity android:name=".setting.NodisturbActivity" android:label="@string/title_activity_nodisturb" />
-        <activity android:name=".setting.ChatActivity" android:label="@string/title_activity_chat" />
-        <activity android:name=".setting.PrivacyActivity" android:label="@string/title_activity_privacy" />
-        <activity android:name=".setting.NormalActivity" android:label="@string/title_activity_normal" />
-        <activity android:name=".setting.SafetyActivity" android:label="@string/title_activity_safety" />
-        <activity android:name=".setting.AboutActivity" android:label="@string/title_activity_about" />
+        <activity
+                android:name=".setting.NewmesActivity"
+                android:label="@string/title_activity_newmes"/>
+        <activity
+                android:name=".setting.NodisturbActivity"
+                android:label="@string/title_activity_nodisturb"/>
+        <activity
+                android:name=".setting.ChatActivity"
+                android:label="@string/title_activity_chat"/>
+        <activity
+                android:name=".setting.PrivacyActivity"
+                android:label="@string/title_activity_privacy"/>
+        <activity
+                android:name=".setting.NormalActivity"
+                android:label="@string/title_activity_normal"/>
+        <activity
+                android:name=".setting.SafetyActivity"
+                android:label="@string/title_activity_safety"/>
+        <activity
+                android:name=".setting.AboutActivity"
+                android:label="@string/title_activity_about"/>
+        <activity
+                android:name=".searchable.SearchableActivity"
+                android:label="@string/title_activity_searchable"
+                android:parentActivityName=".main.MainActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.bainiaohe.dodo.main.MainActivity"/>
 
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH"/>
+            </intent-filter>
+
+            <meta-data
+                    android:name="android.app.searchable"
+                    android:resource="@xml/searchable"/>
+
+            <meta-data
+                    android:name="android.app.default_searchable"
+                    android:value=".SearchActivity"/>
+
+        </activity>
     </application>
 
 </manifest>
