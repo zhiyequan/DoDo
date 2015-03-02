@@ -4,6 +4,7 @@
 //
 package com.bainiaohe.dodo.main.fragments.friends;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +13,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
+
 import com.bainiaohe.dodo.main.fragments.friends.adapter.FriendListAdapter;
 import com.bainiaohe.dodo.main.fragments.friends.adapter.FriendListAdapter.ViewHolder;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+
 import io.rong.imkit.RCloudContext;
 import io.rong.imkit.Res;
 import io.rong.imkit.adapter.FriendMultiChoiceAdapter;
@@ -24,11 +32,6 @@ import io.rong.imkit.view.SwitchGroup;
 import io.rong.imkit.view.SwitchGroup.ItemHander;
 import io.rong.imkit.view.SwitchItemView;
 import io.rong.imlib.RongIMClient.UserInfo;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 
 public class FriendsFragment extends ActionBaseFragment implements ItemHander, OnClickListener, OnItemClickListener {
     protected FriendListAdapter mAdapter;
@@ -158,6 +161,9 @@ public class FriendsFragment extends ActionBaseFragment implements ItemHander, O
                 case 2:
                     Toast.makeText(getActivity(), "进入我的群组", Toast.LENGTH_SHORT).show();
                     break;
+                case 3:
+                    startActivity(new Intent(getActivity(), PhoneContactActivity.class));
+                    break;
                 default:
                     this.mAdapter.onItemClick(viewHolder.friend.getUserId(), viewHolder.friend.getNickname());
             }
@@ -226,12 +232,19 @@ public class FriendsFragment extends ActionBaseFragment implements ItemHander, O
         itemFriend1.setSearchKey('↑');
         fFriendList.add(itemFriend1);
 
-        //我的群组作为 第二个item
+        //我的群组 作为第二个item
         Friend itemFriend2 = new Friend();
         itemFriend2.setNickname("我的群组");
         itemFriend2.setUserId("↑");
         itemFriend2.setSearchKey('↑');
         fFriendList.add(itemFriend2);
+
+        //手机好友 作为第三个item
+        Friend itemFriend3 = new Friend();
+        itemFriend3.setNickname("通讯录好友");
+        itemFriend3.setUserId("↑");
+        itemFriend3.setSearchKey('↑');
+        fFriendList.add(itemFriend3);
 
         userMap.put(ffArrayList, fFriendList);
 

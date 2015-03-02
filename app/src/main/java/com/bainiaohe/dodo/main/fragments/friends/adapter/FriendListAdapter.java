@@ -101,6 +101,11 @@ public class FriendListAdapter extends PinnedHeaderAdapter<Friend> {
             photo.setImageDrawable(mContext.getResources().getDrawable(R.drawable.default_group));
             photo.setTag(Integer.valueOf(position));
             holder.friend = friend;
+        } else if (partition == 0 && position == 2) {
+            photo.setImageDrawable(mContext.getResources().getDrawable(R.drawable.default_group));
+            photo.setTag(Integer.valueOf(position));
+            holder.friend = friend;
+
         } else {
 
             Resource res = friend.getPortraitResource();

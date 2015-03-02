@@ -97,6 +97,12 @@
                 android:label="@string/app_name"
                 android:screenOrientation="portrait"/>
         <activity
+            android:name=".main.fragments.friends.PhoneContactActivity"
+            android:label="PhoneContact"
+            android:screenOrientation="portrait" />
+
+        <!--share sdk-->
+        <activity
                 android:name="cn.sharesdk.framework.ShareSDKUIShell"
                 android:configChanges="keyboardHidden|orientation|screenSize"
                 android:screenOrientation="portrait"
