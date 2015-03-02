@@ -2,8 +2,10 @@ package com.bainiaohe.dodo.main.fragments.info;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -29,6 +31,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class InfoFragment extends Fragment {
     private static final String TAG = "InfoFragment";
@@ -39,6 +42,42 @@ public class InfoFragment extends Fragment {
     private FloatingActionButton floatingActionButton = null;//
     private InfoDataAdapter adapter = null;
     private boolean isLoadingData = false;
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        //set custom view in action bar
+        ActionBarActivity actionBarActivity = (ActionBarActivity) getActivity();
+        if (actionBarActivity != null && actionBarActivity.getSupportActionBar() != null) {
+
+            actionBarActivity.getSupportActionBar().setDisplayShowCustomEnabled(true);
+            actionBarActivity.getSupportActionBar().setCustomView(R.layout.action_bar_custom_view);
+            Log.e(TAG, "set custom view");
+            actionBarActivity.getSupportActionBar().getCustomView().setOnClickListener(new View.OnClickListener() {
+                /**
+                 * 上次点击的时间
+                 */
+                private long lastClickTime = 0;
+
+                /**
+                 * 双击事件的时间间隔
+                 */
+                private final long DOUBLE_CLICK_TIME_GAP = 500;
+
+                @Override
+                public void onClick(View view) {
+                    Log.e(TAG, "onClick custom view");
+                    long clickTime = Calendar.getInstance().getTimeInMillis();
+                    if (clickTime - lastClickTime < DOUBLE_CLICK_TIME_GAP) {//双击
+                        backToTop();
+                    }
+                    lastClickTime = clickTime;
+                }
+            });
+        } else
+            Log.e(TAG, "set custom view failed");
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -59,6 +98,7 @@ public class InfoFragment extends Fragment {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //TODO 替换为发表状态
                 //back to top
                 recyclerView.smoothScrollToPosition(0);
             }
@@ -88,6 +128,13 @@ public class InfoFragment extends Fragment {
 
         loadData();//加载数据
         return view;
+    }
+
+    /**
+     * 回到顶部
+     */
+    private void backToTop() {
+        recyclerView.smoothScrollToPosition(0);
     }
 
     /**
