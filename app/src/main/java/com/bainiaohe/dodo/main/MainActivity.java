@@ -12,7 +12,7 @@ import com.bainiaohe.dodo.main.fragments.info.InfoFragment;
 import com.bainiaohe.dodo.main.fragments.menu.MenuFragment;
 import com.bainiaohe.dodo.publish_info.PublishInfoActivity;
 import com.bainiaohe.dodo.searchable.SearchableActivity;
-import com.balysv.materialmenu.MaterialMenuDrawable;
+import com.bainiaohe.dodo.widgets.MaterialMenuDrawable;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.joanzapata.android.iconify.IconDrawable;
@@ -41,6 +41,15 @@ public class MainActivity extends SlidingFragmentActivity {
         //设置Action Bar Icon
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(materialMenuDrawable);
+
+        //set custom view
+//        getSupportActionBar().setDisplayShowTitleEnabled(false);//不显示title
+//        getSupportActionBar().setDisplayShowCustomEnabled(true);
+//        getSupportActionBar().setCustomView(R.layout.action_bar_custom_view);
+
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+
     }
 
     /**
@@ -121,6 +130,16 @@ public class MainActivity extends SlidingFragmentActivity {
         }
     }
 
+    /**
+     * 设置通知数量
+     * 当数量为0时，自动隐藏通知气泡
+     *
+     * @param notificationCount
+     */
+    public void setNotificationCount(int notificationCount) {
+        materialMenuDrawable.setNotificationCount(notificationCount);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -150,7 +169,7 @@ public class MainActivity extends SlidingFragmentActivity {
             return true;
         } else if (item.getItemId() == R.id.search) {
             startActivity(new Intent(this, SearchableActivity.class));
-            
+
         }
 
         return super.onOptionsItemSelected(item);
